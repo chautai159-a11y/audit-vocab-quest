@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Vocab Quest</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0f1e;--surface:#111827;--card:#1a2236;--border:#1f3058;
+  --gold:#f59e0b;--gold-light:#fbbf24;--blue:#3b82f6;--green:#10b981;
+  --red:#ef4444;--purple:#8b5cf6;--text:#e2e8f0;--muted:#64748b;
+  --radius:14px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+.screen{display:none;flex-direction:column;align-items:center;min-height:100vh;padding:24px 16px}
+.screen.active{display:flex}
+
+/* ─── LOADING ─── */
+#loading{justify-content:center;background:var(--bg)}
+.loading-logo{font-size:56px;margin-bottom:16px;animation:pulse 1.2s infinite}
+.loading-text{font-size:15px;color:var(--muted)}
+
+/* ─── AUTH ─── */
+#auth{justify-content:center;gap:0;background:radial-gradient(ellipse at top,#0d1a35 0%,var(--bg) 60%)}
+.auth-logo{font-size:48px;margin-bottom:8px}
+.auth-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:4px}
+.auth-sub{font-size:14px;color:var(--muted);margin-bottom:28px;text-align:center}
+.auth-card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.auth-tabs{display:flex;border-bottom:1px solid var(--border)}
+.auth-tab{flex:1;padding:14px;background:none;border:none;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
+.auth-tab.active{color:var(--blue);border-bottom:2px solid var(--blue);margin-bottom:-1px;background:rgba(59,130,246,.05)}
+.auth-form{padding:24px;display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.field input{background:#0f172a;border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--text);font-family:'Inter',sans-serif;transition:.2s;outline:none}
+.field input:focus{border-color:var(--blue);background:#0d1a30}
+.btn-auth{padding:14px;background:linear-gradient(135deg,var(--blue),#1d4ed8);border:none;border-radius:10px;font-size:15px;font-weight:700;color:#fff;cursor:pointer;transition:.2s;margin-top:4px}
+.btn-auth:hover{opacity:.9;transform:translateY(-1px)}
+.btn-auth:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.auth-err{background:#2a0d0d;border:1px solid #7f1d1d;border-radius:8px;padding:10px 14px;font-size:13px;color:#fca5a5;display:none}
+.auth-err.show{display:block}
+
+/* ─── NAV ─── */
+.nav{width:100%;max-width:480px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.nav-user{display:flex;align-items:center;gap:8px}
+.nav-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.nav-name{font-size:14px;font-weight:600;color:var(--text)}
+.nav-actions{display:flex;gap:8px}
+.nav-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
+.nav-btn:hover{border-color:var(--blue);color:var(--blue)}
+.nav-btn.active{border-color:var(--gold);color:var(--gold)}
+
+/* ─── HOME ─── */
+.streak-row{width:100%;max-width:480px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.streak-badge{display:flex;align-items:center;gap:6px;background:#1a1a2e;border:1px solid #2d2d5e;border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:#f97316}
+.total-xp{font-size:13px;color:var(--muted);font-weight:500}
+.total-xp strong{color:var(--gold)}
+
+.rank-card{width:100%;max-width:480px;background:linear-gradient(135deg,#1e1b4b,#1a2036);border:1px solid #3730a3;border-radius:20px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden}
+.rank-card::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:radial-gradient(circle,rgba(99,102,241,.2),transparent 70%);border-radius:50%}
+.rank-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:6px}
+.rank-title{font-size:26px;font-weight:800;color:#e0e7ff;margin-bottom:14px}
+.xp-bar-wrap{background:#0f172a;border-radius:8px;height:10px;overflow:hidden;margin-bottom:8px}
+.xp-bar{height:100%;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:8px;transition:width .6s ease}
+.xp-info{display:flex;justify-content:space-between;font-size:12px;color:#94a3b8}
+.rank-icon{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:52px}
+
+.daily-card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;cursor:pointer;transition:all .2s}
+.daily-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.daily-card.done{cursor:default;opacity:.7}
+.daily-tag{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:10px}
+.daily-word{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
+.daily-ipa{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--muted);margin-bottom:10px}
+.daily-vn{font-size:15px;color:var(--text)}
+.daily-cat{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;margin-top:10px;font-weight:600}
+.cat-ia{background:#1e3a5f;color:#60a5fa}
+.cat-rm{background:#1a3a2a;color:#34d399}
+.cat-it{background:#3b1a4a;color:#c084fc}
+
+.done-banner{width:100%;max-width:480px;background:#0d2218;border:1px solid #166534;border-radius:var(--radius);padding:14px 18px;text-align:center;color:#86efac;font-weight:600;font-size:14px;margin-bottom:16px}
+
+.btn-start{width:100%;max-width:480px;padding:15px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;border-radius:var(--radius);font-size:16px;font-weight:700;color:#000;cursor:pointer;transition:all .2s;margin-bottom:14px}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.3)}
+
+.vocab-progress{width:100%;max-width:480px}
+.vp-label{font-size:12px;color:var(--muted);margin-bottom:8px}
+.vp-grid{display:flex;flex-wrap:wrap;gap:4px}
+.vp-dot{width:10px;height:10px;border-radius:2px;background:var(--border)}
+.vp-dot.done{background:#10b981}
+.vp-dot.today{background:var(--gold)}
+
+/* ─── LEARN ─── */
+.back-btn{align-self:flex-start;background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.back-btn:hover{color:var(--text)}
+.learn-phase{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--blue);margin-bottom:8px;text-align:center}
+.learn-word{font-size:38px;font-weight:800;color:#fff;text-align:center;margin-bottom:4px}
+.learn-ipa-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}
+.learn-ipa{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--muted)}
+.speak-btn{background:#1e3a5f;border:none;border-radius:8px;padding:5px 12px;color:#60a5fa;cursor:pointer;font-size:13px}
+.speak-btn:hover{background:#1e3a7f}
+.info-card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px}
+.info-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px}
+.info-vn{font-size:22px;font-weight:700;color:var(--gold)}
+.info-en{font-size:14px;color:var(--text);line-height:1.7}
+.info-ex{font-size:14px;color:#94a3b8;line-height:1.7;font-style:italic}
+.info-ex strong{color:var(--gold-light);font-style:normal}
+.cat-row{width:100%;max-width:480px;margin-bottom:18px}
+.btn-ready{width:100%;max-width:480px;padding:15px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:var(--radius);font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:all .2s}
+.btn-ready:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.3)}
+
+/* ─── QUIZ ─── */
+.quiz-header{width:100%;max-width:480px;margin-bottom:20px}
+.quiz-progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.quiz-step{font-size:13px;color:var(--muted)}
+.quiz-score-live{font-size:13px;font-weight:600;color:var(--gold)}
+.quiz-bar-wrap{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.quiz-bar{height:100%;background:var(--blue);border-radius:4px;transition:width .4s}
+.quiz-q{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:10px;width:100%;max-width:480px}
+.quiz-context{width:100%;max-width:480px;background:var(--card);border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:14px 16px;margin-bottom:18px;font-size:15px;color:var(--text);line-height:1.7}
+.quiz-context .blank{font-family:'JetBrains Mono',monospace;color:var(--gold);font-weight:700;font-size:15px;border-bottom:2px solid var(--gold);padding:0 4px}
+.quiz-context .highlight{color:var(--gold-light);font-weight:700}
+.options{width:100%;max-width:480px;display:flex;flex-direction:column;gap:10px}
+.opt{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:13px 17px;font-size:15px;cursor:pointer;transition:all .18s;text-align:left;color:var(--text);font-family:'Inter',sans-serif}
+.opt:hover:not(.disabled){border-color:var(--blue);background:#1a2a3f;transform:translateX(4px)}
+.opt.correct{border-color:var(--green)!important;background:#0d2218!important;color:#86efac!important}
+.opt.wrong{border-color:var(--red)!important;background:#2a0d0d!important;color:#fca5a5!important}
+.opt.disabled{cursor:not-allowed}
+.feedback-box{width:100%;max-width:480px;padding:13px 17px;border-radius:var(--radius);font-size:14px;font-weight:500;margin-top:10px;display:none}
+.feedback-box.correct{background:#0d2218;border:1px solid #166534;color:#86efac}
+.feedback-box.wrong{background:#2a0d0d;border:1px solid #7f1d1d;color:#fca5a5}
+.btn-next{width:100%;max-width:480px;padding:14px;background:var(--blue);border:none;border-radius:var(--radius);font-size:15px;font-weight:700;color:#fff;cursor:pointer;margin-top:14px;display:none;transition:.2s}
+.btn-next:hover{background:#2563eb}
+
+/* ─── RESULT ─── */
+#result{justify-content:center;text-align:center}
+.result-stars{font-size:48px;margin-bottom:14px;animation:bounceIn .5s}
+.result-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px}
+.result-subtitle{font-size:14px;color:var(--muted);margin-bottom:24px}
+.xp-gained{background:linear-gradient(135deg,#1a1a0d,#2a2200);border:1px solid var(--gold);border-radius:var(--radius);padding:18px 32px;margin-bottom:20px;display:inline-block}
+.xp-num{font-size:48px;font-weight:800;color:var(--gold);animation:countUp .6s}
+.xp-label{font-size:13px;color:#a16207}
+.rank-up-banner{background:linear-gradient(135deg,#1e1b4b,#2d1b69);border:1px solid #6366f1;border-radius:var(--radius);padding:14px 24px;margin-bottom:20px;animation:slideIn .5s}
+.rank-up-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:4px}
+.rank-up-name{font-size:20px;font-weight:800;color:#e0e7ff}
+.score-breakdown{width:100%;max-width:360px;margin:0 auto 20px}
+.score-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px}
+.score-row:last-child{border-bottom:none}
+.score-row span:last-child{font-weight:600;color:var(--green)}
+.btn-home{padding:13px 36px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);font-size:15px;font-weight:600;color:var(--text);cursor:pointer;transition:.2s}
+.btn-home:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ─── LEADERBOARD ─── */
+#leaderboard{justify-content:flex-start}
+.lb-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:4px;align-self:flex-start;width:100%;max-width:480px}
+.lb-sub{font-size:13px;color:var(--muted);margin-bottom:20px;align-self:flex-start;width:100%;max-width:480px}
+.lb-table{width:100%;max-width:480px;display:flex;flex-direction:column;gap:8px}
+.lb-row{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:.2s}
+.lb-row.me{border-color:var(--gold);background:#1a1a0d}
+.lb-rank{font-size:20px;width:36px;text-align:center;font-weight:800;color:var(--muted);flex-shrink:0}
+.lb-rank.gold{color:#f59e0b}
+.lb-rank.silver{color:#94a3b8}
+.lb-rank.bronze{color:#b45309}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-name .me-tag{font-size:11px;color:var(--gold);margin-left:6px;font-weight:500}
+.lb-words{font-size:12px;color:var(--muted);margin-top:2px}
+.lb-right{text-align:right;flex-shrink:0}
+.lb-xp{font-size:16px;font-weight:800;color:var(--gold)}
+.lb-streak{font-size:12px;color:#f97316;margin-top:2px}
+.lb-loading{color:var(--muted);font-size:14px;padding:20px;text-align:center}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;top:20px;right:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 20px;font-size:14px;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* ─── ANIMATIONS ─── */
+@keyframes bounceIn{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+@keyframes slideIn{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes countUp{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .3s ease}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading" class="screen active">
+  <div class="loading-logo">🎓</div>
+  <div class="loading-text">Đang tải...</div>
+</div>
+
+<!-- AUTH -->
+<div id="auth" class="screen">
+  <div class="auth-logo">🎓</div>
+  <div class="auth-title">Audit Vocab Quest</div>
+  <div class="auth-sub">Từ vựng chuyên ngành Kiểm toán &amp; Quản lý rủi ro</div>
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Đăng nhập</button>
+      <button class="auth-tab" onclick="switchTab('register')">Đăng ký</button>
+    </div>
+    <!-- LOGIN -->
+    <div id="loginForm" class="auth-form">
+      <div class="auth-err" id="loginErr"></div>
+      <div class="field"><label>Tên đăng nhập</label><input id="loginUser" type="text" placeholder="username" autocomplete="username"></div>
+      <div class="field"><label>Mật khẩu</label><input id="loginPass" type="password" placeholder="••••••" autocomplete="current-password"></div>
+      <button class="btn-auth" id="loginBtn" onclick="doLogin()">Đăng nhập</button>
+    </div>
+    <!-- REGISTER -->
+    <div id="registerForm" class="auth-form" style="display:none">
+      <div class="auth-err" id="regErr"></div>
+      <div class="field"><label>Tên hiển thị</label><input id="regName" type="text" placeholder="Nguyễn Văn A"></div>
+      <div class="field"><label>Tên đăng nhập</label><input id="regUser" type="text" placeholder="username (chữ thường, không dấu)" autocomplete="username"></div>
+      <div class="field"><label>Mật khẩu</label><input id="regPass" type="password" placeholder="Ít nhất 6 ký tự" autocomplete="new-password"></div>
+      <button class="btn-auth" id="regBtn" onclick="doRegister()">Tạo tài khoản</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="screen">
+  <div class="nav">
+    <div class="nav-user">
+      <div class="nav-avatar" id="navAvatar">A</div>
+      <div class="nav-name" id="navName">...</div>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" id="lbBtn" onclick="goLeaderboard()">🏆 BXH</button>
+      <button class="nav-btn" onclick="doLogout()">Thoát</button>
+    </div>
+  </div>
+  <div class="streak-row">
+    <div class="streak-badge">🔥 <span id="streakNum">0</span> ngày liên tiếp</div>
+    <div class="total-xp">Tổng XP: <strong id="totalXp">0</strong></div>
+  </div>
+  <div class="rank-card">
+    <div class="rank-label">Cấp bậc hiện tại</div>
+    <div class="rank-title" id="rankTitle">Audit Trainee</div>
+    <div class="xp-bar-wrap"><div class="xp-bar" id="rankBar" style="width:0%"></div></div>
+    <div class="xp-info">
+      <span id="rankXpCurrent">0 XP</span>
+      <span id="rankXpNext">Cần 200 XP</span>
+    </div>
+    <div class="rank-icon" id="rankIcon">🎓</div>
+  </div>
+  <div class="daily-card" id="dailyCard" onclick="goLearn()">
+    <div class="daily-tag">📅 Từ hôm nay</div>
+    <div class="daily-word" id="hw"></div>
+    <div class="daily-ipa" id="hipa"></div>
+    <div class="daily-vn" id="hvn"></div>
+    <div id="hcat"></div>
+  </div>
+  <div class="done-banner" id="doneBanner" style="display:none">
+    ✅ Bạn đã hoàn thành từ hôm nay! Quay lại vào ngày mai để học từ mới.
+  </div>
+  <button class="btn-start" id="startBtn" onclick="goLearn()">🚀 Bắt đầu thử thách hôm nay</button>
+  <div class="vocab-progress">
+    <div class="vp-label">Tiến độ (<span id="vpDone">0</span>/50 từ)</div>
+    <div class="vp-grid" id="vpGrid"></div>
+  </div>
+</div>
+
+<!-- LEARN -->
+<div id="learn" class="screen">
+  <button class="back-btn" onclick="goHome()">← Quay lại</button>
+  <div class="learn-phase">📖 Giai đoạn 1 — Học từ</div>
+  <div class="learn-word" id="lw"></div>
+  <div class="learn-ipa-row">
+    <div class="learn-ipa" id="lipa"></div>
+    <button class="speak-btn" onclick="speak()">🔊 Nghe</button>
+  </div>
+  <div class="info-card fade-in">
+    <div class="info-label">Nghĩa tiếng Việt</div>
+    <div class="info-vn" id="lvn"></div>
+  </div>
+  <div class="info-card fade-in">
+    <div class="info-label">Định nghĩa tiếng Anh</div>
+    <div class="info-en" id="len"></div>
+  </div>
+  <div class="info-card fade-in">
+    <div class="info-label">Ví dụ thực tế</div>
+    <div class="info-ex" id="lex"></div>
+  </div>
+  <div class="cat-row" id="lcat"></div>
+  <button class="btn-ready" onclick="startQuiz()">⚡ Sẵn sàng thử thách!</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-progress-row">
+      <span class="quiz-step" id="qStep">Câu hỏi 1/3</span>
+      <span class="quiz-score-live" id="qScoreLive">+0 XP</span>
+    </div>
+    <div class="quiz-bar-wrap"><div class="quiz-bar" id="qBar" style="width:0%"></div></div>
+  </div>
+  <div class="quiz-q" id="qQ"></div>
+  <div class="quiz-context" id="qCtx"></div>
+  <div class="options" id="opts"></div>
+  <div class="feedback-box" id="feedBox"></div>
+  <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Tiếp theo →</button>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="screen">
+  <div class="result-stars" id="rStars">⭐⭐⭐</div>
+  <div class="result-title" id="rTitle">Xuất sắc!</div>
+  <div class="result-subtitle" id="rSub"></div>
+  <div class="xp-gained">
+    <div class="xp-num" id="rXp">+0</div>
+    <div class="xp-label">XP kiếm được hôm nay</div>
+  </div>
+  <div class="rank-up-banner" id="rankUpBanner" style="display:none">
+    <div class="rank-up-title">🎉 Thăng cấp!</div>
+    <div class="rank-up-name" id="rankUpName"></div>
+  </div>
+  <div class="score-breakdown">
+    <div class="score-row"><span>Câu 1 — Nghĩa từ</span><span id="s1">+10 XP</span></div>
+    <div class="score-row"><span>Câu 2 — Điền vào chỗ trống</span><span id="s2">+10 XP</span></div>
+    <div class="score-row"><span>Câu 3 — Chọn câu đúng</span><span id="s3">+10 XP</span></div>
+    <div class="score-row"><span>🔥 Bonus chuỗi ngày</span><span id="sBonus">+0 XP</span></div>
+  </div>
+  <button class="btn-home" onclick="goHome()">🏠 Về trang chủ</button>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="leaderboard" class="screen">
+  <div class="nav">
+    <div class="nav-user">
+      <div class="nav-avatar" id="navAvatar2">A</div>
+      <div class="nav-name" id="navName2">...</div>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn active" onclick="goHome()">🏠 Trang chủ</button>
+    </div>
+  </div>
+  <div class="lb-title">🏆 Bảng xếp hạng</div>
+  <div class="lb-sub">Top học viên xuất sắc nhất</div>
+  <div class="lb-table" id="lbTable"><div class="lb-loading">Đang tải...</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── VOCABULARY ────────────────────────────────────────────────────────────
+const VOCAB = [
+  {word:"Materiality",ipa:"/ˌmətɪriˈælɪti/",vn:"Tính trọng yếu",cat:"IA",en:"The significance threshold determining whether an omission or misstatement could influence the decisions of financial statement users.",ex:'The auditor concluded that the <strong>$50,000</strong> variance exceeded the <strong>materiality</strong> threshold and warranted a formal audit finding.',blank:"The auditor concluded that the $50,000 variance exceeded the ___ threshold and warranted a formal audit finding.",usages:["The auditor applied a materiality level of 5% of total assets when planning the engagement.","The team confirmed that the error was not material and required no adjustment.","Materiality is always assessed relative to the size and nature of the entity."],wrongs:["Tính chính xác","Tính minh bạch","Tính nhất quán"]},
+  {word:"Risk Appetite",ipa:"/rɪsk ˈæpɪtaɪt/",vn:"Khẩu vị rủi ro",cat:"RM",en:"The amount and type of risk an organization is willing to accept in pursuit of its strategic objectives.",ex:'The board approved a <strong>risk appetite</strong> statement limiting cybersecurity losses to no more than 2% of annual revenue.',blank:"The board approved a ___ statement limiting cybersecurity losses to no more than 2% of annual revenue.",usages:["Management's risk appetite for operational disruption is extremely low given regulatory requirements.","The risk appetite framework guides investment decisions across all business units.","A well-defined risk appetite helps align risk-taking with organizational strategy."],wrongs:["Khả năng chịu đựng tài chính","Mức độ kiểm soát","Ngưỡng rủi ro tối đa"]},
+  {word:"Audit Trail",ipa:"/ˈɔːdɪt treɪl/",vn:"Dấu vết kiểm toán",cat:"IT",en:"A chronological sequence of records documenting the history of transactions, access events, or system activities for accountability and traceability.",ex:'The <strong>audit trail</strong> revealed that an unauthorized user had accessed the payroll system at 2 AM on three separate occasions.',blank:"The ___ revealed that an unauthorized user had accessed the payroll system at 2 AM on three separate occasions.",usages:["The ERP system maintains an audit trail of all journal entries including who posted them and when.","Without a reliable audit trail, it is impossible to reconstruct what happened after a breach.","Regulators required the bank to preserve audit trails for a minimum of seven years."],wrongs:["Biên bản họp kiểm toán","Chứng từ gốc","Lịch sử kiểm tra"]},
+  {word:"Segregation of Duties",ipa:"/ˌseɡrɪˈɡeɪʃən əv ˈdjuːtɪz/",vn:"Phân tách nhiệm vụ",cat:"IA",en:"An internal control principle ensuring that no single person has control over all aspects of a financial transaction to prevent errors and fraud.",ex:'The absence of <strong>segregation of duties</strong> meant the same employee could both approve and process vendor payments — a critical control weakness.',blank:"The absence of ___ meant the same employee could both approve and process vendor payments.",usages:["Segregation of duties requires that the person who initiates a purchase cannot also approve it.","The small team size made proper segregation of duties difficult to achieve.","IT systems should enforce segregation of duties through role-based access controls."],wrongs:["Phân quyền truy cập hệ thống","Phân công công việc","Chia tách ngân sách"]},
+  {word:"Control Environment",ipa:"/kənˈtroʊl ɪnˈvaɪrənmənt/",vn:"Môi trường kiểm soát",cat:"IA",en:"The foundation of all other components of internal control, reflecting the overall attitude, awareness, and actions of management regarding the importance of control.",ex:'A strong <strong>control environment</strong> starts at the top — when leadership demonstrates ethical behavior and accountability, employees follow.',blank:"A strong ___ starts at the top — when leadership demonstrates ethical behavior and accountability, employees follow.",usages:["The COSO framework places the control environment as the first and most fundamental component.","Weaknesses in the control environment increase the risk of fraud across all business processes.","Assessing the control environment requires interviews with senior management and board members."],wrongs:["Môi trường làm việc văn phòng","Cơ sở hạ tầng công nghệ","Hệ thống báo cáo nội bộ"]},
+  {word:"Inherent Risk",ipa:"/ɪnˈhɪərənt rɪsk/",vn:"Rủi ro tiềm tàng",cat:"IA",en:"The susceptibility of an assertion to a material misstatement assuming no related internal controls, based on the nature of the business or transaction.",ex:'Cash transactions carry high <strong>inherent risk</strong> because they are easily misappropriated and difficult to verify without supporting documentation.',blank:"Cash transactions carry high ___ because they are easily misappropriated and difficult to verify without supporting documentation.",usages:["The auditor assessed inherent risk as high for revenue recognition given the complexity of contracts.","Inherent risk is evaluated before considering the effectiveness of internal controls.","Industries with rapid regulatory change typically exhibit higher inherent risk."],wrongs:["Rủi ro kiểm soát","Rủi ro phát hiện","Rủi ro tín dụng"]},
+  {word:"Vulnerability",ipa:"/ˌvʌlnərəˈbɪlɪti/",vn:"Lỗ hổng bảo mật",cat:"IT",en:"A weakness in a system, application, or process that can be exploited by a threat actor to gain unauthorized access or cause harm.",ex:'The penetration test uncovered a critical <strong>vulnerability</strong> in the web application that allowed SQL injection attacks on the customer database.',blank:"The penetration test uncovered a critical ___ in the web application that allowed SQL injection attacks on the customer database.",usages:["Unpatched software is one of the most common vulnerabilities exploited by attackers.","The vulnerability assessment identified 47 high-risk findings requiring immediate remediation.","Zero-day vulnerabilities are particularly dangerous because no patch yet exists."],wrongs:["Điểm yếu tài chính","Hạn chế nhân sự","Rủi ro vận hành"]},
+  {word:"Penetration Testing",ipa:"/ˌpenɪˈtreɪʃən ˈtestɪŋ/",vn:"Kiểm thử xâm nhập",cat:"IT",en:"An authorized simulated cyberattack on a system to evaluate its security by identifying exploitable vulnerabilities before malicious actors do.",ex:'The annual <strong>penetration testing</strong> exercise revealed that attackers could gain domain administrator privileges within four hours.',blank:"The annual ___ exercise revealed that attackers could gain domain administrator privileges within four hours.",usages:["Penetration testing should be performed by qualified ethical hackers under a formal scope agreement.","The IT audit included penetration testing of all externally-facing web applications.","Results of penetration testing are classified as highly sensitive and restricted to senior management."],wrongs:["Kiểm tra hiệu năng hệ thống","Thử nghiệm phần mềm mới","Kiểm soát truy cập vật lý"]},
+  {word:"Encryption",ipa:"/ɪnˈkrɪpʃən/",vn:"Mã hóa dữ liệu",cat:"IT",en:"The process of converting readable data into an unreadable format using an algorithm and key, ensuring that only authorized parties can access it.",ex:'Customer credit card numbers are protected by <strong>encryption</strong> both in transit and at rest, complying with PCI-DSS requirements.',blank:"Customer credit card numbers are protected by ___ both in transit and at rest, complying with PCI-DSS requirements.",usages:["The company uses AES-256 encryption for all sensitive data stored in the cloud.","Encryption alone is insufficient — key management practices are equally critical.","Auditors verified that encryption was applied to all laptops containing confidential information."],wrongs:["Nén dữ liệu","Phân quyền truy cập","Sao lưu dữ liệu"]},
+  {word:"Business Continuity",ipa:"/ˈbɪznɪs ˌkɒntɪˈnjuːɪti/",vn:"Tính liên tục kinh doanh",cat:"RM",en:"The capability of an organization to continue delivering products or services at acceptable predefined levels following a disruptive incident.",ex:'The <strong>business continuity</strong> plan was activated when the data center flooded, enabling operations to shift to the backup site within two hours.',blank:"The ___ plan was activated when the data center flooded, enabling operations to shift to the backup site within two hours.",usages:["Business continuity planning must include regular testing and updating of recovery procedures.","The pandemic exposed significant gaps in many organizations' business continuity frameworks.","Regulators now require financial institutions to demonstrate robust business continuity capabilities."],wrongs:["Tính ổn định tài chính","Kế hoạch mở rộng kinh doanh","Chiến lược phát triển dài hạn"]},
+  {word:"Data Integrity",ipa:"/ˈdeɪtə ɪnˈteɡrɪti/",vn:"Tính toàn vẹn dữ liệu",cat:"IT",en:"The accuracy, consistency, and reliability of data throughout its lifecycle — ensuring data has not been altered or corrupted in an unauthorized manner.",ex:'Hash validation checks were implemented to ensure <strong>data integrity</strong> during file transfers between the trading system and reporting database.',blank:"Hash validation checks were implemented to ensure ___ during file transfers between the trading system and reporting database.",usages:["Data integrity controls prevent unauthorized changes to financial records after they are posted.","The IT audit found that data integrity was compromised due to missing validation rules.","Database triggers were used to maintain data integrity across related tables."],wrongs:["Tính bảo mật dữ liệu","Tốc độ xử lý dữ liệu","Dung lượng lưu trữ"]},
+  {word:"Authentication",ipa:"/ɔːˌθentɪˈkeɪʃən/",vn:"Xác thực danh tính",cat:"IT",en:"The process of verifying the identity of a user, device, or system before granting access to resources.",ex:'Multi-factor <strong>authentication</strong> requires users to provide both a password and a one-time code sent to their mobile device.',blank:"Multi-factor ___ requires users to provide both a password and a one-time code sent to their mobile device.",usages:["Strong authentication is the first line of defense against unauthorized system access.","The audit found that privileged accounts lacked multi-factor authentication — a critical finding.","Biometric authentication is increasingly used for high-security system access."],wrongs:["Phân quyền truy cập","Mã hóa thông tin","Theo dõi hoạt động người dùng"]},
+  {word:"Governance",ipa:"/ˈɡʌvənəns/",vn:"Quản trị",cat:"RM",en:"The system by which an organization is directed and controlled, including structures, processes, and policies that ensure accountability, fairness, and transparency.",ex:'Strong <strong>governance</strong> requires the board to maintain independent oversight of management, especially in risk and compliance matters.',blank:"Strong ___ requires the board to maintain independent oversight of management, especially in risk and compliance matters.",usages:["The IT governance framework aligned technology investments with organizational strategy.","Poor governance was identified as the root cause of multiple compliance failures.","Governance structures should clearly define roles, responsibilities, and escalation paths."],wrongs:["Chiến lược kinh doanh","Văn hóa doanh nghiệp","Hệ thống khen thưởng"]},
+  {word:"Compliance",ipa:"/kəmˈplaɪəns/",vn:"Tuân thủ",cat:"RM",en:"Adherence to laws, regulations, standards, and internal policies that govern an organization's operations and conduct.",ex:'The <strong>compliance</strong> review confirmed that all 47 branches were following anti-money laundering procedures as required by regulation.',blank:"The ___ review confirmed that all 47 branches were following anti-money laundering procedures as required by regulation.",usages:["Non-compliance with data privacy regulations can result in fines exceeding 4% of global revenue.","The compliance team monitors regulatory changes and updates internal policies accordingly.","IT compliance audits verify that systems meet both regulatory and internal policy requirements."],wrongs:["Sự đồng thuận của nhân viên","Hiệu quả hoạt động","Kết quả kinh doanh"]},
+  {word:"Remediation",ipa:"/rɪˌmiːdiˈeɪʃən/",vn:"Khắc phục",cat:"IA",en:"The process of correcting identified deficiencies, control weaknesses, or audit findings within an agreed timeframe.",ex:'Management committed to complete <strong>remediation</strong> of all high-risk findings within 90 days, with progress reported to the audit committee monthly.',blank:"Management committed to complete ___ of all high-risk findings within 90 days, with progress reported to the audit committee monthly.",usages:["Timely remediation of critical findings is essential to reduce organizational risk exposure.","The follow-up audit confirmed that remediation actions had been fully implemented.","Remediation plans should include specific owners, milestones, and evidence of completion."],wrongs:["Điều tra thêm","Báo cáo kiểm toán","Đánh giá lại rủi ro"]},
+  {word:"Risk Register",ipa:"/rɪsk ˈredʒɪstər/",vn:"Sổ đăng ký rủi ro",cat:"RM",en:"A documented record of identified risks, their likelihood, impact, owners, and mitigation measures used to track and manage organizational risks.",ex:'The <strong>risk register</strong> flagged cybersecurity threats as the highest-rated risk for the third consecutive year, prompting increased investment.',blank:"The ___ flagged cybersecurity threats as the highest-rated risk for the third consecutive year, prompting increased investment.",usages:["Each department maintains its own risk register which feeds into the enterprise risk register.","The risk register should be reviewed and updated at least quarterly.","Auditors use the risk register as a starting point for planning their annual audit universe."],wrongs:["Danh sách khách hàng rủi ro","Báo cáo tài chính","Hồ sơ kiểm toán"]},
+  {word:"Fraud",ipa:"/frɔːd/",vn:"Gian lận",cat:"IA",en:"An intentional act involving deception, concealment, or abuse of trust to obtain an unjust or illegal financial advantage.",ex:'The internal audit discovered <strong>fraud</strong> in the procurement department where a buyer received kickbacks from vendors for inflated contracts.',blank:"The internal audit discovered ___ in the procurement department where a buyer received kickbacks from vendors for inflated contracts.",usages:["The fraud triangle identifies opportunity, pressure, and rationalization as the three elements of fraud.","Robust internal controls are the most effective way to prevent and detect occupational fraud.","Auditors are required to maintain professional skepticism to detect potential fraud during engagements."],wrongs:["Sai sót vô ý","Vi phạm quy trình","Lỗi hệ thống"]},
+  {word:"Due Diligence",ipa:"/djuː ˈdɪlɪdʒəns/",vn:"Thẩm định",cat:"RM",en:"A comprehensive investigation or review performed before entering into an agreement or transaction to verify facts and assess risks.",ex:'The acquisition team conducted <strong>due diligence</strong> for three months, uncovering $12 million in undisclosed liabilities before finalizing the deal.',blank:"The acquisition team conducted ___ for three months, uncovering $12 million in undisclosed liabilities before finalizing the deal.",usages:["Due diligence on new vendors includes reviewing their financial stability and security practices.","Inadequate due diligence on the merger target led to significant post-acquisition surprises.","IT due diligence evaluates the target's technology infrastructure, licenses, and cybersecurity posture."],wrongs:["Thẩm quyền phê duyệt","Trách nhiệm giải trình","Quy trình mua sắm"]},
+  {word:"Sampling",ipa:"/ˈsæmplɪŋ/",vn:"Lấy mẫu kiểm toán",cat:"IA",en:"The application of audit procedures to less than 100% of items within an account balance or transaction class to draw conclusions about the entire population.",ex:'Using statistical <strong>sampling</strong>, the auditor tested 60 out of 2,400 purchase orders and extrapolated the error rate to the full population.',blank:"Using statistical ___, the auditor tested 60 out of 2,400 purchase orders and extrapolated the error rate to the full population.",usages:["The sample size was determined based on the acceptable risk of incorrect acceptance.","Judgmental sampling was used for large transactions above the materiality threshold.","Sampling risk arises when the auditor's conclusion differs from the true population characteristic."],wrongs:["Phân tích dữ liệu toàn bộ","Phỏng vấn nhân viên","Quan sát trực tiếp"]},
+  {word:"IT General Controls",ipa:"/aɪ tiː ˈdʒenərəl kənˈtroʊlz/",vn:"Kiểm soát chung CNTT",cat:"IT",en:"Controls that apply to all IT systems and support the effective functioning of application controls, including access management, change management, and operations.",ex:'Weak <strong>IT general controls</strong> over program change management meant unauthorized code could be deployed to production without approval.',blank:"Weak ___ over program change management meant unauthorized code could be deployed to production without approval.",usages:["IT general controls include logical access controls, backup and recovery, and incident management.","The effectiveness of application controls depends heavily on the strength of IT general controls.","COBIT provides a comprehensive framework for assessing IT general controls."],wrongs:["Kiểm soát ứng dụng cụ thể","Chính sách bảo mật mạng","Quy trình phát triển phần mềm"]},
+  {word:"Change Management",ipa:"/tʃeɪndʒ ˈmænɪdʒmənt/",vn:"Quản lý thay đổi",cat:"IT",en:"A formal process for requesting, reviewing, approving, testing, and implementing changes to IT systems to ensure stability and prevent unauthorized modifications.",ex:'The <strong>change management</strong> process requires sign-off from both IT and business owners before any system update can be deployed to production.',blank:"The ___ process requires sign-off from both IT and business owners before any system update can be deployed to production.",usages:["Emergency changes bypassing normal change management procedures require retrospective approval.","The IT audit found that 23% of changes lacked proper documentation in the change management log.","Effective change management reduces the risk of system outages caused by poorly tested updates."],wrongs:["Thay đổi chiến lược kinh doanh","Quản lý nhân sự","Cập nhật chính sách"]},
+  {word:"Privileged Access",ipa:"/ˈprɪvɪlɪdʒd ˈækses/",vn:"Quyền truy cập đặc quyền",cat:"IT",en:"Elevated system access rights granted to administrators and technical staff, allowing them to perform high-risk operations such as modifying configurations or accessing all data.",ex:'<strong>Privileged access</strong> to the database server must be time-limited, fully logged, and approved by the security team for each session.',blank:"___ to the database server must be time-limited, fully logged, and approved by the security team for each session.",usages:["Privileged access management (PAM) solutions help organizations control and monitor administrator accounts.","The audit found that 15 former employees still had privileged access after termination — a serious finding.","Just-in-time privileged access reduces exposure by granting elevated rights only when needed."],wrongs:["Quyền truy cập cơ bản","Quyền xem dữ liệu","Đăng nhập hệ thống thông thường"]},
+  {word:"Audit Committee",ipa:"/ˈɔːdɪt kəˈmɪti/",vn:"Ủy ban Kiểm toán",cat:"IA",en:"A committee of the board of directors responsible for overseeing financial reporting, internal controls, risk management, and both internal and external audit functions.",ex:'The Chief Audit Executive reports functionally to the <strong>audit committee</strong> to ensure the independence of the internal audit function.',blank:"The Chief Audit Executive reports functionally to the ___ to ensure the independence of the internal audit function.",usages:["The audit committee reviews and approves the annual internal audit plan.","Audit committee members should have relevant financial and industry expertise.","Meeting minutes of the audit committee are reviewed by external auditors during the annual audit."],wrongs:["Ban quản lý điều hành","Hội đồng cổ đông","Bộ phận tài chính kế toán"]},
+  {word:"Three Lines of Defense",ipa:"/θriː laɪnz əv dɪˈfens/",vn:"Ba tuyến phòng thủ",cat:"RM",en:"A governance model distinguishing three groups with different roles in managing risk: operational management, risk and compliance functions, and internal audit.",ex:'Under the <strong>three lines of defense</strong> model, the internal audit function serves as the third line, providing independent assurance to the board.',blank:"Under the ___ model, the internal audit function serves as the third line, providing independent assurance to the board.",usages:["The first line of defense manages risk day-to-day through operational controls.","Confusion between the roles of the second and third lines can undermine governance effectiveness.","The IIA updated the three lines model in 2020 to reflect modern organizational structures."],wrongs:["Hệ thống kiểm soát bốn lớp","Mô hình quản lý rủi ro doanh nghiệp","Cơ cấu tổ chức phòng ban"]},
+  {word:"Walkthrough",ipa:"/ˈwɔːkθruː/",vn:"Kiểm tra theo dõi quy trình",cat:"IA",en:"An audit procedure where the auditor traces one or more transactions through the complete process to understand and verify the design of internal controls.",ex:'During the <strong>walkthrough</strong> of the accounts payable process, the auditor identified that invoice approval was bypassed for urgent payments.',blank:"During the ___ of the accounts payable process, the auditor identified that invoice approval was bypassed for urgent payments.",usages:["Walkthroughs provide evidence about whether controls are designed and implemented as documented.","The auditor performed walkthroughs for all 12 key processes identified in the risk assessment.","A walkthrough alone does not confirm that controls are operating effectively throughout the period."],wrongs:["Thăm quan cơ sở vật chất","Đào tạo nhân viên mới","Kiểm kê tài sản"]},
+  {word:"Key Risk Indicator",ipa:"/kiː rɪsk ˈɪndɪkeɪtər/",vn:"Chỉ số rủi ro chính",cat:"RM",en:"A metric used to provide early warning signals about increasing risk exposure before a risk event occurs, enabling proactive management.",ex:'A rising number of failed login attempts is a <strong>key risk indicator</strong> that may signal an ongoing brute-force attack on the system.',blank:"A rising number of failed login attempts is a ___ that may signal an ongoing brute-force attack on the system.",usages:["KRIs should be measurable, predictive, and aligned with the organization's risk appetite.","The dashboard tracks 15 key risk indicators across operational, financial, and IT risk categories.","When a KRI breaches its threshold, an escalation process is triggered automatically."],wrongs:["Chỉ số hiệu quả hoạt động","Mục tiêu tài chính","Tiêu chí đánh giá nhân viên"]},
+  {word:"Analytical Procedures",ipa:"/ˌænəˈlɪtɪkəl prəˈsiːdʒərz/",vn:"Thủ tục phân tích",cat:"IA",en:"Audit procedures that evaluate financial and non-financial information by analyzing relationships and investigating identified fluctuations or unusual items.",ex:'<strong>Analytical procedures</strong> revealed that cost of goods sold as a percentage of revenue had increased by 8% without any corresponding business explanation.',blank:"___ revealed that cost of goods sold as a percentage of revenue had increased by 8% without any corresponding business explanation.",usages:["Ratio analysis and trend analysis are common forms of analytical procedures used in auditing.","Analytical procedures can highlight areas requiring more detailed substantive testing.","During the final stage of the audit, analytical procedures are used to assess overall reasonableness."],wrongs:["Phân tích chiến lược thị trường","Quy trình phê duyệt","Kiểm tra chứng từ gốc"]},
+  {word:"Incident Response",ipa:"/ˈɪnsɪdənt rɪˈspɒns/",vn:"Ứng phó sự cố",cat:"IT",en:"An organized approach to addressing and managing the aftermath of a security breach or cyberattack to limit damage and reduce recovery time and costs.",ex:'The <strong>incident response</strong> team contained the ransomware attack within six hours by isolating affected systems and restoring from clean backups.',blank:"The ___ team contained the ransomware attack within six hours by isolating affected systems and restoring from clean backups.",usages:["An effective incident response plan must be documented, tested, and regularly updated.","The audit evaluated whether the incident response playbook covered all critical attack scenarios.","Regulatory requirements mandate that certain security incidents be reported within 72 hours."],wrongs:["Phản hồi khiếu nại khách hàng","Xử lý sự cố vận hành","Quy trình leo thang"]},
+  {word:"Working Papers",ipa:"/ˈwɜːkɪŋ ˈpeɪpərz/",vn:"Hồ sơ làm việc kiểm toán",cat:"IA",en:"Documentation prepared by auditors that records the work performed, evidence obtained, and conclusions reached during an audit engagement.",ex:"The quality reviewer found that <strong>working papers</strong> lacked sufficient documentation to support the auditor's conclusion that controls were operating effectively.",blank:"The quality reviewer found that ___ lacked sufficient documentation to support the auditor's conclusion.",usages:["Working papers must be organized, indexed, and retained for a minimum number of years.","Electronic working papers enable real-time collaboration and review by remote team members.","Working papers are the property of the audit function, not the auditee."],wrongs:["Tài liệu đào tạo","Báo cáo quản lý","Chính sách nội bộ"]},
+  {word:"Phishing",ipa:"/ˈfɪʃɪŋ/",vn:"Lừa đảo trực tuyến",cat:"IT",en:"A social engineering attack that uses deceptive emails or messages to trick recipients into revealing sensitive information or installing malware.",ex:'A <strong>phishing</strong> email impersonating the CFO tricked an accounts payable clerk into wiring $240,000 to a fraudulent bank account.',blank:"A ___ email impersonating the CFO tricked an accounts payable clerk into wiring $240,000 to a fraudulent bank account.",usages:["Security awareness training helps employees recognize and report phishing attempts.","Spear phishing targets specific individuals using personalized information to increase credibility.","The organization's anti-phishing simulation showed a 35% click rate — well above acceptable levels."],wrongs:["Tấn công từ chối dịch vụ","Khai thác lỗ hổng phần mềm","Xâm nhập vật lý"]},
+  {word:"Risk Assessment",ipa:"/rɪsk əˈsesmənt/",vn:"Đánh giá rủi ro",cat:"RM",en:"The systematic process of identifying, analyzing, and evaluating risks to determine the likelihood and potential impact on organizational objectives.",ex:'The annual <strong>risk assessment</strong> identified supply chain disruption as an emerging threat that had not appeared in previous years.',blank:"The annual ___ identified supply chain disruption as an emerging threat that had not appeared in previous years.",usages:["Risk assessments should consider both internal and external risk factors affecting the organization.","The internal audit plan is driven by the results of the risk assessment process.","Quantitative risk assessment assigns monetary values to potential losses for prioritization."],wrongs:["Kiểm tra kế hoạch kinh doanh","Đánh giá hiệu quả nhân viên","Phân tích thị trường"]},
+  {word:"Social Engineering",ipa:"/ˈsoʊʃəl ˌendʒɪˈnɪərɪŋ/",vn:"Tấn công phi kỹ thuật",cat:"IT",en:"The psychological manipulation of people into performing actions or divulging confidential information, exploiting human trust rather than technical vulnerabilities.",ex:"The attacker used <strong>social engineering</strong> to convince the help desk to reset the CEO's password without proper identity verification.",blank:"The attacker used ___ to convince the help desk to reset the CEO's password without proper identity verification.",usages:["Social engineering attacks are often more successful than technical attacks because they exploit human nature.","Pretexting, baiting, and tailgating are all forms of social engineering.","Training employees to question unusual requests is the best defense against social engineering."],wrongs:["Phân tích mạng xã hội","Kỹ thuật quản lý con người","Nghiên cứu hành vi người dùng"]},
+  {word:"Substantive Testing",ipa:"/ˈsʌbstəntɪv ˈtestɪŋ/",vn:"Kiểm tra cơ bản",cat:"IA",en:"Audit procedures designed to detect material misstatements in financial statement assertions, including tests of details and substantive analytical procedures.",ex:'The auditor expanded <strong>substantive testing</strong> after control testing revealed that automated invoice matching controls had failed for three months.',blank:"The auditor expanded ___ after control testing revealed that automated invoice matching controls had failed for three months.",usages:["Substantive testing includes vouching, tracing, recalculation, and confirmation procedures.","A higher assessed risk of material misstatement requires more extensive substantive testing.","Even with strong controls, some level of substantive testing is always required."],wrongs:["Kiểm tra thiết kế quy trình","Phỏng vấn ban quản lý","Quan sát thực địa"]},
+  {word:"Access Control",ipa:"/ˈækses kənˈtroʊl/",vn:"Kiểm soát truy cập",cat:"IT",en:"Security measures and policies that regulate who or what can view, use, or interact with resources in a computing environment.",ex:'Role-based <strong>access control</strong> ensures that finance staff can view payroll data but cannot modify it without additional approval.',blank:"Role-based ___ ensures that finance staff can view payroll data but cannot modify it without additional approval.",usages:["Access control matrices document which users have access to which systems and at what level.","The principle of least privilege is a fundamental concept in access control design.","Periodic access reviews verify that user permissions remain appropriate to current job responsibilities."],wrongs:["Kiểm soát chất lượng sản phẩm","Giám sát hiệu suất nhân viên","Quản lý hợp đồng"]},
+  {word:"Disaster Recovery",ipa:"/dɪˈzɑːstər rɪˈkʌvəri/",vn:"Khôi phục sau thảm họa",cat:"IT",en:"Policies, tools, and procedures designed to enable the recovery of IT infrastructure and systems following a natural or man-made disaster.",ex:'The <strong>disaster recovery</strong> drill demonstrated that the backup site could assume all critical operations within the 4-hour recovery time objective.',blank:"The ___ drill demonstrated that the backup site could assume all critical operations within the 4-hour recovery time objective.",usages:["Recovery time objective (RTO) and recovery point objective (RPO) are key metrics in disaster recovery.","Disaster recovery plans must be tested at least annually to verify they still work as designed.","Cloud-based disaster recovery solutions have significantly reduced recovery costs for many organizations."],wrongs:["Quản lý khủng hoảng truyền thông","Bảo hiểm tài sản","Kế hoạch kinh doanh dự phòng"]},
+  {word:"Patch Management",ipa:"/pætʃ ˈmænɪdʒmənt/",vn:"Quản lý bản vá",cat:"IT",en:"The systematic process of identifying, acquiring, testing, and installing software updates to fix vulnerabilities and improve system functionality.",ex:'Inadequate <strong>patch management</strong> left 40% of servers running operating systems with known critical vulnerabilities for over six months.',blank:"Inadequate ___ left 40% of servers running operating systems with known critical vulnerabilities for over six months.",usages:["Critical security patches should be applied within 30 days of release based on best practice.","Patch management requires coordination between IT operations and business owners to minimize downtime.","Automated patch deployment tools help organizations maintain compliance with patching SLAs."],wrongs:["Quản lý cơ sở dữ liệu","Nâng cấp phần cứng","Triển khai phần mềm mới"]},
+  {word:"Assertion",ipa:"/əˈsɜːʃən/",vn:"Cơ sở dẫn liệu",cat:"IA",en:"Representations by management, explicit or implicit, that are embodied in the financial statements and against which auditors gather evidence.",ex:'The auditor focused on the completeness <strong>assertion</strong> for accounts payable, ensuring that all liabilities incurred before year-end were recorded.',blank:"The auditor focused on the completeness ___ for accounts payable, ensuring that all liabilities incurred before year-end were recorded.",usages:["The five key assertions are existence, completeness, accuracy, valuation, and rights and obligations.","Different audit procedures provide evidence about different assertions.","The risk assessment process identifies which assertions are most at risk for each significant account."],wrongs:["Phát biểu của ban quản lý","Ý kiến kiểm toán","Kết luận kiểm tra"]},
+  {word:"Audit Finding",ipa:"/ˈɔːdɪt ˈfaɪndɪŋ/",vn:"Phát hiện kiểm toán",cat:"IA",en:"An observed condition that represents a deviation from the expected criteria, typically including criteria, condition, cause, and effect components.",ex:'The <strong>audit finding</strong> documented that vendor payments were processed without purchase orders in 18% of tested transactions, violating procurement policy.',blank:"The ___ documented that vendor payments were processed without purchase orders in 18% of tested transactions, violating procurement policy.",usages:["A well-structured audit finding includes criteria, condition, cause, effect, and recommendation.","Management responses to audit findings should be agreed upon before the report is finalized.","Critical audit findings are escalated immediately to the audit committee without waiting for the final report."],wrongs:["Kết quả tài chính","Phát hiện thị trường","Quan sát kinh doanh"]},
+  {word:"Configuration Management",ipa:"/kənˌfɪɡjəˈreɪʃən ˈmænɪdʒmənt/",vn:"Quản lý cấu hình",cat:"IT",en:"The process of tracking and controlling changes to system configuration items — including hardware, software, and documentation — to maintain integrity.",ex:'<strong>Configuration management</strong> records showed that the firewall rules had been modified three weeks before the security breach occurred.',blank:"___ records showed that the firewall rules had been modified three weeks before the security breach occurred.",usages:["A configuration management database (CMDB) tracks all IT assets and their interdependencies.","Unauthorized configuration changes are one of the leading causes of system outages.","Configuration management controls ensure that only approved system settings are in place."],wrongs:["Quản lý dự án CNTT","Thiết lập người dùng mới","Quy trình mua sắm CNTT"]},
+  {word:"Application Controls",ipa:"/ˌæplɪˈkeɪʃən kənˈtroʊlz/",vn:"Kiểm soát ứng dụng",cat:"IT",en:"Automated controls built into IT applications to ensure the completeness, accuracy, and validity of data processing within those systems.",ex:'The <strong>application controls</strong> in the ERP system prevent invoice entry if the amount exceeds the approved purchase order value.',blank:"The ___ in the ERP system prevent invoice entry if the amount exceeds the approved purchase order value.",usages:["Application controls include input validation, processing controls, and output controls.","Unlike IT general controls, application controls are specific to each software system.","Testing application controls provides evidence that the system is processing data correctly."],wrongs:["Kiểm soát người dùng cuối","Chính sách bảo mật hệ thống","Quy trình vận hành IT"]},
+  {word:"Internal Control",ipa:"/ɪnˈtɜːnəl kənˈtroʊl/",vn:"Kiểm soát nội bộ",cat:"IA",en:"A process implemented by an organization's board, management, and staff to provide reasonable assurance of achieving operational, reporting, and compliance objectives.",ex:'The COSO framework defines <strong>internal control</strong> as having five interrelated components: control environment, risk assessment, control activities, information and communication, and monitoring.',blank:"The COSO framework defines ___ as having five interrelated components.",usages:["Effective internal controls reduce but cannot eliminate the risk of material misstatement or fraud.","Management is responsible for designing and maintaining adequate internal controls.","Internal auditors assess the adequacy and effectiveness of internal controls across the organization."],wrongs:["Kiểm toán nội bộ","Giám sát từ bên ngoài","Chính sách kinh doanh"]},
+  {word:"Engagement",ipa:"/ɪnˈɡeɪdʒmənt/",vn:"Cuộc tham chiếu kiểm toán",cat:"IA",en:"A specific internal audit project or assignment, such as a performance audit, compliance review, or consulting assignment, with defined scope and objectives.",ex:'The <strong>engagement</strong> was scoped to assess the effectiveness of controls over the procure-to-pay process across all international subsidiaries.',blank:"The ___ was scoped to assess the effectiveness of controls over the procure-to-pay process across all international subsidiaries.",usages:["Each engagement should have a formal planning document, fieldwork phase, and final report.","Advisory engagements differ from assurance engagements in that they do not render an opinion.","The engagement supervisor reviewed all working papers before the draft report was issued."],wrongs:["Hợp đồng kinh doanh","Cam kết với khách hàng","Thỏa thuận hợp tác"]},
+  {word:"Logical Access",ipa:"/ˈlɒdʒɪkəl ˈækses/",vn:"Kiểm soát truy cập logic",cat:"IT",en:"Controls that restrict access to computer systems and data through electronic means such as usernames, passwords, and multi-factor authentication.",ex:'<strong>Logical access</strong> controls limit database administrator access to production systems to only those individuals with a business need.',blank:"___ controls limit database administrator access to production systems to only those individuals with a business need.",usages:["Logical access reviews should be conducted quarterly to identify and remove excessive permissions.","The IT audit found that logical access provisioning lacked a formal approval workflow.","Logical access controls complement physical security controls to provide comprehensive protection."],wrongs:["Truy cập vật lý vào văn phòng","Quyền quản trị hệ thống","Kết nối mạng nội bộ"]},
+  {word:"Whistleblower",ipa:"/ˈwɪsəlˌbloʊər/",vn:"Người tố giác nội bộ",cat:"IA",en:"A person who reports suspected wrongdoing, fraud, or unethical conduct within an organization, typically through a formal reporting channel.",ex:'A <strong>whistleblower</strong> reported suspected expense fraud to the ethics hotline, triggering an unannounced investigation by internal audit.',blank:"A ___ reported suspected expense fraud to the ethics hotline, triggering an unannounced investigation by internal audit.",usages:["Robust whistleblower protections are essential to encourage reporting without fear of retaliation.","Anonymous whistleblower hotlines are a key control for detecting fraud and misconduct.","The audit committee oversees the organization's whistleblower program and investigates all reports."],wrongs:["Người kiểm tra chất lượng","Nhân viên tư vấn","Đại diện nhân viên"]},
+  {word:"Ransomware",ipa:"/ˈrænsəmweər/",vn:"Mã độc tống tiền",cat:"IT",en:"Malicious software that encrypts a victim's files and demands payment for the decryption key, often disrupting business operations severely.",ex:"The <strong>ransomware</strong> attack encrypted 60% of the company's files overnight, forcing a shutdown of operations for five business days.",blank:"The ___ attack encrypted 60% of the company's files overnight, forcing a shutdown of operations for five business days.",usages:["Offline backups are one of the most effective defenses against ransomware attacks.","The average ransomware payment has increased dramatically, now exceeding $1 million in many cases.","Organizations should have a documented response plan specifically for ransomware incidents."],wrongs:["Phần mềm quảng cáo","Virus máy tính","Tấn công từ chối dịch vụ"]},
+  {word:"Key Control",ipa:"/kiː kənˈtroʊl/",vn:"Kiểm soát chính yếu",cat:"IA",en:"A control that, if it failed, would not be compensated by other controls, making it critical to the achievement of control objectives.",ex:'Dual authorization of payments above $10,000 was identified as a <strong>key control</strong> since its failure would directly enable unauthorized fund transfers.',blank:"Dual authorization of payments above $10,000 was identified as a ___ since its failure would directly enable unauthorized fund transfers.",usages:["Auditors focus their testing efforts on key controls identified during the risk assessment phase.","Failure of a key control requires immediate reporting to management and enhanced monitoring.","Key controls are documented in the risk and control matrix for each auditable process."],wrongs:["Quy trình kiểm soát thứ yếu","Biện pháp bổ sung","Kiểm soát phát hiện"]},
+  {word:"Risk Appetite Statement",ipa:"/rɪsk ˈæpɪtaɪt ˈsteɪtmənt/",vn:"Tuyên bố khẩu vị rủi ro",cat:"RM",en:"A formal document articulating the amount and type of risk the board is willing to accept in pursuit of the organization's strategic objectives.",ex:'The board-approved <strong>risk appetite statement</strong> specified that operational losses must not exceed 0.5% of net revenue in any given year.',blank:"The board-approved ___ specified that operational losses must not exceed 0.5% of net revenue in any given year.",usages:["The risk appetite statement should be reviewed and reaffirmed annually by the board.","Business units use the risk appetite statement to calibrate their local risk tolerance thresholds.","A well-crafted risk appetite statement uses both qualitative and quantitative language."],wrongs:["Báo cáo tài chính hàng năm","Chiến lược tăng trưởng","Chính sách đầu tư"]},
+  {word:"Audit Universe",ipa:"/ˈɔːdɪt ˈjuːnɪvɜːs/",vn:"Vũ trụ kiểm toán",cat:"IA",en:"The complete inventory of all auditable entities, processes, and activities within an organization from which the audit plan is developed based on risk.",ex:'The <strong>audit universe</strong> comprised 180 auditable entities; the annual plan covered 35 high-risk areas based on the risk assessment.',blank:"The ___ comprised 180 auditable entities; the annual plan covered 35 high-risk areas based on the risk assessment.",usages:["The audit universe should be updated annually to reflect changes in the business and risk environment.","Mapping the audit universe helps ensure comprehensive risk coverage over a multi-year audit cycle.","The size of the audit team limits how much of the audit universe can be covered each year."],wrongs:["Phạm vi kiểm toán từng dự án","Danh sách nhân viên kiểm toán","Hệ thống quản lý kiểm toán"]}
+];
+
+// ─── RANKS ─────────────────────────────────────────────────────────────────
+const RANKS = [
+  {title:"Audit Trainee",   icon:"🎓", min:0},
+  {title:"Junior Auditor",  icon:"📋", min:200},
+  {title:"Staff Auditor",   icon:"🔍", min:500},
+  {title:"Senior Auditor",  icon:"📊", min:1000},
+  {title:"Audit Manager",   icon:"🏆", min:1800},
+  {title:"Chief Audit Exec",icon:"⭐", min:3000},
+  {title:"Audit Legend",    icon:"👑", min:5000}
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let token = localStorage.getItem('avq_token');
+let profile = null; // { display_name, xp, streak, last_date, completed_dates[] }
+let currentWord = null;
+let quizStep = 0;
+let quizAnswers = [];
+let quizXp = 0;
+
+// ─── API ───────────────────────────────────────────────────────────────────
+async function api(method, path, body) {
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json' }
+  };
+  if (token) opts.headers['Authorization'] = 'Bearer ' + token;
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(path, opts);
+  return r.json();
+}
+
+// ─── HELPERS ───────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function todayIndex() {
+  const start = new Date('2025-01-01');
+  const diff = Math.floor((Date.now() - start) / 86400000);
+  return diff % VOCAB.length;
+}
+
+function getRankIndex(xp) {
+  let ri = 0;
+  for (let i = 0; i < RANKS.length; i++) if (xp >= RANKS[i].min) ri = i;
+  return ri;
+}
+
+function catBadge(cat) {
+  const map = { IA: 'cat-ia', RM: 'cat-rm', IT: 'cat-it' };
+  const label = { IA: 'Internal Audit', RM: 'Risk Management', IT: 'IT Audit' };
+  return `<span class="daily-cat ${map[cat]}">${label[cat]}</span>`;
+}
+
+function speak() {
+  if (!('speechSynthesis' in window)) { toast('Trình duyệt không hỗ trợ phát âm'); return; }
+  const u = new SpeechSynthesisUtterance(currentWord.word);
+  u.lang = 'en-US'; u.rate = 0.85;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// ─── AUTH ──────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0) === (tab === 'login'));
+  });
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'flex' : 'none';
+  document.getElementById('registerForm').style.display = tab === 'register' ? 'flex' : 'none';
+}
+
+async function doLogin() {
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginErr');
+  const username = document.getElementById('loginUser').value.trim();
+  const password = document.getElementById('loginPass').value;
+  err.classList.remove('show');
+  btn.disabled = true; btn.textContent = 'Đang đăng nhập...';
+
+  const res = await api('POST', '/api/login', { username, password });
+  btn.disabled = false; btn.textContent = 'Đăng nhập';
+
+  if (res.error) { err.textContent = res.error; err.classList.add('show'); return; }
+  token = res.token;
+  localStorage.setItem('avq_token', token);
+  localStorage.setItem('avq_name', res.display_name);
+  await loadHome();
+}
+
+async function doRegister() {
+  const btn = document.getElementById('regBtn');
+  const err = document.getElementById('regErr');
+  const display_name = document.getElementById('regName').value.trim();
+  const username = document.getElementById('regUser').value.trim();
+  const password = document.getElementById('regPass').value;
+  err.classList.remove('show');
+  btn.disabled = true; btn.textContent = 'Đang tạo tài khoản...';
+
+  const res = await api('POST', '/api/register', { username, display_name, password });
+  btn.disabled = false; btn.textContent = 'Tạo tài khoản';
+
+  if (res.error) { err.textContent = res.error; err.classList.add('show'); return; }
+  token = res.token;
+  localStorage.setItem('avq_token', token);
+  localStorage.setItem('avq_name', res.display_name);
+  await loadHome();
+}
+
+function doLogout() {
+  token = null; profile = null;
+  localStorage.removeItem('avq_token');
+  localStorage.removeItem('avq_name');
+  showScreen('auth');
+}
+
+// ─── HOME ──────────────────────────────────────────────────────────────────
+async function loadHome() {
+  showScreen('loading');
+  const res = await api('GET', '/api/profile');
+  if (res.error) { showScreen('auth'); return; }
+  profile = res;
+  renderHome();
+}
+
+function renderHome() {
+  const name = profile.display_name;
+  const xp = profile.xp;
+  const streak = profile.streak;
+  const doneDates = profile.completed_dates || [];
+  const today = todayStr();
+  const isDone = doneDates.includes(today);
+  const idx = todayIndex();
+  currentWord = VOCAB[idx];
+
+  // nav
+  document.getElementById('navAvatar').textContent = name[0].toUpperCase();
+  document.getElementById('navName').textContent = name;
+
+  // streak & xp
+  document.getElementById('streakNum').textContent = streak;
+  document.getElementById('totalXp').textContent = xp;
+
+  // rank
+  const ri = getRankIndex(xp);
+  const r = RANKS[ri];
+  const next = RANKS[ri + 1];
+  document.getElementById('rankTitle').textContent = r.title;
+  document.getElementById('rankIcon').textContent = r.icon;
+  const pct = next ? Math.round((xp - r.min) / (next.min - r.min) * 100) : 100;
+  document.getElementById('rankBar').style.width = pct + '%';
+  document.getElementById('rankXpCurrent').textContent = xp + ' XP';
+  document.getElementById('rankXpNext').textContent = next ? 'Cần ' + next.min + ' XP' : 'Đã đạt đỉnh!';
+
+  // daily word
+  document.getElementById('hw').textContent = currentWord.word;
+  document.getElementById('hipa').textContent = currentWord.ipa;
+  document.getElementById('hvn').textContent = currentWord.vn;
+  document.getElementById('hcat').innerHTML = catBadge(currentWord.cat);
+
+  // done state
+  document.getElementById('doneBanner').style.display = isDone ? 'block' : 'none';
+  document.getElementById('startBtn').style.display = isDone ? 'none' : 'block';
+  const dc = document.getElementById('dailyCard');
+  dc.classList.toggle('done', isDone);
+  dc.onclick = isDone ? null : goLearn;
+
+  // progress dots
+  const grid = document.getElementById('vpGrid');
+  grid.innerHTML = '';
+  document.getElementById('vpDone').textContent = doneDates.length;
+  for (let i = 0; i < VOCAB.length; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'vp-dot';
+    const dotDate = new Date(new Date('2025-01-01').getTime() + i * 86400000).toISOString().slice(0, 10);
+    if (i === idx && !isDone) dot.classList.add('today');
+    else if (doneDates.includes(dotDate) || (i < idx && doneDates.length > i)) dot.classList.add('done');
+    grid.appendChild(dot);
+  }
+
+  showScreen('home');
+}
+
+// ─── LEARN ────────────────────────────────────────────────────────────────
+function goLearn() {
+  if (!currentWord) return;
+  document.getElementById('lw').textContent = currentWord.word;
+  document.getElementById('lipa').textContent = currentWord.ipa;
+  document.getElementById('lvn').textContent = currentWord.vn;
+  document.getElementById('len').textContent = currentWord.en;
+  document.getElementById('lex').innerHTML = currentWord.ex;
+  document.getElementById('lcat').innerHTML = catBadge(currentWord.cat);
+  showScreen('learn');
+}
+
+function goHome() { renderHome(); }
+
+// ─── QUIZ ─────────────────────────────────────────────────────────────────
+function getDistractorWords(word) {
+  return shuffle(VOCAB.filter(v => v.word !== word.word)).slice(0, 3).map(v => v.word);
+}
+
+function getFakeUsages(word) {
+  const fakes = [
+    `The ${word.word} was scheduled for the annual company picnic to improve team morale.`,
+    `Management decided to outsource all ${word.word} activities to reduce headcount costs.`,
+    word.usages[1] || `The ${word.word} framework was not considered relevant to this project.`
+  ];
+  return fakes.slice(0, 3);
+}
+
+const QUESTIONS = [
+  {
+    q: w => `❓ "${w.word}" nghĩa là gì?`,
+    ctx: w => `<span class="highlight">${w.word}</span> &nbsp;${w.ipa}`,
+    opts: w => shuffle([w.vn, ...w.wrongs]),
+    answer: w => w.vn,
+    fb: w => `✅ Chính xác! <strong>${w.word}</strong> = ${w.vn}`
+  },
+  {
+    q: () => '✏️ Chọn từ đúng để điền vào chỗ trống:',
+    ctx: w => w.blank.replace('___', '<span class="blank">________</span>'),
+    opts: w => shuffle([w.word, ...getDistractorWords(w)]),
+    answer: w => w.word,
+    fb: w => `✅ Tuyệt vời! Từ cần điền là <strong>${w.word}</strong>`
+  },
+  {
+    q: w => `🎯 Câu nào dùng "<strong>${w.word}</strong>" đúng nhất trong Kiểm toán?`,
+    ctx: w => `Từ: <span class="highlight">${w.word}</span> &mdash; ${w.vn}`,
+    opts: w => shuffle([w.usages[0], ...getFakeUsages(w)]),
+    answer: w => w.usages[0],
+    fb: () => '✅ Xuất sắc! Đó là cách dùng chuyên nghiệp nhất của từ này.'
+  }
+];
+
+function startQuiz() {
+  quizStep = 0; quizAnswers = []; quizXp = 0;
+  renderQuestion();
+  showScreen('quiz');
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[quizStep];
+  const w = currentWord;
+  document.getElementById('qStep').textContent = `Câu hỏi ${quizStep + 1}/3`;
+  document.getElementById('qScoreLive').textContent = `+${quizXp} XP`;
+  document.getElementById('qBar').style.width = (quizStep / 3 * 100) + '%';
+  document.getElementById('qQ').innerHTML = q.q(w);
+  document.getElementById('qCtx').innerHTML = q.ctx(w);
+
+  const opts = q.opts(w);
+  const ans = q.answer(w);
+  const container = document.getElementById('opts');
+  container.innerHTML = '';
+  opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = o;
+    btn.onclick = () => selectAnswer(btn, o, ans, q.fb(w));
+    container.appendChild(btn);
+  });
+
+  document.getElementById('feedBox').style.display = 'none';
+  document.getElementById('feedBox').className = 'feedback-box';
+  document.getElementById('nextBtn').style.display = 'none';
+}
+
+function selectAnswer(btn, selected, correct, fbMsg) {
+  const isOk = selected === correct;
+  document.querySelectorAll('.opt').forEach(o => {
+    o.classList.add('disabled');
+    o.onclick = null;
+    if (o.textContent === correct) o.classList.add('correct');
+    else if (o === btn && !isOk) o.classList.add('wrong');
+  });
+
+  if (isOk) quizXp += 10;
+  quizAnswers.push(isOk);
+  document.getElementById('qScoreLive').textContent = `+${quizXp} XP`;
+
+  const fb = document.getElementById('feedBox');
+  fb.className = 'feedback-box ' + (isOk ? 'correct' : 'wrong');
+  fb.innerHTML = isOk ? fbMsg : `❌ Đáp án đúng: <strong>${correct}</strong>`;
+  fb.style.display = 'block';
+
+  const nb = document.getElementById('nextBtn');
+  nb.style.display = 'block';
+  nb.textContent = quizStep < 2 ? 'Tiếp theo →' : 'Xem kết quả 🏆';
+}
+
+function nextQuestion() {
+  quizStep++;
+  if (quizStep < QUESTIONS.length) renderQuestion();
+  else showResult();
+}
+
+// ─── RESULT ───────────────────────────────────────────────────────────────
+async function showResult() {
+  const correct = quizAnswers.filter(Boolean).length;
+  const today = todayStr();
+  const oldRi = getRankIndex(profile.xp);
+
+  // Calculate bonus
+  const streakBonus = Math.min((profile.streak + 1) * 2, 10);
+  const totalXp = quizXp + streakBonus;
+
+  // Submit to server
+  const res = await api('POST', '/api/complete', {
+    word_index: todayIndex(),
+    play_date: today,
+    correct,
+    xp_earned: totalXp
+  });
+
+  if (!res.error) {
+    profile.xp = res.xp;
+    profile.streak = res.streak;
+    profile.completed_dates = [...(profile.completed_dates || []), today];
+  }
+
+  const newRi = getRankIndex(profile.xp);
+
+  // Stars
+  const stars = correct === 3 ? '⭐⭐⭐' : correct === 2 ? '⭐⭐' : '⭐';
+  const titles = ['Cố gắng hơn nhé! 💪', 'Khá tốt! 👍', 'Xuất sắc! 🎉'];
+  const subs = ['Hãy đọc lại định nghĩa và thử thách vào ngày mai!', 'Bạn đang tiến bộ rất tốt!', 'Từ này đã nằm trong tay bạn rồi!'];
+
+  document.getElementById('rStars').textContent = stars;
+  document.getElementById('rTitle').textContent = titles[correct - 1] || titles[0];
+  document.getElementById('rSub').textContent = subs[correct - 1] || subs[0];
+  document.getElementById('rXp').textContent = '+' + totalXp;
+  document.getElementById('s1').textContent = quizAnswers[0] ? '+10 XP ✅' : '+0 XP ❌';
+  document.getElementById('s2').textContent = quizAnswers[1] ? '+10 XP ✅' : '+0 XP ❌';
+  document.getElementById('s3').textContent = quizAnswers[2] ? '+10 XP ✅' : '+0 XP ❌';
+  document.getElementById('sBonus').textContent = `+${streakBonus} XP 🔥`;
+
+  const banner = document.getElementById('rankUpBanner');
+  if (newRi > oldRi) {
+    banner.style.display = 'block';
+    document.getElementById('rankUpName').textContent = `${RANKS[newRi].icon} ${RANKS[newRi].title}`;
+  } else {
+    banner.style.display = 'none';
+  }
+
+  showScreen('result');
+}
+
+// ─── LEADERBOARD ──────────────────────────────────────────────────────────
+async function goLeaderboard() {
+  const name = profile?.display_name || '';
+  document.getElementById('navAvatar2').textContent = name[0]?.toUpperCase() || 'A';
+  document.getElementById('navName2').textContent = name;
+  showScreen('leaderboard');
+  document.getElementById('lbTable').innerHTML = '<div class="lb-loading">Đang tải...</div>';
+
+  const rows = await api('GET', '/api/leaderboard');
+  if (!Array.isArray(rows)) {
+    document.getElementById('lbTable').innerHTML = '<div class="lb-loading">Lỗi tải dữ liệu.</div>';
+    return;
+  }
+
+  const rankIcons = ['🥇', '🥈', '🥉'];
+  const rankClasses = ['gold', 'silver', 'bronze'];
+
+  document.getElementById('lbTable').innerHTML = rows.map((r, i) => `
+    <div class="lb-row ${r.is_me ? 'me' : ''}">
+      <div class="lb-rank ${rankClasses[i] || ''}">${rankIcons[i] || (i + 1)}</div>
+      <div class="lb-info">
+        <div class="lb-name">${r.display_name}${r.is_me ? '<span class="me-tag">(bạn)</span>' : ''}</div>
+        <div class="lb-words">${r.words_done} từ đã học</div>
+      </div>
+      <div class="lb-right">
+        <div class="lb-xp">${r.xp} XP</div>
+        <div class="lb-streak">🔥 ${r.streak} ngày</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── ENTER KEYS ───────────────────────────────────────────────────────────
+document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.getElementById('regPass').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
+
+// ─── INIT ─────────────────────────────────────────────────────────────────
+(async () => {
+  if (token) {
+    await loadHome();
+  } else {
+    showScreen('auth');
+  }
+})();
+</script>
+</body>
+</html>
