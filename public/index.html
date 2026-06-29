@@ -100,14 +100,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .learn-ipa{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--muted)}
 .speak-btn{background:#1e3a5f;border:none;border-radius:8px;padding:5px 12px;color:#60a5fa;cursor:pointer;font-size:13px}
 .speak-btn:hover{background:#1e3a7f}
-.info-card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px}
-.info-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px}
-.info-vn{font-size:22px;font-weight:700;color:var(--gold)}
-.info-en{font-size:14px;color:var(--text);line-height:1.7}
-.info-ex{font-size:14px;color:#94a3b8;line-height:1.7;font-style:italic}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+.info-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px}
+.info-vn{font-size:20px;font-weight:700;color:var(--gold)}
+.info-en{font-size:13px;color:var(--text);line-height:1.6}
+.info-ex{font-size:13px;color:#94a3b8;line-height:1.6;font-style:italic}
 .info-ex strong{color:var(--gold-light);font-style:normal}
-.cat-row{width:100%;max-width:480px;margin-bottom:18px}
-.btn-ready{width:100%;max-width:480px;padding:15px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:var(--radius);font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:all .2s}
+.info-grid{width:100%;max-width:900px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.cat-row{width:100%;max-width:900px;margin-bottom:12px}
+.btn-ready{width:100%;max-width:900px;padding:13px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:var(--radius);font-size:15px;font-weight:700;color:#fff;cursor:pointer;transition:all .2s}
 .btn-ready:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.3)}
 
 /* ─── QUIZ ─── */
@@ -269,28 +270,33 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 
 <!-- LEARN -->
 <div id="learn" class="screen">
-  <button class="back-btn" onclick="goHome()">← Quay lại</button>
-  <div class="learn-phase">📖 Giai đoạn 1 — Học từ</div>
-  <div class="learn-word" id="lw"></div>
-  <div class="learn-ipa-row">
+  <div style="width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <button class="back-btn" style="margin-bottom:0" onclick="goHome()">← Quay lại</button>
+    <div class="learn-phase" style="margin-bottom:0">📖 Giai đoạn 1 — Học từ</div>
+    <div style="width:80px"></div>
+  </div>
+  <div class="learn-word" id="lw" style="font-size:32px;margin-bottom:2px"></div>
+  <div class="learn-ipa-row" style="margin-bottom:10px">
     <div class="learn-ipa" id="lipa"></div>
     <button class="speak-btn" onclick="speak()">🔊 Nghe</button>
   </div>
-  <div class="info-card fade-in">
+  <div class="info-card fade-in" style="width:100%;max-width:900px;margin-bottom:10px">
     <div class="info-label">Nghĩa tiếng Việt</div>
     <div class="info-vn" id="lvn"></div>
   </div>
-  <div class="info-card fade-in">
-    <div class="info-label">Định nghĩa tiếng Anh</div>
-    <div class="info-en" id="len"></div>
-    <div class="info-label" style="margin-top:10px;color:var(--gold)">🇻🇳 Dịch tiếng Việt</div>
-    <div class="info-en" id="lenvn" style="color:var(--muted);font-style:italic"></div>
-  </div>
-  <div class="info-card fade-in">
-    <div class="info-label">Ví dụ thực tế</div>
-    <div class="info-ex" id="lex"></div>
-    <div class="info-label" style="margin-top:10px;color:var(--gold)">🇻🇳 Dịch tiếng Việt</div>
-    <div class="info-ex" id="lexvn" style="color:var(--muted);font-style:italic"></div>
+  <div class="info-grid fade-in">
+    <div class="info-card">
+      <div class="info-label">Định nghĩa tiếng Anh</div>
+      <div class="info-en" id="len"></div>
+      <div class="info-label" style="margin-top:8px;color:var(--gold)">🇻🇳 Dịch tiếng Việt</div>
+      <div class="info-en" id="lenvn" style="color:var(--muted);font-style:italic"></div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">Ví dụ thực tế</div>
+      <div class="info-ex" id="lex"></div>
+      <div class="info-label" style="margin-top:8px;color:var(--gold)">🇻🇳 Dịch tiếng Việt</div>
+      <div class="info-ex" id="lexvn" style="color:var(--muted);font-style:italic"></div>
+    </div>
   </div>
   <div class="cat-row" id="lcat"></div>
   <button class="btn-ready" onclick="startQuiz()">⚡ Sẵn sàng thử thách!</button>
