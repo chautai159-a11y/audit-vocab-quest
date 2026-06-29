@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const dbUrl = process.env.DATABASE_URL || '';
 const pool = new Pool({
   connectionString: dbUrl,
+  connectionTimeoutMillis: 5000,
   ssl: dbUrl && !dbUrl.includes('localhost') && !dbUrl.includes('.railway.internal')
     ? { rejectUnauthorized: false }
     : false
@@ -177,7 +178,7 @@ app.get('*', (_, res) =>
 );
 
 // ── Start ─────────────────────────────────────────────────────────────────────
-async function startWithRetry(retries = 10, delay = 3000) {
+async function startWithRetry(retries = 30, delay = 5000) {
   for (let i = 1; i <= retries; i++) {
     try {
       await initDB();
