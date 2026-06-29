@@ -10,12 +10,11 @@ const PORT = process.env.PORT || 3000;
 
 // ── Database (PostgreSQL) ─────────────────────────────────────────────────────
 const dbUrl = process.env.DATABASE_URL || '';
+const needsSsl = dbUrl && !dbUrl.includes('localhost') && !dbUrl.includes('127.0.0.1');
 const pool = new Pool({
   connectionString: dbUrl,
   connectionTimeoutMillis: 5000,
-  ssl: dbUrl && !dbUrl.includes('localhost') && !dbUrl.includes('.railway.internal')
-    ? { rejectUnauthorized: false }
-    : false
+  ssl: needsSsl ? { rejectUnauthorized: false } : false
 });
 
 async function initDB() {
