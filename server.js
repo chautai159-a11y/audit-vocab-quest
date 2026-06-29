@@ -9,9 +9,10 @@ const SECRET = process.env.JWT_SECRET || 'avq_change_this_secret_in_production';
 const PORT = process.env.PORT || 3000;
 
 // ── Database (PostgreSQL) ─────────────────────────────────────────────────────
+const dbUrl = process.env.DATABASE_URL || '';
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost')
+  connectionString: dbUrl,
+  ssl: dbUrl && !dbUrl.includes('localhost') && !dbUrl.includes('.railway.internal')
     ? { rejectUnauthorized: false }
     : false
 });
