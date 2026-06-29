@@ -260,6 +260,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     ✅ Bạn đã hoàn thành từ hôm nay! Quay lại vào ngày mai để học từ mới.
   </div>
   <button class="btn-start" id="startBtn" onclick="goLearn()">🚀 Bắt đầu thử thách hôm nay</button>
+  <button class="btn-start" id="reviewBtn" onclick="startReplay()" style="display:none;background:linear-gradient(135deg,#1a2a1a,#0a1a0a);border:1.5px solid #22c55e;color:#22c55e">🔄 Ôn lại từ hôm nay</button>
   <div class="vocab-progress">
     <div class="vp-label">Tiến độ (<span id="vpDone">0</span>/50 từ)</div>
     <div class="vp-grid" id="vpGrid"></div>
@@ -326,7 +327,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     <div class="score-row"><span>Câu 3 — Chọn câu đúng</span><span id="s3">+10 XP</span></div>
     <div class="score-row"><span>🔥 Bonus chuỗi ngày</span><span id="sBonus">+0 XP</span></div>
   </div>
-  <button class="btn-home" onclick="goHome()">🏠 Về trang chủ</button>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button class="btn-home" onclick="goHome()">🏠 Về trang chủ</button>
+    <button class="btn-home" id="replayBtn" onclick="replayQuiz()" style="background:linear-gradient(135deg,#1a2a1a,#0a1a0a);border-color:#22c55e;color:#22c55e">🔄 Chơi lại</button>
+  </div>
 </div>
 
 <!-- LEADERBOARD -->
@@ -416,6 +420,7 @@ let token = localStorage.getItem('avq_token');
 let profile = null; // { display_name, xp, streak, last_date, completed_dates[] }
 let currentWord = null;
 let quizStep = 0;
+let isReplay = false;
 let quizAnswers = [];
 let quizXp = 0;
 
@@ -584,6 +589,7 @@ function renderHome() {
   // done state
   document.getElementById('doneBanner').style.display = isDone ? 'block' : 'none';
   document.getElementById('startBtn').style.display = isDone ? 'none' : 'block';
+  document.getElementById('reviewBtn').style.display = isDone ? 'block' : 'none';
   const dc = document.getElementById('dailyCard');
   dc.classList.toggle('done', isDone);
   dc.onclick = isDone ? null : goLearn;
@@ -616,7 +622,20 @@ function goLearn() {
   showScreen('learn');
 }
 
-function goHome() { renderHome(); }
+function goHome() { isReplay = false; renderHome(); }
+
+function startReplay() {
+  isReplay = true;
+  goLearn();
+}
+
+function replayQuiz() {
+  isReplay = true;
+  quizStep = 0;
+  quizAnswers = [];
+  quizXp = 0;
+  startQuiz();
+}
 
 // ─── QUIZ ─────────────────────────────────────────────────────────────────
 function getDistractorWords(word) {
@@ -727,18 +746,19 @@ async function showResult() {
   const streakBonus = Math.min((profile.streak + 1) * 2, 10);
   const totalXp = quizXp + streakBonus;
 
-  // Submit to server
-  const res = await api('POST', '/api/complete', {
-    word_index: todayIndex(),
-    play_date: today,
-    correct,
-    xp_earned: totalXp
-  });
-
-  if (!res.error) {
-    profile.xp = res.xp;
-    profile.streak = res.streak;
-    profile.completed_dates = [...(profile.completed_dates || []), today];
+  // Submit to server (only on first play, not replays)
+  if (!isReplay) {
+    const res = await api('POST', '/api/complete', {
+      word_index: todayIndex(),
+      play_date: today,
+      correct,
+      xp_earned: totalXp
+    });
+    if (!res.error) {
+      profile.xp = res.xp;
+      profile.streak = res.streak;
+      profile.completed_dates = [...(profile.completed_dates || []), today];
+    }
   }
 
   const newRi = getRankIndex(profile.xp);
@@ -751,11 +771,18 @@ async function showResult() {
   document.getElementById('rStars').textContent = stars;
   document.getElementById('rTitle').textContent = titles[correct - 1] || titles[0];
   document.getElementById('rSub').textContent = subs[correct - 1] || subs[0];
-  document.getElementById('rXp').textContent = '+' + totalXp;
-  document.getElementById('s1').textContent = quizAnswers[0] ? '+10 XP ✅' : '+0 XP ❌';
-  document.getElementById('s2').textContent = quizAnswers[1] ? '+10 XP ✅' : '+0 XP ❌';
-  document.getElementById('s3').textContent = quizAnswers[2] ? '+10 XP ✅' : '+0 XP ❌';
-  document.getElementById('sBonus').textContent = `+${streakBonus} XP 🔥`;
+  const xpGained = document.querySelector('.xp-gained');
+  if (isReplay) {
+    xpGained.style.display = 'none';
+    document.getElementById('rSub').textContent = 'Luyện tập thêm — XP chỉ tính lần đầu mỗi ngày.';
+  } else {
+    xpGained.style.display = '';
+    document.getElementById('rXp').textContent = '+' + totalXp;
+  }
+  document.getElementById('s1').textContent = quizAnswers[0] ? '✅ Đúng' : '❌ Sai';
+  document.getElementById('s2').textContent = quizAnswers[1] ? '✅ Đúng' : '❌ Sai';
+  document.getElementById('s3').textContent = quizAnswers[2] ? '✅ Đúng' : '❌ Sai';
+  document.getElementById('sBonus').textContent = isReplay ? '—' : `+${streakBonus} XP 🔥`;
 
   const banner = document.getElementById('rankUpBanner');
   if (newRi > oldRi) {
