@@ -182,6 +182,6 @@ initDB().then(() => {
     console.log(`\n✅  Audit Vocab Quest → http://localhost:${PORT}\n`);
   });
 }).catch(err => {
-  console.error('❌  Không kết nối được database:', err.message);
+  console.error('❌  Không kết nối được database:', JSON.stringify(err), err.message, err.code);
   process.exit(1);
 });
