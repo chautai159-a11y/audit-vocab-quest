@@ -177,11 +177,19 @@ app.get('*', (_, res) =>
 );
 
 // ── Start ─────────────────────────────────────────────────────────────────────
-initDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`\n✅  Audit Vocab Quest → http://localhost:${PORT}\n`);
-  });
-}).catch(err => {
-  console.error('❌  Không kết nối được database:', JSON.stringify(err), err.message, err.code);
-  process.exit(1);
-});
+async function startWithRetry(retries = 10, delay = 3000) {
+  for (let i = 1; i <= retries; i++) {
+    try {
+      await initDB();
+      app.listen(PORT, () => {
+        console.log(`\n✅  Audit Vocab Quest → http://localhost:${PORT}\n`);
+      });
+      return;
+    } catch (err) {
+      console.error(`⏳  DB attempt ${i}/${retries} failed:`, err.message || err.code || String(err));
+      if (i === retries) { console.error('❌  Giving up.'); process.exit(1); }
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+}
+startWithRetry();
