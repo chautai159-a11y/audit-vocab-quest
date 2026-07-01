@@ -11,6 +11,9 @@ const ADMIN_USER   = process.env.ADMIN_USERNAME   || 'admin';
 const ADMIN_PASS   = process.env.ADMIN_PASSWORD   || '';
 const PORT = process.env.PORT || 3000;
 
+const TOPIC_BONUS_XP = [150, 150, 200, 200, 200, 250];
+const TOPIC_SIZE = 30;
+
 // ── Database (PostgreSQL) ─────────────────────────────────────────────────────
 const dbUrl = process.env.DATABASE_URL || '';
 const needsSsl = dbUrl && !dbUrl.includes('localhost') && !dbUrl.includes('127.0.0.1');
@@ -41,6 +44,7 @@ async function initDB() {
     CREATE TABLE IF NOT EXISTS completions (
       id         SERIAL PRIMARY KEY,
       user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      topic_id   INTEGER,
       word_index INTEGER NOT NULL,
       play_date  TEXT    NOT NULL,
       correct    INTEGER NOT NULL,
@@ -48,11 +52,18 @@ async function initDB() {
       created_at TIMESTAMP DEFAULT NOW(),
       UNIQUE(user_id, play_date)
     );
+
+    CREATE TABLE IF NOT EXISTS topic_bonuses (
+      id         SERIAL PRIMARY KEY,
+      user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      topic_id   INTEGER NOT NULL,
+      xp_earned  INTEGER NOT NULL,
+      awarded_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE(user_id, topic_id)
+    );
   `);
-  // migrate: add is_active to existing tables that predate this column
-  await pool.query(`
-    ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE;
-  `);
+  await pool.query(`ALTER TABLE users       ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE`);
+  await pool.query(`ALTER TABLE completions ADD COLUMN IF NOT EXISTS topic_id  INTEGER`);
   console.log('✅  Database tables ready.');
 }
 
@@ -134,25 +145,42 @@ app.get('/api/profile', auth, async (req, res) => {
     WHERE u.id = $1
   `, [req.user.id]);
 
-  const { rows: completionRows } = await pool.query(
-    'SELECT play_date FROM completions WHERE user_id = $1',
-    [req.user.id]
-  );
+  const today = new Date().toISOString().slice(0, 10);
+
+  const [wordRows, bonusRows, todayRows] = await Promise.all([
+    pool.query(
+      'SELECT topic_id, word_index FROM completions WHERE user_id=$1 AND topic_id IS NOT NULL',
+      [req.user.id]
+    ),
+    pool.query('SELECT topic_id FROM topic_bonuses WHERE user_id=$1', [req.user.id]),
+    pool.query(
+      'SELECT COUNT(*)::int AS cnt FROM completions WHERE user_id=$1 AND play_date=$2',
+      [req.user.id, today]
+    ),
+  ]);
+
+  const completedWords = {};
+  for (const r of wordRows.rows) {
+    if (!completedWords[r.topic_id]) completedWords[r.topic_id] = [];
+    completedWords[r.topic_id].push(r.word_index);
+  }
 
   res.json({
     ...rows[0],
-    completed_dates: completionRows.map(r => r.play_date)
+    completed_words: completedWords,
+    topic_bonuses: bonusRows.rows.map(r => r.topic_id),
+    played_today: todayRows.rows[0].cnt > 0,
   });
 });
 
 // ── Submit daily result ───────────────────────────────────────────────────────
 app.post('/api/complete', auth, async (req, res) => {
-  const { word_index, play_date, correct, xp_earned } = req.body || {};
+  const { topic_id, word_index, play_date, correct, xp_earned } = req.body || {};
 
   try {
     await pool.query(
-      'INSERT INTO completions (user_id, word_index, play_date, correct, xp_earned) VALUES ($1,$2,$3,$4,$5)',
-      [req.user.id, word_index, play_date, correct, xp_earned]
+      'INSERT INTO completions (user_id, topic_id, word_index, play_date, correct, xp_earned) VALUES ($1,$2,$3,$4,$5,$6)',
+      [req.user.id, topic_id ?? null, word_index, play_date, correct, xp_earned]
     );
   } catch (e) {
     if (e.code === '23505')
@@ -160,21 +188,41 @@ app.post('/api/complete', auth, async (req, res) => {
     return res.status(500).json({ error: 'Lỗi server.' });
   }
 
+  // Check topic completion bonus
+  let bonusXp = 0;
+  let topicComplete = false;
+  if (topic_id != null) {
+    const { rows: cnt } = await pool.query(
+      'SELECT COUNT(*)::int AS n FROM completions WHERE user_id=$1 AND topic_id=$2',
+      [req.user.id, topic_id]
+    );
+    if (cnt[0].n >= TOPIC_SIZE) {
+      try {
+        const bxp = TOPIC_BONUS_XP[topic_id] || 150;
+        await pool.query(
+          'INSERT INTO topic_bonuses (user_id, topic_id, xp_earned) VALUES ($1,$2,$3)',
+          [req.user.id, topic_id, bxp]
+        );
+        bonusXp = bxp;
+        topicComplete = true;
+      } catch { /* already awarded */ }
+    }
+  }
+
   const { rows } = await pool.query(
-    'SELECT xp, streak, last_date FROM progress WHERE user_id = $1',
-    [req.user.id]
+    'SELECT xp, streak, last_date FROM progress WHERE user_id=$1', [req.user.id]
   );
   const prog = rows[0];
   const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
   const newStreak = prog.last_date === yesterday ? Number(prog.streak) + 1 : 1;
-  const newXp = Number(prog.xp) + xp_earned;
+  const newXp = Number(prog.xp) + xp_earned + bonusXp;
 
   await pool.query(
     'UPDATE progress SET xp=$1, streak=$2, last_date=$3 WHERE user_id=$4',
     [newXp, newStreak, play_date, req.user.id]
   );
 
-  res.json({ xp: newXp, streak: newStreak });
+  res.json({ xp: newXp, streak: newStreak, bonus_xp: bonusXp, topic_complete: topicComplete });
 });
 
 // ── Leaderboard ───────────────────────────────────────────────────────────────

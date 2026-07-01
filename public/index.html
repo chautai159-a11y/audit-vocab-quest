@@ -43,7 +43,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .auth-err.show{display:block}
 
 /* ─── NAV ─── */
-.nav{width:100%;max-width:480px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.nav{width:100%;max-width:640px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .nav-user{display:flex;align-items:center;gap:8px}
 .nav-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
 .nav-name{font-size:14px;font-weight:600;color:var(--text)}
@@ -53,43 +53,42 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .nav-btn.active{border-color:var(--gold);color:var(--gold)}
 
 /* ─── HOME ─── */
-.streak-row{width:100%;max-width:480px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.streak-row{width:100%;max-width:640px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .streak-badge{display:flex;align-items:center;gap:6px;background:#1a1a2e;border:1px solid #2d2d5e;border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:#f97316}
 .total-xp{font-size:13px;color:var(--muted);font-weight:500}
 .total-xp strong{color:var(--gold)}
 
-.rank-card{width:100%;max-width:480px;background:linear-gradient(135deg,#1e1b4b,#1a2036);border:1px solid #3730a3;border-radius:20px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden}
+.rank-card{width:100%;max-width:640px;background:linear-gradient(135deg,#1e1b4b,#1a2036);border:1px solid #3730a3;border-radius:20px;padding:20px 24px;margin-bottom:16px;position:relative;overflow:hidden}
 .rank-card::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:radial-gradient(circle,rgba(99,102,241,.2),transparent 70%);border-radius:50%}
-.rank-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:6px}
-.rank-title{font-size:26px;font-weight:800;color:#e0e7ff;margin-bottom:14px}
-.xp-bar-wrap{background:#0f172a;border-radius:8px;height:10px;overflow:hidden;margin-bottom:8px}
+.rank-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:4px}
+.rank-title{font-size:22px;font-weight:800;color:#e0e7ff;margin-bottom:12px}
+.xp-bar-wrap{background:#0f172a;border-radius:8px;height:8px;overflow:hidden;margin-bottom:6px}
 .xp-bar{height:100%;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:8px;transition:width .6s ease}
 .xp-info{display:flex;justify-content:space-between;font-size:12px;color:#94a3b8}
-.rank-icon{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:52px}
+.rank-icon{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:44px}
 
-.daily-card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;cursor:pointer;transition:all .2s}
-.daily-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.daily-card.done{cursor:default;opacity:.7}
-.daily-tag{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:10px}
-.daily-word{font-size:28px;font-weight:800;color:#fff;margin-bottom:4px}
-.daily-ipa{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--muted);margin-bottom:10px}
-.daily-vn{font-size:15px;color:var(--text)}
-.daily-cat{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;margin-top:10px;font-weight:600}
-.cat-ia{background:#1e3a5f;color:#60a5fa}
-.cat-rm{background:#1a3a2a;color:#34d399}
-.cat-it{background:#3b1a4a;color:#c084fc}
+.done-banner{width:100%;max-width:640px;background:#0d2218;border:1px solid #166534;border-radius:var(--radius);padding:12px 18px;text-align:center;color:#86efac;font-weight:600;font-size:14px;margin-bottom:14px}
 
-.done-banner{width:100%;max-width:480px;background:#0d2218;border:1px solid #166534;border-radius:var(--radius);padding:14px 18px;text-align:center;color:#86efac;font-weight:600;font-size:14px;margin-bottom:16px}
-
-.btn-start{width:100%;max-width:480px;padding:15px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;border-radius:var(--radius);font-size:16px;font-weight:700;color:#000;cursor:pointer;transition:all .2s;margin-bottom:14px}
-.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.3)}
-
-.vocab-progress{width:100%;max-width:480px}
-.vp-label{font-size:12px;color:var(--muted);margin-bottom:8px}
-.vp-grid{display:flex;flex-wrap:wrap;gap:4px}
-.vp-dot{width:10px;height:10px;border-radius:2px;background:var(--border)}
-.vp-dot.done{background:#10b981}
-.vp-dot.today{background:var(--gold)}
+/* ─── TOPIC GRID ─── */
+.section-title{width:100%;max-width:640px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:12px}
+.topics-grid{width:100%;max-width:640px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.topic-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;position:relative}
+.topic-card:hover:not(.locked){border-color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.15)}
+.topic-card.locked{opacity:.55;cursor:not-allowed}
+.topic-card.complete{border-color:var(--green);background:#0a1f12}
+.topic-card.active-topic{border-color:var(--gold)}
+.topic-icon{font-size:28px;margin-bottom:8px}
+.topic-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;line-height:1.3}
+.topic-title-vn{font-size:11px;color:var(--muted);margin-bottom:10px}
+.topic-bar-wrap{background:#0f172a;border-radius:4px;height:5px;overflow:hidden;margin-bottom:6px}
+.topic-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:4px;transition:width .4s}
+.topic-card.complete .topic-bar{background:linear-gradient(90deg,#10b981,#059669)}
+.topic-status{font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:space-between}
+.topic-status .words{color:var(--muted)}
+.topic-status .badge{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.badge-locked{background:#1f2937;color:var(--muted)}
+.badge-active{background:#1e3a5f;color:#60a5fa}
+.badge-done{background:#0d2218;color:#34d399}
 
 /* ─── LEARN ─── */
 .back-btn{align-self:flex-start;background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;margin-bottom:16px;display:flex;align-items:center;gap:6px}
@@ -110,6 +109,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .cat-row{width:100%;max-width:900px;margin-bottom:12px}
 .btn-ready{width:100%;max-width:900px;padding:13px;background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;border-radius:var(--radius);font-size:15px;font-weight:700;color:#fff;cursor:pointer;transition:all .2s}
 .btn-ready:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.3)}
+.daily-cat{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;margin-top:6px;font-weight:600}
+.cat-ia{background:#1e3a5f;color:#60a5fa}
+.cat-rm{background:#1a3a2a;color:#34d399}
+.cat-it{background:#3b1a4a;color:#c084fc}
 
 /* ─── QUIZ ─── */
 .quiz-header{width:100%;max-width:480px;margin-bottom:20px}
@@ -139,10 +142,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .result-stars{font-size:48px;margin-bottom:14px;animation:bounceIn .5s}
 .result-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px}
 .result-subtitle{font-size:14px;color:var(--muted);margin-bottom:24px}
-.xp-gained{background:linear-gradient(135deg,#1a1a0d,#2a2200);border:1px solid var(--gold);border-radius:var(--radius);padding:18px 32px;margin-bottom:20px;display:inline-block}
+.xp-gained{background:linear-gradient(135deg,#1a1a0d,#2a2200);border:1px solid var(--gold);border-radius:var(--radius);padding:18px 32px;margin-bottom:14px;display:inline-block}
 .xp-num{font-size:48px;font-weight:800;color:var(--gold);animation:countUp .6s}
 .xp-label{font-size:13px;color:#a16207}
-.rank-up-banner{background:linear-gradient(135deg,#1e1b4b,#2d1b69);border:1px solid #6366f1;border-radius:var(--radius);padding:14px 24px;margin-bottom:20px;animation:slideIn .5s}
+.bonus-banner{background:linear-gradient(135deg,#0d2218,#0a1f0f);border:1px solid var(--green);border-radius:var(--radius);padding:14px 24px;margin-bottom:14px;animation:slideIn .5s}
+.bonus-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#34d399;margin-bottom:4px}
+.bonus-name{font-size:17px;font-weight:800;color:#86efac}
+.rank-up-banner{background:linear-gradient(135deg,#1e1b4b,#2d1b69);border:1px solid #6366f1;border-radius:var(--radius);padding:14px 24px;margin-bottom:14px;animation:slideIn .5s}
 .rank-up-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:4px}
 .rank-up-name{font-size:20px;font-weight:800;color:#e0e7ff}
 .score-breakdown{width:100%;max-width:360px;margin:0 auto 20px}
@@ -151,6 +157,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .score-row span:last-child{font-weight:600;color:var(--green)}
 .btn-home{padding:13px 36px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);font-size:15px;font-weight:600;color:var(--text);cursor:pointer;transition:.2s}
 .btn-home:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ─── TOPIC COMPLETE ─── */
+#topicComplete{justify-content:center;text-align:center}
+.tc-icon{font-size:72px;margin-bottom:16px;animation:bounceIn .6s}
+.tc-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:8px}
+.tc-sub{font-size:15px;color:var(--muted);margin-bottom:8px}
+.tc-topic{font-size:18px;font-weight:700;color:var(--gold);margin-bottom:24px}
+.tc-xp{background:linear-gradient(135deg,#1a1a0d,#2a2200);border:1px solid var(--gold);border-radius:var(--radius);padding:20px 40px;margin-bottom:24px;display:inline-block}
+.tc-xp-num{font-size:52px;font-weight:800;color:var(--gold)}
+.tc-xp-label{font-size:13px;color:#a16207}
+.tc-next{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 20px;margin-bottom:24px;font-size:14px;color:var(--text)}
+.tc-next strong{color:var(--blue)}
 
 /* ─── LEADERBOARD ─── */
 #leaderboard{justify-content:flex-start}
@@ -206,14 +224,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
       <button class="auth-tab active" onclick="switchTab('login')">Đăng nhập</button>
       <button class="auth-tab" onclick="switchTab('register')">Đăng ký</button>
     </div>
-    <!-- LOGIN -->
     <div id="loginForm" class="auth-form">
       <div class="auth-err" id="loginErr"></div>
       <div class="field"><label>Tên đăng nhập</label><input id="loginUser" type="text" placeholder="username" autocomplete="username"></div>
       <div class="field"><label>Mật khẩu</label><input id="loginPass" type="password" placeholder="••••••" autocomplete="current-password"></div>
       <button class="btn-auth" id="loginBtn" onclick="doLogin()">Đăng nhập</button>
     </div>
-    <!-- REGISTER -->
     <div id="registerForm" class="auth-form" style="display:none">
       <div class="auth-err" id="regErr"></div>
       <div class="field"><label>Tên hiển thị</label><input id="regName" type="text" placeholder="Nguyễn Văn A"></div>
@@ -226,13 +242,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 
 <!-- HOME -->
 <div id="home" class="screen">
-  <div class="nav">
+  <div class="nav" style="max-width:640px">
     <div class="nav-user">
       <div class="nav-avatar" id="navAvatar">A</div>
       <div class="nav-name" id="navName">...</div>
     </div>
     <div class="nav-actions">
-      <button class="nav-btn" id="lbBtn" onclick="goLeaderboard()">🏆 BXH</button>
+      <button class="nav-btn" onclick="goLeaderboard()">🏆 BXH</button>
       <button class="nav-btn" onclick="doLogout()">Thoát</button>
     </div>
   </div>
@@ -250,29 +266,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     </div>
     <div class="rank-icon" id="rankIcon">🎓</div>
   </div>
-  <div class="daily-card" id="dailyCard" onclick="goLearn()">
-    <div class="daily-tag">📅 Từ hôm nay</div>
-    <div class="daily-word" id="hw"></div>
-    <div class="daily-ipa" id="hipa"></div>
-    <div class="daily-vn" id="hvn"></div>
-    <div id="hcat"></div>
-  </div>
   <div class="done-banner" id="doneBanner" style="display:none">
-    ✅ Bạn đã hoàn thành từ hôm nay! Quay lại vào ngày mai để học từ mới.
+    ✅ Bạn đã học từ hôm nay! Quay lại ngày mai để mở từ mới. (Vẫn có thể ôn lại)
   </div>
-  <button class="btn-start" id="startBtn" onclick="goLearn()">🚀 Bắt đầu thử thách hôm nay</button>
-  <button class="btn-start" id="reviewBtn" onclick="startReplay()" style="display:none;background:linear-gradient(135deg,#1a2a1a,#0a1a0a);border:1.5px solid #22c55e;color:#22c55e">🔄 Ôn lại từ hôm nay</button>
-  <div class="vocab-progress">
-    <div class="vp-label">Tiến độ (<span id="vpDone">0</span>/50 từ)</div>
-    <div class="vp-grid" id="vpGrid"></div>
-  </div>
+  <div class="section-title">📚 Chọn chủ đề để học</div>
+  <div class="topics-grid" id="topicsGrid"></div>
 </div>
 
 <!-- LEARN -->
 <div id="learn" class="screen">
   <div style="width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
     <button class="back-btn" style="margin-bottom:0" onclick="goHome()">← Quay lại</button>
-    <div class="learn-phase" style="margin-bottom:0">📖 Giai đoạn 1 — Học từ</div>
+    <div class="learn-phase" style="margin-bottom:0" id="learnPhaseLabel">📖 Giai đoạn 1 — Học từ</div>
     <div style="width:80px"></div>
   </div>
   <div class="learn-word" id="lw" style="font-size:32px;margin-bottom:2px"></div>
@@ -323,9 +328,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
   <div class="result-stars" id="rStars">⭐⭐⭐</div>
   <div class="result-title" id="rTitle">Xuất sắc!</div>
   <div class="result-subtitle" id="rSub"></div>
-  <div class="xp-gained">
+  <div class="xp-gained" id="xpGained">
     <div class="xp-num" id="rXp">+0</div>
     <div class="xp-label">XP kiếm được hôm nay</div>
+  </div>
+  <div class="bonus-banner" id="bonusBanner" style="display:none">
+    <div class="bonus-title">🏆 Hoàn thành chủ đề!</div>
+    <div class="bonus-name" id="bonusName"></div>
   </div>
   <div class="rank-up-banner" id="rankUpBanner" style="display:none">
     <div class="rank-up-title">🎉 Thăng cấp!</div>
@@ -340,6 +349,22 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
     <button class="btn-home" onclick="goHome()">🏠 Về trang chủ</button>
     <button class="btn-home" id="replayBtn" onclick="replayQuiz()" style="background:linear-gradient(135deg,#1a2a1a,#0a1a0a);border-color:#22c55e;color:#22c55e">🔄 Chơi lại</button>
+  </div>
+</div>
+
+<!-- TOPIC COMPLETE -->
+<div id="topicComplete" class="screen">
+  <div class="tc-icon">🏆</div>
+  <div class="tc-title">Chúc mừng!</div>
+  <div class="tc-sub">Bạn đã hoàn thành toàn bộ chủ đề</div>
+  <div class="tc-topic" id="tcTopicName"></div>
+  <div class="tc-xp">
+    <div class="tc-xp-num" id="tcBonusXp"></div>
+    <div class="tc-xp-label">XP thưởng hoàn thành chủ đề</div>
+  </div>
+  <div class="tc-next" id="tcNext"></div>
+  <div style="display:flex;gap:12px;justify-content:center">
+    <button class="btn-home" onclick="goHome()">🏠 Về trang chủ</button>
   </div>
 </div>
 
@@ -362,59 +387,305 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── VOCABULARY ────────────────────────────────────────────────────────────
-const VOCAB = [
-  {word:"Materiality",ipa:"/ˌmətɪriˈælɪti/",vn:"Tính trọng yếu",cat:"IA",en:"The significance threshold determining whether an omission or misstatement could influence the decisions of financial statement users.",envn:"Ngưỡng trọng yếu xác định liệu một sự bỏ sót hoặc sai sót có thể ảnh hưởng đến quyết định của người sử dụng báo cáo tài chính hay không.",ex:'The auditor concluded that the <strong>$50,000</strong> variance exceeded the <strong>materiality</strong> threshold and warranted a formal audit finding.',exvn:"Kiểm toán viên kết luận rằng sai lệch 50.000 USD vượt ngưỡng trọng yếu và cần lập một phát hiện kiểm toán chính thức.",blank:"The auditor concluded that the $50,000 variance exceeded the ___ threshold and warranted a formal audit finding.",usages:["The auditor applied a materiality level of 5% of total assets when planning the engagement.","The team confirmed that the error was not material and required no adjustment.","Materiality is always assessed relative to the size and nature of the entity."],wrongs:["Tính chính xác","Tính minh bạch","Tính nhất quán"]},
-  {word:"Risk Appetite",ipa:"/rɪsk ˈæpɪtaɪt/",vn:"Khẩu vị rủi ro",cat:"RM",en:"The amount and type of risk an organization is willing to accept in pursuit of its strategic objectives.",envn:"Mức độ và loại rủi ro mà một tổ chức sẵn sàng chấp nhận trong việc theo đuổi các mục tiêu chiến lược.",ex:'The board approved a <strong>risk appetite</strong> statement limiting cybersecurity losses to no more than 2% of annual revenue.',exvn:"Hội đồng quản trị phê duyệt tuyên bố khẩu vị rủi ro, giới hạn tổn thất an ninh mạng không quá 2% doanh thu hàng năm.",blank:"The board approved a ___ statement limiting cybersecurity losses to no more than 2% of annual revenue.",usages:["Management's risk appetite for operational disruption is extremely low given regulatory requirements.","The risk appetite framework guides investment decisions across all business units.","A well-defined risk appetite helps align risk-taking with organizational strategy."],wrongs:["Khả năng chịu đựng tài chính","Mức độ kiểm soát","Ngưỡng rủi ro tối đa"]},
-  {word:"Audit Trail",ipa:"/ˈɔːdɪt treɪl/",vn:"Dấu vết kiểm toán",cat:"IT",en:"A chronological sequence of records documenting the history of transactions, access events, or system activities for accountability and traceability.",envn:"Chuỗi hồ sơ theo thứ tự thời gian ghi lại lịch sử các giao dịch, sự kiện truy cập hoặc hoạt động hệ thống nhằm đảm bảo trách nhiệm giải trình và khả năng truy vết.",ex:'The <strong>audit trail</strong> revealed that an unauthorized user had accessed the payroll system at 2 AM on three separate occasions.',exvn:"Dấu vết kiểm toán cho thấy một người dùng trái phép đã truy cập hệ thống lương vào lúc 2 giờ sáng trong ba lần riêng biệt.",blank:"The ___ revealed that an unauthorized user had accessed the payroll system at 2 AM on three separate occasions.",usages:["The ERP system maintains an audit trail of all journal entries including who posted them and when.","Without a reliable audit trail, it is impossible to reconstruct what happened after a breach.","Regulators required the bank to preserve audit trails for a minimum of seven years."],wrongs:["Biên bản họp kiểm toán","Chứng từ gốc","Lịch sử kiểm tra"]},
-  {word:"Segregation of Duties",ipa:"/ˌseɡrɪˈɡeɪʃən əv ˈdjuːtɪz/",vn:"Phân tách nhiệm vụ",cat:"IA",en:"An internal control principle ensuring that no single person has control over all aspects of a financial transaction to prevent errors and fraud.",envn:"Nguyên tắc kiểm soát nội bộ đảm bảo không một cá nhân nào kiểm soát toàn bộ các khía cạnh của một giao dịch tài chính nhằm ngăn ngừa sai sót và gian lận.",ex:'The absence of <strong>segregation of duties</strong> meant the same employee could both approve and process vendor payments — a critical control weakness.',exvn:"Sự thiếu vắng phân tách nhiệm vụ có nghĩa là cùng một nhân viên có thể vừa phê duyệt vừa xử lý thanh toán nhà cung cấp — một điểm yếu kiểm soát nghiêm trọng.",blank:"The absence of ___ meant the same employee could both approve and process vendor payments.",usages:["Segregation of duties requires that the person who initiates a purchase cannot also approve it.","The small team size made proper segregation of duties difficult to achieve.","IT systems should enforce segregation of duties through role-based access controls."],wrongs:["Phân quyền truy cập hệ thống","Phân công công việc","Chia tách ngân sách"]},
-  {word:"Control Environment",ipa:"/kənˈtroʊl ɪnˈvaɪrənmənt/",vn:"Môi trường kiểm soát",cat:"IA",en:"The foundation of all other components of internal control, reflecting the overall attitude, awareness, and actions of management regarding the importance of control.",envn:"Nền tảng của tất cả các thành phần kiểm soát nội bộ khác, phản ánh thái độ, nhận thức và hành động tổng thể của ban quản lý về tầm quan trọng của kiểm soát.",ex:'A strong <strong>control environment</strong> starts at the top — when leadership demonstrates ethical behavior and accountability, employees follow.',exvn:"Môi trường kiểm soát vững mạnh bắt đầu từ cấp cao nhất — khi lãnh đạo thể hiện hành vi đạo đức và trách nhiệm giải trình, nhân viên sẽ noi gương.",blank:"A strong ___ starts at the top — when leadership demonstrates ethical behavior and accountability, employees follow.",usages:["The COSO framework places the control environment as the first and most fundamental component.","Weaknesses in the control environment increase the risk of fraud across all business processes.","Assessing the control environment requires interviews with senior management and board members."],wrongs:["Môi trường làm việc văn phòng","Cơ sở hạ tầng công nghệ","Hệ thống báo cáo nội bộ"]},
-  {word:"Inherent Risk",ipa:"/ɪnˈhɪərənt rɪsk/",vn:"Rủi ro tiềm tàng",cat:"IA",en:"The susceptibility of an assertion to a material misstatement assuming no related internal controls, based on the nature of the business or transaction.",envn:"Khả năng xảy ra sai sót trọng yếu trong một cơ sở dẫn liệu, giả định không có kiểm soát nội bộ liên quan, dựa trên bản chất của doanh nghiệp hoặc giao dịch.",ex:'Cash transactions carry high <strong>inherent risk</strong> because they are easily misappropriated and difficult to verify without supporting documentation.',exvn:"Giao dịch tiền mặt có rủi ro tiềm tàng cao vì dễ bị chiếm đoạt và khó xác minh khi không có tài liệu hỗ trợ.",blank:"Cash transactions carry high ___ because they are easily misappropriated and difficult to verify without supporting documentation.",usages:["The auditor assessed inherent risk as high for revenue recognition given the complexity of contracts.","Inherent risk is evaluated before considering the effectiveness of internal controls.","Industries with rapid regulatory change typically exhibit higher inherent risk."],wrongs:["Rủi ro kiểm soát","Rủi ro phát hiện","Rủi ro tín dụng"]},
-  {word:"Vulnerability",ipa:"/ˌvʌlnərəˈbɪlɪti/",vn:"Lỗ hổng bảo mật",cat:"IT",en:"A weakness in a system, application, or process that can be exploited by a threat actor to gain unauthorized access or cause harm.",envn:"Điểm yếu trong hệ thống, ứng dụng hoặc quy trình có thể bị khai thác bởi kẻ tấn công để truy cập trái phép hoặc gây thiệt hại.",ex:'The penetration test uncovered a critical <strong>vulnerability</strong> in the web application that allowed SQL injection attacks on the customer database.',exvn:"Bài kiểm thử xâm nhập phát hiện một lỗ hổng bảo mật nghiêm trọng trong ứng dụng web cho phép tấn công SQL injection vào cơ sở dữ liệu khách hàng.",blank:"The penetration test uncovered a critical ___ in the web application that allowed SQL injection attacks on the customer database.",usages:["Unpatched software is one of the most common vulnerabilities exploited by attackers.","The vulnerability assessment identified 47 high-risk findings requiring immediate remediation.","Zero-day vulnerabilities are particularly dangerous because no patch yet exists."],wrongs:["Điểm yếu tài chính","Hạn chế nhân sự","Rủi ro vận hành"]},
-  {word:"Penetration Testing",ipa:"/ˌpenɪˈtreɪʃən ˈtestɪŋ/",vn:"Kiểm thử xâm nhập",cat:"IT",en:"An authorized simulated cyberattack on a system to evaluate its security by identifying exploitable vulnerabilities before malicious actors do.",envn:"Cuộc tấn công mạng giả lập được cấp phép vào hệ thống để đánh giá bảo mật bằng cách xác định các lỗ hổng có thể khai thác trước khi kẻ tấn công độc hại làm điều đó.",ex:'The annual <strong>penetration testing</strong> exercise revealed that attackers could gain domain administrator privileges within four hours.',exvn:"Bài kiểm thử xâm nhập hàng năm tiết lộ rằng kẻ tấn công có thể đạt được quyền quản trị miền trong vòng bốn giờ.",blank:"The annual ___ exercise revealed that attackers could gain domain administrator privileges within four hours.",usages:["Penetration testing should be performed by qualified ethical hackers under a formal scope agreement.","The IT audit included penetration testing of all externally-facing web applications.","Results of penetration testing are classified as highly sensitive and restricted to senior management."],wrongs:["Kiểm tra hiệu năng hệ thống","Thử nghiệm phần mềm mới","Kiểm soát truy cập vật lý"]},
-  {word:"Encryption",ipa:"/ɪnˈkrɪpʃən/",vn:"Mã hóa dữ liệu",cat:"IT",en:"The process of converting readable data into an unreadable format using an algorithm and key, ensuring that only authorized parties can access it.",envn:"Quá trình chuyển đổi dữ liệu có thể đọc thành định dạng không thể đọc bằng thuật toán và khóa mã, đảm bảo chỉ các bên được ủy quyền mới có thể truy cập.",ex:'Customer credit card numbers are protected by <strong>encryption</strong> both in transit and at rest, complying with PCI-DSS requirements.',exvn:"Số thẻ tín dụng của khách hàng được bảo vệ bằng mã hóa cả khi truyền tải lẫn khi lưu trữ, tuân thủ các yêu cầu PCI-DSS.",blank:"Customer credit card numbers are protected by ___ both in transit and at rest, complying with PCI-DSS requirements.",usages:["The company uses AES-256 encryption for all sensitive data stored in the cloud.","Encryption alone is insufficient — key management practices are equally critical.","Auditors verified that encryption was applied to all laptops containing confidential information."],wrongs:["Nén dữ liệu","Phân quyền truy cập","Sao lưu dữ liệu"]},
-  {word:"Business Continuity",ipa:"/ˈbɪznɪs ˌkɒntɪˈnjuːɪti/",vn:"Tính liên tục kinh doanh",cat:"RM",en:"The capability of an organization to continue delivering products or services at acceptable predefined levels following a disruptive incident.",envn:"Khả năng của tổ chức tiếp tục cung cấp sản phẩm hoặc dịch vụ ở mức độ chấp nhận được đã xác định trước sau một sự cố gián đoạn.",ex:'The <strong>business continuity</strong> plan was activated when the data center flooded, enabling operations to shift to the backup site within two hours.',exvn:"Kế hoạch liên tục kinh doanh được kích hoạt khi trung tâm dữ liệu bị ngập lụt, cho phép chuyển hoạt động sang địa điểm dự phòng trong vòng hai giờ.",blank:"The ___ plan was activated when the data center flooded, enabling operations to shift to the backup site within two hours.",usages:["Business continuity planning must include regular testing and updating of recovery procedures.","The pandemic exposed significant gaps in many organizations' business continuity frameworks.","Regulators now require financial institutions to demonstrate robust business continuity capabilities."],wrongs:["Tính ổn định tài chính","Kế hoạch mở rộng kinh doanh","Chiến lược phát triển dài hạn"]},
-  {word:"Data Integrity",ipa:"/ˈdeɪtə ɪnˈteɡrɪti/",vn:"Tính toàn vẹn dữ liệu",cat:"IT",en:"The accuracy, consistency, and reliability of data throughout its lifecycle — ensuring data has not been altered or corrupted in an unauthorized manner.",envn:"Tính chính xác, nhất quán và độ tin cậy của dữ liệu trong suốt vòng đời — đảm bảo dữ liệu không bị thay đổi hoặc hỏng một cách trái phép.",ex:'Hash validation checks were implemented to ensure <strong>data integrity</strong> during file transfers between the trading system and reporting database.',exvn:"Kiểm tra xác thực hash được triển khai để đảm bảo tính toàn vẹn dữ liệu trong quá trình truyền tệp giữa hệ thống giao dịch và cơ sở dữ liệu báo cáo.",blank:"Hash validation checks were implemented to ensure ___ during file transfers between the trading system and reporting database.",usages:["Data integrity controls prevent unauthorized changes to financial records after they are posted.","The IT audit found that data integrity was compromised due to missing validation rules.","Database triggers were used to maintain data integrity across related tables."],wrongs:["Tính bảo mật dữ liệu","Tốc độ xử lý dữ liệu","Dung lượng lưu trữ"]},
-  {word:"Authentication",ipa:"/ɔːˌθentɪˈkeɪʃən/",vn:"Xác thực danh tính",cat:"IT",en:"The process of verifying the identity of a user, device, or system before granting access to resources.",envn:"Quá trình xác minh danh tính của người dùng, thiết bị hoặc hệ thống trước khi cấp quyền truy cập vào tài nguyên.",ex:'Multi-factor <strong>authentication</strong> requires users to provide both a password and a one-time code sent to their mobile device.',exvn:"Xác thực đa yếu tố yêu cầu người dùng cung cấp cả mật khẩu lẫn mã dùng một lần được gửi đến thiết bị di động của họ.",blank:"Multi-factor ___ requires users to provide both a password and a one-time code sent to their mobile device.",usages:["Strong authentication is the first line of defense against unauthorized system access.","The audit found that privileged accounts lacked multi-factor authentication — a critical finding.","Biometric authentication is increasingly used for high-security system access."],wrongs:["Phân quyền truy cập","Mã hóa thông tin","Theo dõi hoạt động người dùng"]},
-  {word:"Governance",ipa:"/ˈɡʌvənəns/",vn:"Quản trị",cat:"RM",en:"The system by which an organization is directed and controlled, including structures, processes, and policies that ensure accountability, fairness, and transparency.",envn:"Hệ thống mà qua đó tổ chức được chỉ đạo và kiểm soát, bao gồm cấu trúc, quy trình và chính sách đảm bảo trách nhiệm giải trình, sự công bằng và minh bạch.",ex:'Strong <strong>governance</strong> requires the board to maintain independent oversight of management, especially in risk and compliance matters.',exvn:"Quản trị vững mạnh đòi hỏi hội đồng quản trị duy trì sự giám sát độc lập đối với ban quản lý, đặc biệt trong các vấn đề rủi ro và tuân thủ.",blank:"Strong ___ requires the board to maintain independent oversight of management, especially in risk and compliance matters.",usages:["The IT governance framework aligned technology investments with organizational strategy.","Poor governance was identified as the root cause of multiple compliance failures.","Governance structures should clearly define roles, responsibilities, and escalation paths."],wrongs:["Chiến lược kinh doanh","Văn hóa doanh nghiệp","Hệ thống khen thưởng"]},
-  {word:"Compliance",ipa:"/kəmˈplaɪəns/",vn:"Tuân thủ",cat:"RM",en:"Adherence to laws, regulations, standards, and internal policies that govern an organization's operations and conduct.",envn:"Sự tuân thủ các luật, quy định, tiêu chuẩn và chính sách nội bộ điều chỉnh hoạt động và hành vi của tổ chức.",ex:'The <strong>compliance</strong> review confirmed that all 47 branches were following anti-money laundering procedures as required by regulation.',exvn:"Đánh giá tuân thủ xác nhận rằng tất cả 47 chi nhánh đang thực hiện các quy trình chống rửa tiền theo yêu cầu của quy định.",blank:"The ___ review confirmed that all 47 branches were following anti-money laundering procedures as required by regulation.",usages:["Non-compliance with data privacy regulations can result in fines exceeding 4% of global revenue.","The compliance team monitors regulatory changes and updates internal policies accordingly.","IT compliance audits verify that systems meet both regulatory and internal policy requirements."],wrongs:["Sự đồng thuận của nhân viên","Hiệu quả hoạt động","Kết quả kinh doanh"]},
-  {word:"Remediation",ipa:"/rɪˌmiːdiˈeɪʃən/",vn:"Khắc phục",cat:"IA",en:"The process of correcting identified deficiencies, control weaknesses, or audit findings within an agreed timeframe.",envn:"Quá trình khắc phục các khiếm khuyết đã xác định, điểm yếu kiểm soát hoặc phát hiện kiểm toán trong khung thời gian đã thỏa thuận.",ex:'Management committed to complete <strong>remediation</strong> of all high-risk findings within 90 days, with progress reported to the audit committee monthly.',exvn:"Ban quản lý cam kết hoàn thành khắc phục tất cả phát hiện rủi ro cao trong vòng 90 ngày, với tiến độ được báo cáo hàng tháng cho ủy ban kiểm toán.",blank:"Management committed to complete ___ of all high-risk findings within 90 days, with progress reported to the audit committee monthly.",usages:["Timely remediation of critical findings is essential to reduce organizational risk exposure.","The follow-up audit confirmed that remediation actions had been fully implemented.","Remediation plans should include specific owners, milestones, and evidence of completion."],wrongs:["Điều tra thêm","Báo cáo kiểm toán","Đánh giá lại rủi ro"]},
-  {word:"Risk Register",ipa:"/rɪsk ˈredʒɪstər/",vn:"Sổ đăng ký rủi ro",cat:"RM",en:"A documented record of identified risks, their likelihood, impact, owners, and mitigation measures used to track and manage organizational risks.",envn:"Hồ sơ được lập thành văn bản về các rủi ro đã xác định, khả năng xảy ra, tác động, chủ sở hữu và các biện pháp giảm thiểu, dùng để theo dõi và quản lý rủi ro tổ chức.",ex:'The <strong>risk register</strong> flagged cybersecurity threats as the highest-rated risk for the third consecutive year, prompting increased investment.',exvn:"Sổ đăng ký rủi ro đánh dấu các mối đe dọa an ninh mạng là rủi ro được xếp hạng cao nhất trong năm thứ ba liên tiếp, thúc đẩy tăng đầu tư.",blank:"The ___ flagged cybersecurity threats as the highest-rated risk for the third consecutive year, prompting increased investment.",usages:["Each department maintains its own risk register which feeds into the enterprise risk register.","The risk register should be reviewed and updated at least quarterly.","Auditors use the risk register as a starting point for planning their annual audit universe."],wrongs:["Danh sách khách hàng rủi ro","Báo cáo tài chính","Hồ sơ kiểm toán"]},
-  {word:"Fraud",ipa:"/frɔːd/",vn:"Gian lận",cat:"IA",en:"An intentional act involving deception, concealment, or abuse of trust to obtain an unjust or illegal financial advantage.",envn:"Hành vi cố ý liên quan đến lừa dối, che giấu hoặc lạm dụng lòng tin để đạt được lợi thế tài chính bất hợp pháp hoặc không công bằng.",ex:'The internal audit discovered <strong>fraud</strong> in the procurement department where a buyer received kickbacks from vendors for inflated contracts.',exvn:"Kiểm toán nội bộ phát hiện gian lận trong bộ phận mua sắm, nơi một nhân viên mua hàng nhận hoa hồng từ nhà cung cấp cho các hợp đồng bị thổi phồng giá.",blank:"The internal audit discovered ___ in the procurement department where a buyer received kickbacks from vendors for inflated contracts.",usages:["The fraud triangle identifies opportunity, pressure, and rationalization as the three elements of fraud.","Robust internal controls are the most effective way to prevent and detect occupational fraud.","Auditors are required to maintain professional skepticism to detect potential fraud during engagements."],wrongs:["Sai sót vô ý","Vi phạm quy trình","Lỗi hệ thống"]},
-  {word:"Due Diligence",ipa:"/djuː ˈdɪlɪdʒəns/",vn:"Thẩm định",cat:"RM",en:"A comprehensive investigation or review performed before entering into an agreement or transaction to verify facts and assess risks.",envn:"Cuộc điều tra hoặc rà soát toàn diện được thực hiện trước khi ký kết thỏa thuận hoặc giao dịch nhằm xác minh thông tin và đánh giá rủi ro.",ex:'The acquisition team conducted <strong>due diligence</strong> for three months, uncovering $12 million in undisclosed liabilities before finalizing the deal.',exvn:"Nhóm mua lại đã tiến hành thẩm định trong ba tháng, phát hiện 12 triệu USD nợ chưa được công bố trước khi hoàn tất thỏa thuận.",blank:"The acquisition team conducted ___ for three months, uncovering $12 million in undisclosed liabilities before finalizing the deal.",usages:["Due diligence on new vendors includes reviewing their financial stability and security practices.","Inadequate due diligence on the merger target led to significant post-acquisition surprises.","IT due diligence evaluates the target's technology infrastructure, licenses, and cybersecurity posture."],wrongs:["Thẩm quyền phê duyệt","Trách nhiệm giải trình","Quy trình mua sắm"]},
-  {word:"Sampling",ipa:"/ˈsæmplɪŋ/",vn:"Lấy mẫu kiểm toán",cat:"IA",en:"The application of audit procedures to less than 100% of items within an account balance or transaction class to draw conclusions about the entire population.",envn:"Áp dụng các thủ tục kiểm toán cho ít hơn 100% các khoản mục trong số dư tài khoản hoặc nhóm giao dịch để rút ra kết luận về toàn bộ tổng thể.",ex:'Using statistical <strong>sampling</strong>, the auditor tested 60 out of 2,400 purchase orders and extrapolated the error rate to the full population.',exvn:"Sử dụng lấy mẫu thống kê, kiểm toán viên đã kiểm tra 60 trong số 2.400 đơn đặt hàng và ngoại suy tỷ lệ sai sót ra toàn bộ tổng thể.",blank:"Using statistical ___, the auditor tested 60 out of 2,400 purchase orders and extrapolated the error rate to the full population.",usages:["The sample size was determined based on the acceptable risk of incorrect acceptance.","Judgmental sampling was used for large transactions above the materiality threshold.","Sampling risk arises when the auditor's conclusion differs from the true population characteristic."],wrongs:["Phân tích dữ liệu toàn bộ","Phỏng vấn nhân viên","Quan sát trực tiếp"]},
-  {word:"IT General Controls",ipa:"/aɪ tiː ˈdʒenərəl kənˈtroʊlz/",vn:"Kiểm soát chung CNTT",cat:"IT",en:"Controls that apply to all IT systems and support the effective functioning of application controls, including access management, change management, and operations.",envn:"Các kiểm soát áp dụng cho tất cả hệ thống CNTT và hỗ trợ hoạt động hiệu quả của kiểm soát ứng dụng, bao gồm quản lý truy cập, quản lý thay đổi và vận hành.",ex:'Weak <strong>IT general controls</strong> over program change management meant unauthorized code could be deployed to production without approval.',exvn:"Kiểm soát chung CNTT yếu về quản lý thay đổi chương trình có nghĩa là mã không được phép có thể được triển khai vào môi trường sản xuất mà không cần phê duyệt.",blank:"Weak ___ over program change management meant unauthorized code could be deployed to production without approval.",usages:["IT general controls include logical access controls, backup and recovery, and incident management.","The effectiveness of application controls depends heavily on the strength of IT general controls.","COBIT provides a comprehensive framework for assessing IT general controls."],wrongs:["Kiểm soát ứng dụng cụ thể","Chính sách bảo mật mạng","Quy trình phát triển phần mềm"]},
-  {word:"Change Management",ipa:"/tʃeɪndʒ ˈmænɪdʒmənt/",vn:"Quản lý thay đổi",cat:"IT",en:"A formal process for requesting, reviewing, approving, testing, and implementing changes to IT systems to ensure stability and prevent unauthorized modifications.",envn:"Quy trình chính thức để yêu cầu, xem xét, phê duyệt, kiểm tra và triển khai các thay đổi đối với hệ thống CNTT nhằm đảm bảo tính ổn định và ngăn ngừa sửa đổi trái phép.",ex:'The <strong>change management</strong> process requires sign-off from both IT and business owners before any system update can be deployed to production.',exvn:"Quy trình quản lý thay đổi yêu cầu chữ ký xác nhận của cả chủ sở hữu CNTT lẫn nghiệp vụ trước khi bất kỳ cập nhật hệ thống nào được triển khai vào môi trường sản xuất.",blank:"The ___ process requires sign-off from both IT and business owners before any system update can be deployed to production.",usages:["Emergency changes bypassing normal change management procedures require retrospective approval.","The IT audit found that 23% of changes lacked proper documentation in the change management log.","Effective change management reduces the risk of system outages caused by poorly tested updates."],wrongs:["Thay đổi chiến lược kinh doanh","Quản lý nhân sự","Cập nhật chính sách"]},
-  {word:"Privileged Access",ipa:"/ˈprɪvɪlɪdʒd ˈækses/",vn:"Quyền truy cập đặc quyền",cat:"IT",en:"Elevated system access rights granted to administrators and technical staff, allowing them to perform high-risk operations such as modifying configurations or accessing all data.",envn:"Quyền truy cập hệ thống nâng cao được cấp cho quản trị viên và nhân viên kỹ thuật, cho phép thực hiện các hoạt động rủi ro cao như sửa đổi cấu hình hoặc truy cập toàn bộ dữ liệu.",ex:'<strong>Privileged access</strong> to the database server must be time-limited, fully logged, and approved by the security team for each session.',exvn:"Quyền truy cập đặc quyền vào máy chủ cơ sở dữ liệu phải có giới hạn thời gian, được ghi nhật ký đầy đủ và được nhóm bảo mật phê duyệt cho từng phiên làm việc.",blank:"___ to the database server must be time-limited, fully logged, and approved by the security team for each session.",usages:["Privileged access management (PAM) solutions help organizations control and monitor administrator accounts.","The audit found that 15 former employees still had privileged access after termination — a serious finding.","Just-in-time privileged access reduces exposure by granting elevated rights only when needed."],wrongs:["Quyền truy cập cơ bản","Quyền xem dữ liệu","Đăng nhập hệ thống thông thường"]},
-  {word:"Audit Committee",ipa:"/ˈɔːdɪt kəˈmɪti/",vn:"Ủy ban Kiểm toán",cat:"IA",en:"A committee of the board of directors responsible for overseeing financial reporting, internal controls, risk management, and both internal and external audit functions.",envn:"Ủy ban của hội đồng quản trị chịu trách nhiệm giám sát báo cáo tài chính, kiểm soát nội bộ, quản lý rủi ro và cả chức năng kiểm toán nội bộ lẫn kiểm toán độc lập.",ex:'The Chief Audit Executive reports functionally to the <strong>audit committee</strong> to ensure the independence of the internal audit function.',exvn:"Giám đốc điều hành kiểm toán báo cáo chức năng lên ủy ban kiểm toán để đảm bảo tính độc lập của chức năng kiểm toán nội bộ.",blank:"The Chief Audit Executive reports functionally to the ___ to ensure the independence of the internal audit function.",usages:["The audit committee reviews and approves the annual internal audit plan.","Audit committee members should have relevant financial and industry expertise.","Meeting minutes of the audit committee are reviewed by external auditors during the annual audit."],wrongs:["Ban quản lý điều hành","Hội đồng cổ đông","Bộ phận tài chính kế toán"]},
-  {word:"Three Lines of Defense",ipa:"/θriː laɪnz əv dɪˈfens/",vn:"Ba tuyến phòng thủ",cat:"RM",en:"A governance model distinguishing three groups with different roles in managing risk: operational management, risk and compliance functions, and internal audit.",envn:"Mô hình quản trị phân biệt ba nhóm với các vai trò khác nhau trong quản lý rủi ro: quản lý vận hành, chức năng rủi ro và tuân thủ, và kiểm toán nội bộ.",ex:'Under the <strong>three lines of defense</strong> model, the internal audit function serves as the third line, providing independent assurance to the board.',exvn:"Theo mô hình ba tuyến phòng thủ, chức năng kiểm toán nội bộ đóng vai trò là tuyến thứ ba, cung cấp sự đảm bảo độc lập cho hội đồng quản trị.",blank:"Under the ___ model, the internal audit function serves as the third line, providing independent assurance to the board.",usages:["The first line of defense manages risk day-to-day through operational controls.","Confusion between the roles of the second and third lines can undermine governance effectiveness.","The IIA updated the three lines model in 2020 to reflect modern organizational structures."],wrongs:["Hệ thống kiểm soát bốn lớp","Mô hình quản lý rủi ro doanh nghiệp","Cơ cấu tổ chức phòng ban"]},
-  {word:"Walkthrough",ipa:"/ˈwɔːkθruː/",vn:"Kiểm tra theo dõi quy trình",cat:"IA",en:"An audit procedure where the auditor traces one or more transactions through the complete process to understand and verify the design of internal controls.",envn:"Thủ tục kiểm toán trong đó kiểm toán viên truy theo một hoặc nhiều giao dịch qua toàn bộ quy trình để hiểu và xác minh thiết kế của kiểm soát nội bộ.",ex:'During the <strong>walkthrough</strong> of the accounts payable process, the auditor identified that invoice approval was bypassed for urgent payments.',exvn:"Trong quá trình theo dõi quy trình phải trả nhà cung cấp, kiểm toán viên xác định rằng phê duyệt hóa đơn đã bị bỏ qua đối với các khoản thanh toán khẩn cấp.",blank:"During the ___ of the accounts payable process, the auditor identified that invoice approval was bypassed for urgent payments.",usages:["Walkthroughs provide evidence about whether controls are designed and implemented as documented.","The auditor performed walkthroughs for all 12 key processes identified in the risk assessment.","A walkthrough alone does not confirm that controls are operating effectively throughout the period."],wrongs:["Thăm quan cơ sở vật chất","Đào tạo nhân viên mới","Kiểm kê tài sản"]},
-  {word:"Key Risk Indicator",ipa:"/kiː rɪsk ˈɪndɪkeɪtər/",vn:"Chỉ số rủi ro chính",cat:"RM",en:"A metric used to provide early warning signals about increasing risk exposure before a risk event occurs, enabling proactive management.",envn:"Chỉ số cung cấp tín hiệu cảnh báo sớm về mức độ rủi ro ngày càng tăng trước khi sự cố rủi ro xảy ra, cho phép quản lý chủ động.",ex:'A rising number of failed login attempts is a <strong>key risk indicator</strong> that may signal an ongoing brute-force attack on the system.',exvn:"Số lần đăng nhập thất bại ngày càng tăng là chỉ số rủi ro chính có thể báo hiệu một cuộc tấn công brute-force đang diễn ra trên hệ thống.",blank:"A rising number of failed login attempts is a ___ that may signal an ongoing brute-force attack on the system.",usages:["KRIs should be measurable, predictive, and aligned with the organization's risk appetite.","The dashboard tracks 15 key risk indicators across operational, financial, and IT risk categories.","When a KRI breaches its threshold, an escalation process is triggered automatically."],wrongs:["Chỉ số hiệu quả hoạt động","Mục tiêu tài chính","Tiêu chí đánh giá nhân viên"]},
-  {word:"Analytical Procedures",ipa:"/ˌænəˈlɪtɪkəl prəˈsiːdʒərz/",vn:"Thủ tục phân tích",cat:"IA",en:"Audit procedures that evaluate financial and non-financial information by analyzing relationships and investigating identified fluctuations or unusual items.",envn:"Các thủ tục kiểm toán đánh giá thông tin tài chính và phi tài chính bằng cách phân tích các mối quan hệ và điều tra các biến động hoặc khoản mục bất thường đã xác định.",ex:'<strong>Analytical procedures</strong> revealed that cost of goods sold as a percentage of revenue had increased by 8% without any corresponding business explanation.',exvn:"Thủ tục phân tích cho thấy giá vốn hàng bán tính theo tỷ lệ phần trăm doanh thu đã tăng 8% mà không có bất kỳ giải thích kinh doanh tương ứng nào.",blank:"___ revealed that cost of goods sold as a percentage of revenue had increased by 8% without any corresponding business explanation.",usages:["Ratio analysis and trend analysis are common forms of analytical procedures used in auditing.","Analytical procedures can highlight areas requiring more detailed substantive testing.","During the final stage of the audit, analytical procedures are used to assess overall reasonableness."],wrongs:["Phân tích chiến lược thị trường","Quy trình phê duyệt","Kiểm tra chứng từ gốc"]},
-  {word:"Incident Response",ipa:"/ˈɪnsɪdənt rɪˈspɒns/",vn:"Ứng phó sự cố",cat:"IT",en:"An organized approach to addressing and managing the aftermath of a security breach or cyberattack to limit damage and reduce recovery time and costs.",envn:"Cách tiếp cận có tổ chức để giải quyết và quản lý hậu quả của vi phạm bảo mật hoặc tấn công mạng nhằm hạn chế thiệt hại và giảm thời gian cùng chi phí phục hồi.",ex:'The <strong>incident response</strong> team contained the ransomware attack within six hours by isolating affected systems and restoring from clean backups.',exvn:"Nhóm ứng phó sự cố đã khoanh vùng cuộc tấn công ransomware trong vòng sáu giờ bằng cách cô lập các hệ thống bị ảnh hưởng và khôi phục từ bản sao lưu sạch.",blank:"The ___ team contained the ransomware attack within six hours by isolating affected systems and restoring from clean backups.",usages:["An effective incident response plan must be documented, tested, and regularly updated.","The audit evaluated whether the incident response playbook covered all critical attack scenarios.","Regulatory requirements mandate that certain security incidents be reported within 72 hours."],wrongs:["Phản hồi khiếu nại khách hàng","Xử lý sự cố vận hành","Quy trình leo thang"]},
-  {word:"Working Papers",ipa:"/ˈwɜːkɪŋ ˈpeɪpərz/",vn:"Hồ sơ làm việc kiểm toán",cat:"IA",en:"Documentation prepared by auditors that records the work performed, evidence obtained, and conclusions reached during an audit engagement.",envn:"Tài liệu do kiểm toán viên lập ghi lại công việc đã thực hiện, bằng chứng thu thập được và kết luận đạt được trong quá trình thực hiện cuộc kiểm toán.",ex:"The quality reviewer found that <strong>working papers</strong> lacked sufficient documentation to support the auditor's conclusion that controls were operating effectively.",exvn:"Người đánh giá chất lượng phát hiện hồ sơ làm việc thiếu tài liệu đầy đủ để hỗ trợ kết luận của kiểm toán viên rằng các kiểm soát đang hoạt động hiệu quả.",blank:"The quality reviewer found that ___ lacked sufficient documentation to support the auditor's conclusion.",usages:["Working papers must be organized, indexed, and retained for a minimum number of years.","Electronic working papers enable real-time collaboration and review by remote team members.","Working papers are the property of the audit function, not the auditee."],wrongs:["Tài liệu đào tạo","Báo cáo quản lý","Chính sách nội bộ"]},
-  {word:"Phishing",ipa:"/ˈfɪʃɪŋ/",vn:"Lừa đảo trực tuyến",cat:"IT",en:"A social engineering attack that uses deceptive emails or messages to trick recipients into revealing sensitive information or installing malware.",envn:"Cuộc tấn công kỹ nghệ xã hội sử dụng email hoặc tin nhắn lừa đảo để đánh lừa người nhận tiết lộ thông tin nhạy cảm hoặc cài đặt phần mềm độc hại.",ex:'A <strong>phishing</strong> email impersonating the CFO tricked an accounts payable clerk into wiring $240,000 to a fraudulent bank account.',exvn:"Một email lừa đảo giả mạo Giám đốc Tài chính đã lừa một nhân viên kế toán chuyển 240.000 USD vào tài khoản ngân hàng gian lận.",blank:"A ___ email impersonating the CFO tricked an accounts payable clerk into wiring $240,000 to a fraudulent bank account.",usages:["Security awareness training helps employees recognize and report phishing attempts.","Spear phishing targets specific individuals using personalized information to increase credibility.","The organization's anti-phishing simulation showed a 35% click rate — well above acceptable levels."],wrongs:["Tấn công từ chối dịch vụ","Khai thác lỗ hổng phần mềm","Xâm nhập vật lý"]},
-  {word:"Risk Assessment",ipa:"/rɪsk əˈsesmənt/",vn:"Đánh giá rủi ro",cat:"RM",en:"The systematic process of identifying, analyzing, and evaluating risks to determine the likelihood and potential impact on organizational objectives.",envn:"Quá trình hệ thống xác định, phân tích và đánh giá rủi ro để xác định khả năng xảy ra và tác động tiềm tàng đến các mục tiêu của tổ chức.",ex:'The annual <strong>risk assessment</strong> identified supply chain disruption as an emerging threat that had not appeared in previous years.',exvn:"Đánh giá rủi ro hàng năm xác định gián đoạn chuỗi cung ứng là một mối đe dọa mới nổi chưa xuất hiện trong những năm trước.",blank:"The annual ___ identified supply chain disruption as an emerging threat that had not appeared in previous years.",usages:["Risk assessments should consider both internal and external risk factors affecting the organization.","The internal audit plan is driven by the results of the risk assessment process.","Quantitative risk assessment assigns monetary values to potential losses for prioritization."],wrongs:["Kiểm tra kế hoạch kinh doanh","Đánh giá hiệu quả nhân viên","Phân tích thị trường"]},
-  {word:"Social Engineering",ipa:"/ˈsoʊʃəl ˌendʒɪˈnɪərɪŋ/",vn:"Tấn công phi kỹ thuật",cat:"IT",en:"The psychological manipulation of people into performing actions or divulging confidential information, exploiting human trust rather than technical vulnerabilities.",envn:"Thao túng tâm lý con người để thực hiện các hành động hoặc tiết lộ thông tin bí mật, khai thác lòng tin của con người thay vì các lỗ hổng kỹ thuật.",ex:"The attacker used <strong>social engineering</strong> to convince the help desk to reset the CEO's password without proper identity verification.",exvn:"Kẻ tấn công đã sử dụng tấn công phi kỹ thuật để thuyết phục bộ phận hỗ trợ đặt lại mật khẩu CEO mà không xác minh danh tính đúng cách.",blank:"The attacker used ___ to convince the help desk to reset the CEO's password without proper identity verification.",usages:["Social engineering attacks are often more successful than technical attacks because they exploit human nature.","Pretexting, baiting, and tailgating are all forms of social engineering.","Training employees to question unusual requests is the best defense against social engineering."],wrongs:["Phân tích mạng xã hội","Kỹ thuật quản lý con người","Nghiên cứu hành vi người dùng"]},
-  {word:"Substantive Testing",ipa:"/ˈsʌbstəntɪv ˈtestɪŋ/",vn:"Kiểm tra cơ bản",cat:"IA",en:"Audit procedures designed to detect material misstatements in financial statement assertions, including tests of details and substantive analytical procedures.",envn:"Các thủ tục kiểm toán được thiết kế để phát hiện các sai sót trọng yếu trong các cơ sở dẫn liệu báo cáo tài chính, bao gồm kiểm tra chi tiết và thủ tục phân tích cơ bản.",ex:'The auditor expanded <strong>substantive testing</strong> after control testing revealed that automated invoice matching controls had failed for three months.',exvn:"Kiểm toán viên mở rộng kiểm tra cơ bản sau khi kiểm tra kiểm soát cho thấy kiểm soát đối chiếu hóa đơn tự động đã thất bại trong ba tháng.",blank:"The auditor expanded ___ after control testing revealed that automated invoice matching controls had failed for three months.",usages:["Substantive testing includes vouching, tracing, recalculation, and confirmation procedures.","A higher assessed risk of material misstatement requires more extensive substantive testing.","Even with strong controls, some level of substantive testing is always required."],wrongs:["Kiểm tra thiết kế quy trình","Phỏng vấn ban quản lý","Quan sát thực địa"]},
-  {word:"Access Control",ipa:"/ˈækses kənˈtroʊl/",vn:"Kiểm soát truy cập",cat:"IT",en:"Security measures and policies that regulate who or what can view, use, or interact with resources in a computing environment.",envn:"Các biện pháp và chính sách bảo mật điều tiết ai hoặc thứ gì có thể xem, sử dụng hoặc tương tác với tài nguyên trong môi trường máy tính.",ex:'Role-based <strong>access control</strong> ensures that finance staff can view payroll data but cannot modify it without additional approval.',exvn:"Kiểm soát truy cập dựa trên vai trò đảm bảo nhân viên tài chính có thể xem dữ liệu lương nhưng không thể sửa đổi nếu không có phê duyệt bổ sung.",blank:"Role-based ___ ensures that finance staff can view payroll data but cannot modify it without additional approval.",usages:["Access control matrices document which users have access to which systems and at what level.","The principle of least privilege is a fundamental concept in access control design.","Periodic access reviews verify that user permissions remain appropriate to current job responsibilities."],wrongs:["Kiểm soát chất lượng sản phẩm","Giám sát hiệu suất nhân viên","Quản lý hợp đồng"]},
-  {word:"Disaster Recovery",ipa:"/dɪˈzɑːstər rɪˈkʌvəri/",vn:"Khôi phục sau thảm họa",cat:"IT",en:"Policies, tools, and procedures designed to enable the recovery of IT infrastructure and systems following a natural or man-made disaster.",envn:"Các chính sách, công cụ và thủ tục được thiết kế để cho phép phục hồi cơ sở hạ tầng CNTT và hệ thống sau thảm họa tự nhiên hoặc do con người gây ra.",ex:'The <strong>disaster recovery</strong> drill demonstrated that the backup site could assume all critical operations within the 4-hour recovery time objective.',exvn:"Bài tập khôi phục sau thảm họa chứng minh rằng địa điểm dự phòng có thể đảm nhận tất cả hoạt động quan trọng trong mục tiêu thời gian phục hồi 4 giờ.",blank:"The ___ drill demonstrated that the backup site could assume all critical operations within the 4-hour recovery time objective.",usages:["Recovery time objective (RTO) and recovery point objective (RPO) are key metrics in disaster recovery.","Disaster recovery plans must be tested at least annually to verify they still work as designed.","Cloud-based disaster recovery solutions have significantly reduced recovery costs for many organizations."],wrongs:["Quản lý khủng hoảng truyền thông","Bảo hiểm tài sản","Kế hoạch kinh doanh dự phòng"]},
-  {word:"Patch Management",ipa:"/pætʃ ˈmænɪdʒmənt/",vn:"Quản lý bản vá",cat:"IT",en:"The systematic process of identifying, acquiring, testing, and installing software updates to fix vulnerabilities and improve system functionality.",envn:"Quá trình hệ thống xác định, mua lại, kiểm tra và cài đặt các bản cập nhật phần mềm để khắc phục lỗ hổng và cải thiện chức năng hệ thống.",ex:'Inadequate <strong>patch management</strong> left 40% of servers running operating systems with known critical vulnerabilities for over six months.',exvn:"Quản lý bản vá không đầy đủ khiến 40% máy chủ chạy hệ điều hành với các lỗ hổng bảo mật nghiêm trọng đã biết trong hơn sáu tháng.",blank:"Inadequate ___ left 40% of servers running operating systems with known critical vulnerabilities for over six months.",usages:["Critical security patches should be applied within 30 days of release based on best practice.","Patch management requires coordination between IT operations and business owners to minimize downtime.","Automated patch deployment tools help organizations maintain compliance with patching SLAs."],wrongs:["Quản lý cơ sở dữ liệu","Nâng cấp phần cứng","Triển khai phần mềm mới"]},
-  {word:"Assertion",ipa:"/əˈsɜːʃən/",vn:"Cơ sở dẫn liệu",cat:"IA",en:"Representations by management, explicit or implicit, that are embodied in the financial statements and against which auditors gather evidence.",envn:"Các khẳng định của ban quản lý, rõ ràng hoặc ngầm định, được thể hiện trong báo cáo tài chính và là cơ sở để kiểm toán viên thu thập bằng chứng.",ex:'The auditor focused on the completeness <strong>assertion</strong> for accounts payable, ensuring that all liabilities incurred before year-end were recorded.',exvn:"Kiểm toán viên tập trung vào cơ sở dẫn liệu đầy đủ cho khoản phải trả, đảm bảo tất cả các khoản nợ phát sinh trước cuối năm đều được ghi nhận.",blank:"The auditor focused on the completeness ___ for accounts payable, ensuring that all liabilities incurred before year-end were recorded.",usages:["The five key assertions are existence, completeness, accuracy, valuation, and rights and obligations.","Different audit procedures provide evidence about different assertions.","The risk assessment process identifies which assertions are most at risk for each significant account."],wrongs:["Phát biểu của ban quản lý","Ý kiến kiểm toán","Kết luận kiểm tra"]},
-  {word:"Audit Finding",ipa:"/ˈɔːdɪt ˈfaɪndɪŋ/",vn:"Phát hiện kiểm toán",cat:"IA",en:"An observed condition that represents a deviation from the expected criteria, typically including criteria, condition, cause, and effect components.",envn:"Điều kiện được quan sát thể hiện sự lệch khỏi tiêu chí mong đợi, thường bao gồm các thành phần: tiêu chí, điều kiện thực tế, nguyên nhân và ảnh hưởng.",ex:'The <strong>audit finding</strong> documented that vendor payments were processed without purchase orders in 18% of tested transactions, violating procurement policy.',exvn:"Phát hiện kiểm toán ghi nhận rằng thanh toán nhà cung cấp được xử lý mà không có đơn đặt hàng trong 18% giao dịch được kiểm tra, vi phạm chính sách mua sắm.",blank:"The ___ documented that vendor payments were processed without purchase orders in 18% of tested transactions, violating procurement policy.",usages:["A well-structured audit finding includes criteria, condition, cause, effect, and recommendation.","Management responses to audit findings should be agreed upon before the report is finalized.","Critical audit findings are escalated immediately to the audit committee without waiting for the final report."],wrongs:["Kết quả tài chính","Phát hiện thị trường","Quan sát kinh doanh"]},
-  {word:"Configuration Management",ipa:"/kənˌfɪɡjəˈreɪʃən ˈmænɪdʒmənt/",vn:"Quản lý cấu hình",cat:"IT",en:"The process of tracking and controlling changes to system configuration items — including hardware, software, and documentation — to maintain integrity.",envn:"Quá trình theo dõi và kiểm soát các thay đổi đối với các mục cấu hình hệ thống — bao gồm phần cứng, phần mềm và tài liệu — để duy trì tính toàn vẹn.",ex:'<strong>Configuration management</strong> records showed that the firewall rules had been modified three weeks before the security breach occurred.',exvn:"Hồ sơ quản lý cấu hình cho thấy các quy tắc tường lửa đã bị sửa đổi ba tuần trước khi xảy ra vi phạm bảo mật.",blank:"___ records showed that the firewall rules had been modified three weeks before the security breach occurred.",usages:["A configuration management database (CMDB) tracks all IT assets and their interdependencies.","Unauthorized configuration changes are one of the leading causes of system outages.","Configuration management controls ensure that only approved system settings are in place."],wrongs:["Quản lý dự án CNTT","Thiết lập người dùng mới","Quy trình mua sắm CNTT"]},
-  {word:"Application Controls",ipa:"/ˌæplɪˈkeɪʃən kənˈtroʊlz/",vn:"Kiểm soát ứng dụng",cat:"IT",en:"Automated controls built into IT applications to ensure the completeness, accuracy, and validity of data processing within those systems.",envn:"Kiểm soát tự động được tích hợp trong các ứng dụng CNTT nhằm đảm bảo tính đầy đủ, chính xác và hợp lệ của việc xử lý dữ liệu trong các hệ thống đó.",ex:'The <strong>application controls</strong> in the ERP system prevent invoice entry if the amount exceeds the approved purchase order value.',exvn:"Kiểm soát ứng dụng trong hệ thống ERP ngăn việc nhập hóa đơn nếu số tiền vượt quá giá trị đơn đặt hàng đã được phê duyệt.",blank:"The ___ in the ERP system prevent invoice entry if the amount exceeds the approved purchase order value.",usages:["Application controls include input validation, processing controls, and output controls.","Unlike IT general controls, application controls are specific to each software system.","Testing application controls provides evidence that the system is processing data correctly."],wrongs:["Kiểm soát người dùng cuối","Chính sách bảo mật hệ thống","Quy trình vận hành IT"]},
-  {word:"Internal Control",ipa:"/ɪnˈtɜːnəl kənˈtroʊl/",vn:"Kiểm soát nội bộ",cat:"IA",en:"A process implemented by an organization's board, management, and staff to provide reasonable assurance of achieving operational, reporting, and compliance objectives.",envn:"Quy trình được thực hiện bởi hội đồng quản trị, ban quản lý và nhân viên của tổ chức nhằm đảm bảo hợp lý về việc đạt được các mục tiêu vận hành, báo cáo và tuân thủ.",ex:'The COSO framework defines <strong>internal control</strong> as having five interrelated components: control environment, risk assessment, control activities, information and communication, and monitoring.',exvn:"Khuôn khổ COSO định nghĩa kiểm soát nội bộ có năm thành phần liên quan với nhau: môi trường kiểm soát, đánh giá rủi ro, hoạt động kiểm soát, thông tin & truyền thông, và giám sát.",blank:"The COSO framework defines ___ as having five interrelated components.",usages:["Effective internal controls reduce but cannot eliminate the risk of material misstatement or fraud.","Management is responsible for designing and maintaining adequate internal controls.","Internal auditors assess the adequacy and effectiveness of internal controls across the organization."],wrongs:["Kiểm toán nội bộ","Giám sát từ bên ngoài","Chính sách kinh doanh"]},
-  {word:"Engagement",ipa:"/ɪnˈɡeɪdʒmənt/",vn:"Cuộc tham chiếu kiểm toán",cat:"IA",en:"A specific internal audit project or assignment, such as a performance audit, compliance review, or consulting assignment, with defined scope and objectives.",envn:"Một dự án hoặc nhiệm vụ kiểm toán nội bộ cụ thể, chẳng hạn như kiểm toán hiệu quả hoạt động, xem xét tuân thủ hoặc tư vấn, với phạm vi và mục tiêu được xác định rõ.",ex:'The <strong>engagement</strong> was scoped to assess the effectiveness of controls over the procure-to-pay process across all international subsidiaries.',exvn:"Cuộc tham chiếu kiểm toán được xác định phạm vi để đánh giá hiệu quả của các kiểm soát đối với quy trình mua hàng đến thanh toán tại tất cả các công ty con quốc tế.",blank:"The ___ was scoped to assess the effectiveness of controls over the procure-to-pay process across all international subsidiaries.",usages:["Each engagement should have a formal planning document, fieldwork phase, and final report.","Advisory engagements differ from assurance engagements in that they do not render an opinion.","The engagement supervisor reviewed all working papers before the draft report was issued."],wrongs:["Hợp đồng kinh doanh","Cam kết với khách hàng","Thỏa thuận hợp tác"]},
-  {word:"Logical Access",ipa:"/ˈlɒdʒɪkəl ˈækses/",vn:"Kiểm soát truy cập logic",cat:"IT",en:"Controls that restrict access to computer systems and data through electronic means such as usernames, passwords, and multi-factor authentication.",envn:"Các kiểm soát hạn chế quyền truy cập vào hệ thống máy tính và dữ liệu thông qua các phương tiện điện tử như tên đăng nhập, mật khẩu và xác thực đa yếu tố.",ex:'<strong>Logical access</strong> controls limit database administrator access to production systems to only those individuals with a business need.',exvn:"Kiểm soát truy cập logic giới hạn quyền truy cập của quản trị viên cơ sở dữ liệu vào hệ thống sản xuất chỉ dành cho những cá nhân có nhu cầu kinh doanh thực sự.",blank:"___ controls limit database administrator access to production systems to only those individuals with a business need.",usages:["Logical access reviews should be conducted quarterly to identify and remove excessive permissions.","The IT audit found that logical access provisioning lacked a formal approval workflow.","Logical access controls complement physical security controls to provide comprehensive protection."],wrongs:["Truy cập vật lý vào văn phòng","Quyền quản trị hệ thống","Kết nối mạng nội bộ"]},
-  {word:"Whistleblower",ipa:"/ˈwɪsəlˌbloʊər/",vn:"Người tố giác nội bộ",cat:"IA",en:"A person who reports suspected wrongdoing, fraud, or unethical conduct within an organization, typically through a formal reporting channel.",envn:"Người báo cáo các hành vi sai trái, gian lận hoặc hành vi phi đạo đức bị nghi ngờ trong một tổ chức, thường thông qua kênh báo cáo chính thức.",ex:'A <strong>whistleblower</strong> reported suspected expense fraud to the ethics hotline, triggering an unannounced investigation by internal audit.',exvn:"Một người tố giác đã báo cáo hành vi gian lận chi phí bị nghi ngờ lên đường dây nóng đạo đức, kích hoạt cuộc điều tra bất ngờ từ bộ phận kiểm toán nội bộ.",blank:"A ___ reported suspected expense fraud to the ethics hotline, triggering an unannounced investigation by internal audit.",usages:["Robust whistleblower protections are essential to encourage reporting without fear of retaliation.","Anonymous whistleblower hotlines are a key control for detecting fraud and misconduct.","The audit committee oversees the organization's whistleblower program and investigates all reports."],wrongs:["Người kiểm tra chất lượng","Nhân viên tư vấn","Đại diện nhân viên"]},
-  {word:"Ransomware",ipa:"/ˈrænsəmweər/",vn:"Mã độc tống tiền",cat:"IT",en:"Malicious software that encrypts a victim's files and demands payment for the decryption key, often disrupting business operations severely.",envn:"Phần mềm độc hại mã hóa các tệp của nạn nhân và yêu cầu thanh toán để lấy khóa giải mã, thường gây gián đoạn nghiêm trọng hoạt động kinh doanh.",ex:"The <strong>ransomware</strong> attack encrypted 60% of the company's files overnight, forcing a shutdown of operations for five business days.",exvn:"Cuộc tấn công bằng mã độc tống tiền đã mã hóa 60% tệp của công ty chỉ trong một đêm, buộc phải tạm dừng hoạt động trong năm ngày làm việc.",blank:"The ___ attack encrypted 60% of the company's files overnight, forcing a shutdown of operations for five business days.",usages:["Offline backups are one of the most effective defenses against ransomware attacks.","The average ransomware payment has increased dramatically, now exceeding $1 million in many cases.","Organizations should have a documented response plan specifically for ransomware incidents."],wrongs:["Phần mềm quảng cáo","Virus máy tính","Tấn công từ chối dịch vụ"]},
-  {word:"Key Control",ipa:"/kiː kənˈtroʊl/",vn:"Kiểm soát chính yếu",cat:"IA",en:"A control that, if it failed, would not be compensated by other controls, making it critical to the achievement of control objectives.",envn:"Một kiểm soát mà nếu thất bại sẽ không được bù đắp bởi các kiểm soát khác, khiến nó trở nên then chốt để đạt được các mục tiêu kiểm soát.",ex:'Dual authorization of payments above $10,000 was identified as a <strong>key control</strong> since its failure would directly enable unauthorized fund transfers.',exvn:"Yêu cầu phê duyệt kép cho các khoản thanh toán trên 10.000 USD được xác định là kiểm soát chính yếu vì nếu thất bại sẽ trực tiếp cho phép các giao dịch chuyển tiền trái phép.",blank:"Dual authorization of payments above $10,000 was identified as a ___ since its failure would directly enable unauthorized fund transfers.",usages:["Auditors focus their testing efforts on key controls identified during the risk assessment phase.","Failure of a key control requires immediate reporting to management and enhanced monitoring.","Key controls are documented in the risk and control matrix for each auditable process."],wrongs:["Quy trình kiểm soát thứ yếu","Biện pháp bổ sung","Kiểm soát phát hiện"]},
-  {word:"Risk Appetite Statement",ipa:"/rɪsk ˈæpɪtaɪt ˈsteɪtmənt/",vn:"Tuyên bố khẩu vị rủi ro",cat:"RM",en:"A formal document articulating the amount and type of risk the board is willing to accept in pursuit of the organization's strategic objectives.",envn:"Tài liệu chính thức nêu rõ mức độ và loại rủi ro mà hội đồng quản trị sẵn sàng chấp nhận trong việc theo đuổi các mục tiêu chiến lược của tổ chức.",ex:'The board-approved <strong>risk appetite statement</strong> specified that operational losses must not exceed 0.5% of net revenue in any given year.',exvn:"Tuyên bố khẩu vị rủi ro được hội đồng quản trị phê duyệt quy định rằng tổn thất hoạt động không được vượt quá 0,5% doanh thu thuần trong bất kỳ năm nào.",blank:"The board-approved ___ specified that operational losses must not exceed 0.5% of net revenue in any given year.",usages:["The risk appetite statement should be reviewed and reaffirmed annually by the board.","Business units use the risk appetite statement to calibrate their local risk tolerance thresholds.","A well-crafted risk appetite statement uses both qualitative and quantitative language."],wrongs:["Báo cáo tài chính hàng năm","Chiến lược tăng trưởng","Chính sách đầu tư"]},
-  {word:"Audit Universe",ipa:"/ˈɔːdɪt ˈjuːnɪvɜːs/",vn:"Vũ trụ kiểm toán",cat:"IA",en:"The complete inventory of all auditable entities, processes, and activities within an organization from which the audit plan is developed based on risk.",envn:"Danh mục đầy đủ tất cả các đơn vị, quy trình và hoạt động có thể kiểm toán trong một tổ chức, từ đó kế hoạch kiểm toán được xây dựng dựa trên rủi ro.",ex:'The <strong>audit universe</strong> comprised 180 auditable entities; the annual plan covered 35 high-risk areas based on the risk assessment.',exvn:"Vũ trụ kiểm toán bao gồm 180 đơn vị có thể kiểm toán; kế hoạch hàng năm bao phủ 35 lĩnh vực rủi ro cao dựa trên kết quả đánh giá rủi ro.",blank:"The ___ comprised 180 auditable entities; the annual plan covered 35 high-risk areas based on the risk assessment.",usages:["The audit universe should be updated annually to reflect changes in the business and risk environment.","Mapping the audit universe helps ensure comprehensive risk coverage over a multi-year audit cycle.","The size of the audit team limits how much of the audit universe can be covered each year."],wrongs:["Phạm vi kiểm toán từng dự án","Danh sách nhân viên kiểm toán","Hệ thống quản lý kiểm toán"]}
-];
+// ─── TOPICS ────────────────────────────────────────────────────────────────
+const TOPICS = [
 
-// ─── RANKS ─────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// T0 — CORPORATE GOVERNANCE (30 từ)
+// ══════════════════════════════════════════════════════════════
+{
+  id:0, title:"Corporate Governance", titleVn:"Quản trị Doanh nghiệp", icon:"🏛️",
+  words:[
+    {word:"Corporate Governance",ipa:"/ˈkɔːrpərɪt ˈɡʌvənəns/",vn:"Quản trị công ty",cat:"RM",
+     en:"The system of rules, practices, and processes by which a company is directed and controlled, balancing the interests of all stakeholders.",
+     envn:"Hệ thống quy tắc, thông lệ và quy trình định hướng và kiểm soát công ty, cân bằng lợi ích của các bên liên quan.",
+     ex:'Strong <strong>corporate governance</strong> prevented the board from approving a related-party transaction without independent review.',
+     exvn:"Quản trị công ty vững mạnh đã ngăn hội đồng phê duyệt giao dịch với bên liên quan mà không có đánh giá độc lập.",
+     blank:"Strong ___ prevented the board from approving a related-party transaction without independent review.",
+     usages:["Corporate governance failures were at the heart of major financial scandals in the early 2000s.","Institutional investors scrutinize corporate governance practices before making investment decisions.","The annual report includes a dedicated section on the company's corporate governance framework."],
+     wrongs:["Quản lý vận hành hàng ngày","Chiến lược tăng trưởng doanh nghiệp","Cơ cấu tổ chức phòng ban"]},
+
+    {word:"Board of Directors",ipa:"/bɔːrd əv dɪˈrektərz/",vn:"Hội đồng quản trị",cat:"RM",
+     en:"The elected group of individuals responsible for governing an organization, setting strategic direction, and overseeing management on behalf of shareholders.",
+     envn:"Nhóm cá nhân được bầu chọn chịu trách nhiệm quản trị tổ chức, định hướng chiến lược và giám sát ban quản lý thay mặt cổ đông.",
+     ex:'The <strong>board of directors</strong> approved the three-year strategic plan and authorized a $50 million capital expenditure budget.',
+     exvn:"Hội đồng quản trị phê duyệt kế hoạch chiến lược ba năm và ủy quyền ngân sách chi tiêu vốn 50 triệu USD.",
+     blank:"The ___ approved the three-year strategic plan and authorized a $50 million capital expenditure budget.",
+     usages:["The board of directors meets quarterly to review financial performance and strategic progress.","Diversity on the board of directors is increasingly seen as a marker of good governance.","The internal audit function reports functionally to the board through the audit committee."],
+     wrongs:["Ban giám đốc điều hành","Hội đồng cố vấn độc lập","Ủy ban kiểm toán nội bộ"]},
+
+    {word:"Audit Committee",ipa:"/ˈɔːdɪt kəˈmɪti/",vn:"Ủy ban Kiểm toán",cat:"IA",
+     en:"A committee of the board of directors responsible for overseeing financial reporting, internal controls, risk management, and both internal and external audit functions.",
+     envn:"Ủy ban của hội đồng quản trị chịu trách nhiệm giám sát báo cáo tài chính, kiểm soát nội bộ, quản lý rủi ro và cả chức năng kiểm toán nội bộ lẫn kiểm toán độc lập.",
+     ex:'The Chief Audit Executive reports functionally to the <strong>audit committee</strong> to ensure the independence of the internal audit function.',
+     exvn:"Giám đốc điều hành kiểm toán báo cáo chức năng lên ủy ban kiểm toán để đảm bảo tính độc lập của chức năng kiểm toán nội bộ.",
+     blank:"The Chief Audit Executive reports functionally to the ___ to ensure the independence of the internal audit function.",
+     usages:["The audit committee reviews and approves the annual internal audit plan.","Audit committee members should have relevant financial and industry expertise.","Meeting minutes of the audit committee are reviewed by external auditors during the annual audit."],
+     wrongs:["Ban quản lý điều hành","Hội đồng cổ đông","Bộ phận tài chính kế toán"]},
+
+    {word:"Three Lines of Defense",ipa:"/θriː laɪnz əv dɪˈfens/",vn:"Ba tuyến phòng thủ",cat:"RM",
+     en:"A governance model distinguishing three groups with different roles in managing risk: operational management, risk and compliance functions, and internal audit.",
+     envn:"Mô hình quản trị phân biệt ba nhóm với các vai trò khác nhau trong quản lý rủi ro: quản lý vận hành, chức năng rủi ro và tuân thủ, và kiểm toán nội bộ.",
+     ex:'Under the <strong>three lines of defense</strong> model, internal audit serves as the third line providing independent assurance to the board.',
+     exvn:"Theo mô hình ba tuyến phòng thủ, kiểm toán nội bộ đóng vai trò là tuyến thứ ba cung cấp đảm bảo độc lập cho hội đồng quản trị.",
+     blank:"Under the ___ model, internal audit serves as the third line providing independent assurance to the board.",
+     usages:["The first line of defense manages risk day-to-day through operational controls.","Confusion between the roles of the second and third lines can undermine governance effectiveness.","The IIA updated the three lines model in 2020 to reflect modern organizational structures."],
+     wrongs:["Hệ thống kiểm soát bốn lớp","Mô hình quản lý rủi ro doanh nghiệp","Cơ cấu tổ chức phòng ban"]},
+
+    {word:"Control Environment",ipa:"/kənˈtroʊl ɪnˈvaɪrənmənt/",vn:"Môi trường kiểm soát",cat:"IA",
+     en:"The foundation of all other components of internal control, reflecting the overall attitude, awareness, and actions of management regarding the importance of control.",
+     envn:"Nền tảng của tất cả các thành phần kiểm soát nội bộ khác, phản ánh thái độ, nhận thức và hành động tổng thể của ban quản lý về tầm quan trọng của kiểm soát.",
+     ex:'A strong <strong>control environment</strong> starts at the top — when leadership demonstrates ethical behavior and accountability, employees follow.',
+     exvn:"Môi trường kiểm soát vững mạnh bắt đầu từ cấp cao nhất — khi lãnh đạo thể hiện hành vi đạo đức và trách nhiệm giải trình, nhân viên sẽ noi gương.",
+     blank:"A strong ___ starts at the top — when leadership demonstrates ethical behavior and accountability, employees follow.",
+     usages:["The COSO framework places the control environment as the first and most fundamental component.","Weaknesses in the control environment increase the risk of fraud across all business processes.","Assessing the control environment requires interviews with senior management and board members."],
+     wrongs:["Môi trường làm việc văn phòng","Cơ sở hạ tầng công nghệ","Hệ thống báo cáo nội bộ"]},
+
+    {word:"Tone at the Top",ipa:"/toʊn æt ðə tɒp/",vn:"Phong cách đạo đức từ cấp cao",cat:"IA",
+     en:"The ethical climate established by an organization's senior leadership that sets the cultural foundation for governance, control, and compliance throughout the entire organization.",
+     envn:"Môi trường đạo đức được thiết lập bởi lãnh đạo cấp cao tạo nền tảng văn hóa cho quản trị, kiểm soát và tuân thủ trong toàn tổ chức.",
+     ex:'The CFO\'s decision to bypass procurement controls sent a damaging <strong>tone at the top</strong>, encouraging junior staff to cut compliance corners.',
+     exvn:"Quyết định của Giám đốc Tài chính bỏ qua kiểm soát mua sắm đã tạo ra tín hiệu tiêu cực từ cấp cao, khuyến khích nhân viên cấp dưới lơ là tuân thủ.",
+     blank:"The CFO's decision to bypass procurement controls sent a damaging ___, encouraging junior staff to cut compliance corners.",
+     usages:["The new CEO reinforced tone at the top by personally signing the annual code of ethics certification.","Auditors assess tone at the top through interviews with senior executives and board members.","A strong tone at the top is the single most effective deterrent to occupational fraud."],
+     wrongs:["Phong cách quản lý cấp trung","Chỉ số hiệu suất lãnh đạo","Chương trình đào tạo ban đầu"]},
+
+    {word:"Fiduciary Duty",ipa:"/fɪˈdjuːʃiəri ˈdjuːti/",vn:"Nghĩa vụ ủy thác",cat:"RM",
+     en:"The legal obligation to act in the best interests of another party, prioritizing their welfare above personal gain — a core responsibility of board directors.",
+     envn:"Nghĩa vụ pháp lý hành động vì lợi ích tốt nhất của bên khác, ưu tiên phúc lợi của họ hơn lợi ích cá nhân — trách nhiệm cốt lõi của thành viên hội đồng quản trị.",
+     ex:'Board members breached their <strong>fiduciary duty</strong> by approving a merger that benefited their personal holdings at the expense of minority shareholders.',
+     exvn:"Các thành viên hội đồng vi phạm nghĩa vụ ủy thác bằng cách phê duyệt vụ sáp nhập có lợi cho cổ phần cá nhân nhưng thiệt hại cho cổ đông thiểu số.",
+     blank:"Board members breached their ___ by approving a merger that benefited their personal holdings at the expense of minority shareholders.",
+     usages:["The trustee has a fiduciary duty to manage assets exclusively for the benefit of beneficiaries.","Conflicts of interest can lead to breaches of fiduciary duty if not properly disclosed.","Directors owe fiduciary duties of care and loyalty to the corporation and its shareholders."],
+     wrongs:["Nghĩa vụ pháp lý hợp đồng","Trách nhiệm tài chính cá nhân","Cam kết với nhà cung cấp"]},
+
+    {word:"Segregation of Duties",ipa:"/ˌseɡrɪˈɡeɪʃən əv ˈdjuːtɪz/",vn:"Phân tách nhiệm vụ",cat:"IA",
+     en:"An internal control principle ensuring that no single person has control over all aspects of a financial transaction to prevent errors and fraud.",
+     envn:"Nguyên tắc kiểm soát nội bộ đảm bảo không một cá nhân nào kiểm soát toàn bộ các khía cạnh của một giao dịch tài chính nhằm ngăn ngừa sai sót và gian lận.",
+     ex:'The absence of <strong>segregation of duties</strong> meant the same employee could both approve and process vendor payments — a critical control weakness.',
+     exvn:"Sự thiếu vắng phân tách nhiệm vụ có nghĩa là cùng một nhân viên có thể vừa phê duyệt vừa xử lý thanh toán nhà cung cấp — một điểm yếu kiểm soát nghiêm trọng.",
+     blank:"The absence of ___ meant the same employee could both approve and process vendor payments — a critical control weakness.",
+     usages:["Segregation of duties requires that the person who initiates a purchase cannot also approve it.","The small team size made proper segregation of duties difficult to achieve.","IT systems should enforce segregation of duties through role-based access controls."],
+     wrongs:["Phân quyền truy cập hệ thống","Phân công công việc","Chia tách ngân sách"]},
+
+    {word:"Independent Director",ipa:"/ˌɪndɪˈpendənt dɪˈrektər/",vn:"Thành viên độc lập HĐQT",cat:"RM",
+     en:"A board member who has no material relationship with the company, ensuring objective oversight free from conflicts of interest.",
+     envn:"Thành viên hội đồng quản trị không có quan hệ vật chất với công ty, đảm bảo sự giám sát khách quan không có xung đột lợi ích.",
+     ex:'Regulations require that the audit committee be composed entirely of <strong>independent directors</strong> with no ties to management.',
+     exvn:"Quy định yêu cầu ủy ban kiểm toán phải được cấu thành hoàn toàn bởi các thành viên độc lập không có liên hệ với ban quản lý.",
+     blank:"Regulations require that the audit committee be composed entirely of ___ with no ties to management.",
+     usages:["Independent directors provide objective judgment on executive compensation and succession planning.","The board lacked sufficient independent directors, raising governance concerns among investors.","An independent director must disclose any potential conflicts before participating in related decisions."],
+     wrongs:["Giám đốc điều hành cấp cao","Cố vấn bên ngoài được thuê","Thành viên được quản lý đề cử"]},
+
+    {word:"Stakeholder",ipa:"/ˈsteɪkhoʊldər/",vn:"Bên liên quan",cat:"RM",
+     en:"Any individual, group, or organization that has an interest in or is affected by the activities and decisions of an entity.",
+     envn:"Bất kỳ cá nhân, nhóm hoặc tổ chức nào có lợi ích hoặc bị ảnh hưởng bởi các hoạt động và quyết định của một tổ chức.",
+     ex:'The sustainability report addressed the concerns of all key <strong>stakeholders</strong>, including employees, customers, regulators, and local communities.',
+     exvn:"Báo cáo bền vững giải quyết các mối quan tâm của tất cả các bên liên quan chính, bao gồm nhân viên, khách hàng, cơ quan quản lý và cộng đồng địa phương.",
+     blank:"The sustainability report addressed the concerns of all key ___, including employees, customers, regulators, and local communities.",
+     usages:["Stakeholder engagement helps identify risks and opportunities the company may have overlooked.","Regulators are key stakeholders whose requirements must be embedded in operational processes.","The audit committee solicited input from multiple stakeholders when reviewing the audit plan."],
+     wrongs:["Cổ đông chính","Khách hàng VIP","Thành viên ban giám đốc"]},
+
+    {word:"Code of Ethics",ipa:"/koʊd əv ˈeθɪks/",vn:"Bộ quy tắc đạo đức",cat:"IA",
+     en:"A formal document articulating the values, principles, and expected behaviors that guide the conduct of an organization's employees and management.",
+     envn:"Tài liệu chính thức nêu rõ các giá trị, nguyên tắc và hành vi kỳ vọng hướng dẫn cách ứng xử của nhân viên và ban quản lý tổ chức.",
+     ex:'Every employee was required to sign the updated <strong>code of ethics</strong> annually and complete mandatory ethics training.',
+     exvn:"Mỗi nhân viên được yêu cầu ký vào bộ quy tắc đạo đức được cập nhật hàng năm và hoàn thành đào tạo đạo đức bắt buộc.",
+     blank:"Every employee was required to sign the updated ___ annually and complete mandatory ethics training.",
+     usages:["The code of ethics explicitly prohibits acceptance of gifts exceeding a defined value threshold.","Violations of the code of ethics can result in disciplinary action including termination.","Internal audit periodically reviews compliance with the code of ethics across all business units."],
+     wrongs:["Sổ tay nhân viên","Chính sách khen thưởng nội bộ","Quy định an toàn lao động"]},
+
+    {word:"Conflict of Interest",ipa:"/ˈkɒnflɪkt əv ˈɪntrɪst/",vn:"Xung đột lợi ích",cat:"IA",
+     en:"A situation where an individual's personal interests could improperly influence their professional decisions, compromising objectivity and integrity.",
+     envn:"Tình huống trong đó lợi ích cá nhân của một người có thể ảnh hưởng không đúng đến các quyết định chuyên môn, làm tổn hại đến tính khách quan và chính trực.",
+     ex:'The procurement manager failed to disclose a <strong>conflict of interest</strong> — her brother\'s company was among the vendors bidding on the contract.',
+     exvn:"Trưởng bộ phận mua sắm không tiết lộ xung đột lợi ích — công ty của anh trai cô là một trong các nhà cung cấp dự thầu hợp đồng.",
+     blank:"The procurement manager failed to disclose a ___ — her brother's company was among the vendors bidding on the contract.",
+     usages:["Directors must recuse themselves from board votes where a conflict of interest exists.","Conflict of interest disclosures are reviewed annually by the compliance and ethics officer.","Failure to disclose a conflict of interest can result in disciplinary or legal consequences."],
+     wrongs:["Bất đồng ý kiến trong hội đồng","Tranh chấp hợp đồng kinh doanh","Mâu thuẫn giữa các bộ phận"]},
+
+    {word:"Accountability",ipa:"/əˌkaʊntəˈbɪlɪti/",vn:"Trách nhiệm giải trình",cat:"RM",
+     en:"The obligation of an individual or organization to accept responsibility for actions taken and to be answerable for the consequences to relevant stakeholders.",
+     envn:"Nghĩa vụ của cá nhân hoặc tổ chức phải chấp nhận trách nhiệm về hành động và phải giải trình về hậu quả với các bên liên quan.",
+     ex:'Clear <strong>accountability</strong> was established by assigning each risk to a named owner responsible for monitoring and reporting monthly.',
+     exvn:"Trách nhiệm giải trình rõ ràng được thiết lập bằng cách gán mỗi rủi ro cho một chủ sở hữu được đặt tên có trách nhiệm giám sát và báo cáo hàng tháng.",
+     blank:"Clear ___ was established by assigning each risk to a named owner responsible for monitoring and reporting monthly.",
+     usages:["Accountability structures define who is responsible for achieving specific control objectives.","The lack of accountability in expense approval enabled unchecked overspending for months.","Strong accountability mechanisms are fundamental to effective governance and risk management."],
+     wrongs:["Quyền hạn phê duyệt chi tiêu","Trách nhiệm pháp lý hợp đồng","Nghĩa vụ bảo hiểm"]},
+
+    {word:"Transparency",ipa:"/trænsˈpærənsi/",vn:"Tính minh bạch",cat:"RM",
+     en:"The principle of openly sharing timely and accurate information about an organization's operations, decisions, and performance with relevant stakeholders.",
+     envn:"Nguyên tắc chia sẻ công khai thông tin kịp thời và chính xác về hoạt động, quyết định và kết quả của tổ chức với các bên liên quan.",
+     ex:'Financial <strong>transparency</strong> improved after the company published quarterly investor calls and made board minutes available to shareholders.',
+     exvn:"Tính minh bạch tài chính được cải thiện sau khi công ty công bố các cuộc gọi nhà đầu tư hàng quý và cung cấp biên bản họp hội đồng cho cổ đông.",
+     blank:"Financial ___ improved after the company published quarterly investor calls and made board minutes available to shareholders.",
+     usages:["Regulators expect transparency in financial reporting to enable informed investor decisions.","Transparency about risk exposures helps stakeholders assess the true health of the organization.","Audit findings are shared with management and the audit committee in a spirit of transparency."],
+     wrongs:["Tính bảo mật thông tin nội bộ","Chính sách truyền thông bên ngoài","Công bố thông tin tiếp thị"]},
+
+    {word:"ESG",ipa:"/iː es dʒiː/",vn:"Môi trường, Xã hội và Quản trị",cat:"RM",
+     en:"A framework for assessing an organization across Environmental, Social, and Governance dimensions, used by investors to evaluate sustainability and long-term risk.",
+     envn:"Khuôn khổ đánh giá tổ chức theo ba chiều Môi trường, Xã hội và Quản trị, được nhà đầu tư sử dụng để đánh giá tính bền vững và rủi ro dài hạn.",
+     ex:'The board established an <strong>ESG</strong> committee to oversee climate risk disclosures and social responsibility reporting requirements.',
+     exvn:"Hội đồng thành lập ủy ban ESG để giám sát công bố rủi ro khí hậu và các yêu cầu báo cáo trách nhiệm xã hội.",
+     blank:"The board established an ___ committee to oversee climate risk disclosures and social responsibility reporting requirements.",
+     usages:["ESG ratings are increasingly used by institutional investors to screen investment portfolios.","Internal audit can provide assurance over ESG data quality and reporting processes.","Regulatory bodies in many jurisdictions now mandate ESG disclosure for listed companies."],
+     wrongs:["Báo cáo tài chính hàng năm","Kế hoạch kinh doanh chiến lược","Đánh giá hiệu quả nhân viên"]},
+
+    {word:"Agency Problem",ipa:"/ˈeɪdʒənsi ˈprɒbləm/",vn:"Vấn đề đại diện",cat:"RM",
+     en:"A conflict of interest arising when an agent is expected to act in the best interest of a principal but may instead pursue personal objectives.",
+     envn:"Xung đột lợi ích phát sinh khi một đại lý được kỳ vọng hành động vì lợi ích tốt nhất của ủy thác nhưng thay vào đó lại theo đuổi mục tiêu cá nhân.",
+     ex:'The <strong>agency problem</strong> between shareholders and management was addressed by tying executive pay to long-term stock performance metrics.',
+     exvn:"Vấn đề đại diện giữa cổ đông và ban quản lý được giải quyết bằng cách gắn lương điều hành với các chỉ số hiệu quả cổ phiếu dài hạn.",
+     blank:"The ___ between shareholders and management was addressed by tying executive pay to long-term stock performance metrics.",
+     usages:["The agency problem explains why robust governance structures are necessary in publicly listed companies.","Independent board oversight is one mechanism for reducing the agency problem.","Performance-linked compensation is designed to align management interests with those of shareholders."],
+     wrongs:["Vấn đề tuyển dụng đại lý bán hàng","Tranh chấp với nhà cung cấp","Khủng hoảng quản lý nội bộ"]},
+
+    {word:"Governance Framework",ipa:"/ˈɡʌvənəns ˈfreɪmwɜːrk/",vn:"Khuôn khổ quản trị",cat:"RM",
+     en:"A structured set of policies, roles, processes, and accountability mechanisms that guides how an organization is directed, controlled, and held accountable.",
+     envn:"Tập hợp có cấu trúc các chính sách, vai trò, quy trình và cơ chế trách nhiệm giải trình hướng dẫn cách tổ chức được định hướng, kiểm soát và chịu trách nhiệm.",
+     ex:'The new <strong>governance framework</strong> clarified decision rights across all three levels of management, eliminating overlapping responsibilities.',
+     exvn:"Khuôn khổ quản trị mới làm rõ quyền quyết định ở cả ba cấp quản lý, loại bỏ các trách nhiệm chồng chéo.",
+     blank:"The new ___ clarified decision rights across all three levels of management, eliminating overlapping responsibilities.",
+     usages:["The governance framework defines escalation paths when risks exceed acceptable thresholds.","Regulators reviewed the organization's governance framework as part of their supervisory assessment.","A well-designed governance framework supports effective risk management and compliance."],
+     wrongs:["Khung kiến trúc hệ thống CNTT","Khuôn khổ kế toán tài chính","Cơ cấu tổ chức nhân sự"]},
+
+    {word:"Whistleblower",ipa:"/ˈwɪsəlˌbloʊər/",vn:"Người tố giác nội bộ",cat:"IA",
+     en:"A person who reports suspected wrongdoing, fraud, or unethical conduct within an organization, typically through a formal reporting channel.",
+     envn:"Người báo cáo các hành vi sai trái, gian lận hoặc hành vi phi đạo đức bị nghi ngờ trong một tổ chức, thường thông qua kênh báo cáo chính thức.",
+     ex:'A <strong>whistleblower</strong> reported suspected expense fraud to the ethics hotline, triggering an unannounced investigation by internal audit.',
+     exvn:"Một người tố giác đã báo cáo hành vi gian lận chi phí bị nghi ngờ lên đường dây nóng đạo đức, kích hoạt cuộc điều tra bất ngờ từ bộ phận kiểm toán nội bộ.",
+     blank:"A ___ reported suspected expense fraud to the ethics hotline, triggering an unannounced investigation by internal audit.",
+     usages:["Robust whistleblower protections are essential to encourage reporting without fear of retaliation.","Anonymous whistleblower hotlines are a key control for detecting fraud and misconduct.","The audit committee oversees the organization's whistleblower program and investigates all reports."],
+     wrongs:["Người kiểm tra chất lượng","Nhân viên tư vấn nội bộ","Đại diện nhân viên công đoàn"]},
+
+    {word:"Materiality",ipa:"/ˌmətɪriˈælɪti/",vn:"Tính trọng yếu",cat:"IA",
+     en:"The significance threshold determining whether an omission or misstatement could influence the decisions of financial statement users.",
+     envn:"Ngưỡng trọng yếu xác định liệu một sự bỏ sót hoặc sai sót có thể ảnh hưởng đến quyết định của người sử dụng báo cáo tài chính hay không.",
+     ex:'The auditor concluded that the $50,000 variance exceeded the <strong>materiality</strong> threshold and warranted a formal audit finding.',
+     exvn:"Kiểm toán viên kết luận rằng sai lệch 50.000 USD vượt ngưỡng trọng yếu và cần lập một phát hiện kiểm toán chính thức.",
+     blank:"The auditor concluded that the $50,000 variance exceeded the ___ threshold and warranted a formal audit finding.",
+     usages:["The auditor applied a materiality level of 5% of total assets when planning the engagement.","The team confirmed that the error was not material and required no adjustment.","Materiality is always assessed relative to the size and nature of the entity."],
+     wrongs:["Tính chính xác","Tính minh bạch","Tính nhất quán"]},
+
+    {word:"Due Diligence",ipa:"/djuː ˈdɪlɪdʒəns/",vn:"Thẩm định",cat:"RM",
+     en:"A comprehensive investigation or review performed before entering into an agreement or transaction to verify facts and assess risks.",
+     envn:"Cuộc điều tra hoặc rà soát toàn diện được thực hiện trước khi ký kết thỏa thuận hoặc giao dịch nhằm xác minh thông tin và đánh giá rủi ro.",
+     ex:'The acquisition team conducted <strong>due diligence</strong> for three months, uncovering $12 million in undisclosed liabilities before finalizing the deal.',
+     exvn:"Nhóm mua lại đã tiến hành thẩm định trong ba tháng, phát hiện 12 triệu USD nợ chưa được công bố trước khi hoàn tất thỏa thuận.",
+     blank:"The acquisition team conducted ___ for three months, uncovering $12 million in undisclosed liabilities before finalizing the deal.",
+     usages:["Due diligence on new vendors includes reviewing their financial stability and security practices.","Inadequate due diligence on the merger target led to significant post-acquisition surprises.","IT due diligence evaluates the target's technology infrastructure, licenses, and cybersecurity posture."],
+     wrongs:["Thẩm quyền phê duyệt","Trách nhiệm giải trình","Quy trình mua sắm thông thường"]},
+
+    {word:"Board Charter",ipa:"/bɔːrd ˈtʃɑːrtər/",vn:"Điều lệ hội đồng quản trị",cat:"RM",
+     en:"A formal document that defines the board's role, composition, responsibilities, authority, and operating procedures, establishing the boundaries of board governance.",
+     envn:"Tài liệu chính thức xác định vai trò, thành phần, trách nhiệm, thẩm quyền và quy trình hoạt động của hội đồng, thiết lập ranh giới quản trị.",
+     ex:'The <strong>board charter</strong> stipulates that at least two-thirds of members must be independent and the roles of chairman and CEO must be separated.',
+     exvn:"Điều lệ hội đồng quản trị quy định ít nhất hai phần ba thành viên phải độc lập và vai trò của chủ tịch và CEO phải tách biệt.",
+     blank:"The ___ stipulates that at least two-thirds of members must be independent and the roles of chairman and CEO must be separated.",
+     usages:["The board charter is reviewed annually and updated to reflect regulatory changes.","The board charter specifies quorum requirements for valid board decision-making.","New board members receive a copy of the board charter as part of their onboarding."],
+     wrongs:["Điều lệ công ty tổng quát","Hợp đồng lao động nhân sự cấp cao","Báo cáo thường niên hội đồng"]},
+
+    {word:"Executive Compensation",ipa:"/ɪɡˈzekjʊtɪv ˌkɒmpənˈseɪʃən/",vn:"Thù lao điều hành",cat:"RM",
+     en:"The total remuneration package awarded to senior executives, designed to attract and retain talent while aligning incentives with organizational strategy and long-term performance.",
+     envn:"Gói thù lao toàn bộ được trao cho các giám đốc cấp cao, nhằm thu hút và giữ chân nhân tài đồng thời điều chỉnh động lực với chiến lược và hiệu quả dài hạn.",
+     ex:'The audit committee reviewed <strong>executive compensation</strong> arrangements to ensure they did not incentivize excessive short-term risk-taking.',
+     exvn:"Ủy ban kiểm toán đã xem xét các thỏa thuận thù lao điều hành để đảm bảo chúng không khuyến khích chấp nhận rủi ro ngắn hạn quá mức.",
+     blank:"The audit committee reviewed ___ arrangements to ensure they did not incentivize excessive short-term risk-taking.",
+     usages:["Shareholders increasingly vote on executive compensation through say-on-pay resolutions.","Executive compensation should be disclosed transparently in the annual proxy statement.","Performance-based pay ties executive compensation payouts to measurable strategic achievements."],
+     wrongs:["Lương nhân viên bình thường","Chi phí đào tạo nhân sự","Ngân sách phúc lợi toàn công ty"]},
+
+    {word:"IT Governance",ipa:"/aɪ tiː ˈɡʌvənəns/",vn:"Quản trị công nghệ thông tin",cat:"IT",
+     en:"The framework of leadership, organizational structures, and processes that ensure IT supports and enables the organization's strategies and objectives.",
+     envn:"Khuôn khổ lãnh đạo, cơ cấu tổ chức và quy trình đảm bảo CNTT hỗ trợ và cho phép thực hiện các chiến lược và mục tiêu của tổ chức.",
+     ex:'<strong>IT governance</strong> policies require that all major technology investments undergo a formal cost-benefit analysis and board approval.',
+     exvn:"Chính sách quản trị CNTT yêu cầu tất cả đầu tư công nghệ lớn phải qua phân tích chi phí-lợi ích chính thức và phê duyệt của hội đồng.",
+     blank:"___ policies require that all major technology investments undergo a formal cost-benefit analysis and board approval.",
+     usages:["IT governance establishes accountability for technology decisions at the board and executive level.","COBIT is the most widely adopted framework for implementing IT governance.","Weak IT governance leads to misaligned technology spending and unmanaged IT risks."],
+     wrongs:["Quản lý dự án CNTT hàng ngày","Vận hành hệ thống nội bộ","Đội ngũ hỗ trợ kỹ thuật"]},
+
+    {word:"COBIT",ipa:"/ˈkoʊbɪt/",vn:"Khuôn khổ quản trị CNTT",cat:"IT",
+     en:"A globally recognized framework for the governance and management of enterprise IT, providing practices and models to help organizations align IT with business goals.",
+     envn:"Khuôn khổ được công nhận toàn cầu cho quản trị và quản lý CNTT doanh nghiệp, cung cấp thực hành và mô hình giúp tổ chức gắn kết CNTT với mục tiêu kinh doanh.",
+     ex:'The IT audit team used <strong>COBIT</strong> as the evaluation framework to assess the maturity of the organization\'s IT governance processes.',
+     exvn:"Nhóm kiểm toán CNTT sử dụng COBIT làm khuôn khổ đánh giá để đánh giá mức độ trưởng thành của các quy trình quản trị CNTT của tổ chức.",
+     blank:"The IT audit team used ___ as the evaluation framework to assess the maturity of the organization's IT governance processes.",
+     usages:["COBIT 2019 introduced a flexible performance management system for assessing governance maturity.","Organizations use COBIT to identify gaps between current and target IT governance states.","COBIT aligns with ISO 27001 and ITIL to support integrated governance and risk management."],
+     wrongs:["Phần mềm quản lý dự án","Ngôn ngữ lập trình doanh nghiệp","Giao thức kết nối mạng"]},
+
+    {word:"Data Governance",ipa:"/ˈdeɪtə ˈɡʌvənəns/",vn:"Quản trị dữ liệu",cat:"IT",
+     en:"The framework of policies, standards, roles, and processes ensuring data is managed as a strategic asset with defined quality, security, and lifecycle controls.",
+     envn:"Khuôn khổ chính sách, tiêu chuẩn, vai trò và quy trình đảm bảo dữ liệu được quản lý như tài sản chiến lược với các kiểm soát chất lượng, bảo mật và vòng đời được xác định.",
+     ex:'The <strong>data governance</strong> program appointed data stewards for each critical data domain to ensure accuracy and consistency across systems.',
+     exvn:"Chương trình quản trị dữ liệu chỉ định người quản lý dữ liệu cho từng miền dữ liệu quan trọng để đảm bảo độ chính xác và nhất quán trên các hệ thống.",
+     blank:"The ___ program appointed data stewards for each critical data domain to ensure accuracy and consistency across systems.",
+     usages:["Data governance policies define who can access, modify, and approve changes to master data.","Poor data governance leads to inconsistent reporting, regulatory penalties, and poor business decisions.","Internal audit reviewed the data governance framework to assess data quality controls."],
+     wrongs:["Quản lý cơ sở dữ liệu vật lý","Bảo trì hạ tầng lưu trữ","Phân tích dữ liệu kinh doanh"]},
+
+    {word:"Digital Transformation",ipa:"/ˈdɪdʒɪtəl ˌtrænsfərˈmeɪʃən/",vn:"Chuyển đổi số",cat:"IT",
+     en:"The integration of digital technology into all areas of a business, fundamentally changing how it operates and delivers value to customers.",
+     envn:"Việc tích hợp công nghệ số vào tất cả lĩnh vực của doanh nghiệp, thay đổi cơ bản cách thức hoạt động và mang lại giá trị cho khách hàng.",
+     ex:'The <strong>digital transformation</strong> initiative introduced new cyber risks that required the internal audit plan to be updated mid-year.',
+     exvn:"Sáng kiến chuyển đổi số đã tạo ra các rủi ro mạng mới đòi hỏi kế hoạch kiểm toán nội bộ phải được cập nhật giữa năm.",
+     blank:"The ___ initiative introduced new cyber risks that required the internal audit plan to be updated mid-year.",
+     usages:["Digital transformation requires robust governance to manage the associated technology and data risks.","Auditors must upskill to audit digital transformation projects effectively.","The pace of digital transformation has outrun many organizations' risk and control frameworks."],
+     wrongs:["Chuyển đổi sang hệ thống kế toán mới","Số hóa tài liệu giấy tờ","Nâng cấp thiết bị văn phòng"]},
+
+    {word:"Technology Risk",ipa:"/tekˈnɒlədʒi rɪsk/",vn:"Rủi ro công nghệ",cat:"IT",
+     en:"The potential for loss resulting from inadequate or failed information technology systems or processes, including cyber threats, system outages, and data loss.",
+     envn:"Khả năng tổn thất do hệ thống hoặc quy trình công nghệ thông tin không đầy đủ hoặc bị lỗi, bao gồm mối đe dọa mạng, mất điện hệ thống và mất dữ liệu.",
+     ex:'The board report elevated <strong>technology risk</strong> to the highest priority after a competitor suffered a major system outage lasting three days.',
+     exvn:"Báo cáo của hội đồng đã nâng rủi ro công nghệ lên mức ưu tiên cao nhất sau khi một đối thủ bị mất điện hệ thống kéo dài ba ngày.",
+     blank:"The board report elevated ___ to the highest priority after a competitor suffered a major system outage lasting three days.",
+     usages:["Technology risk is consistently ranked among the top five risks for financial institutions.","IT auditors assess technology risk through control testing, vulnerability assessments, and architecture reviews.","Technology risk management requires collaboration between IT, risk, and business teams."],
+     wrongs:["Rủi ro liên quan đến thiết bị văn phòng","Chi phí đầu tư công nghệ cao","Rủi ro thay đổi nhà cung cấp phần mềm"]},
+
+    {word:"IT Steering Committee",ipa:"/aɪ tiː ˈstɪərɪŋ kəˈmɪti/",vn:"Ủy ban chỉ đạo CNTT",cat:"IT",
+     en:"A governance body comprising senior business and IT leaders responsible for prioritizing IT investments, overseeing major projects, and aligning technology with strategic objectives.",
+     envn:"Cơ quan quản trị gồm các lãnh đạo kinh doanh và CNTT cấp cao chịu trách nhiệm ưu tiên đầu tư CNTT, giám sát các dự án lớn và gắn kết công nghệ với mục tiêu chiến lược.",
+     ex:'The <strong>IT steering committee</strong> deferred three low-priority projects to reallocate resources to the critical ERP upgrade.',
+     exvn:"Ủy ban chỉ đạo CNTT đã hoãn ba dự án ưu tiên thấp để tái phân bổ nguồn lực cho việc nâng cấp ERP quan trọng.",
+     blank:"The ___ deferred three low-priority projects to reallocate resources to the critical ERP upgrade.",
+     usages:["The IT steering committee meets monthly to review project status and resource utilization.","Major IT investment decisions require IT steering committee approval before funding is released.","Auditors review IT steering committee minutes to assess governance of the IT portfolio."],
+     wrongs:["Bộ phận hỗ trợ kỹ thuật IT","Nhóm dự án CNTT cụ thể","Ủy ban rủi ro doanh nghiệp toàn diện"]},
+
+    {word:"Shadow IT",ipa:"/ˈʃædoʊ aɪ tiː/",vn:"CNTT ngoài kiểm soát",cat:"IT",
+     en:"IT systems, software, or services used within an organization without explicit approval from the IT department, creating unmanaged security and compliance risks.",
+     envn:"Các hệ thống, phần mềm hoặc dịch vụ CNTT được sử dụng trong tổ chức mà không có sự phê duyệt rõ ràng từ bộ phận CNTT, tạo ra rủi ro bảo mật và tuân thủ không được quản lý.",
+     ex:'The audit discovered that the finance team had been using an unauthorized cloud storage service — a classic example of <strong>shadow IT</strong>.',
+     exvn:"Cuộc kiểm toán phát hiện nhóm tài chính đã sử dụng dịch vụ lưu trữ đám mây không được ủy quyền — một ví dụ điển hình về CNTT ngoài kiểm soát.",
+     blank:"The audit discovered that the finance team had been using an unauthorized cloud storage service — a classic example of ___.",
+     usages:["Shadow IT flourishes when business users find official IT systems too slow or restrictive.","Organizations must balance control over shadow IT with the agility needs of the business.","Discovery tools can help IT identify unauthorized applications operating within the network."],
+     wrongs:["Bộ phận CNTT bí mật của công ty","Hệ thống dự phòng chính thức","Phần mềm thử nghiệm nội bộ được phê duyệt"]},
+
+    {word:"Cyber Governance",ipa:"/ˈsaɪbər ˈɡʌvənəns/",vn:"Quản trị an ninh mạng",cat:"IT",
+     en:"The framework of leadership, policies, and accountability structures ensuring an organization's cybersecurity strategy aligns with its risk tolerance and business objectives.",
+     envn:"Khuôn khổ lãnh đạo, chính sách và cơ cấu trách nhiệm đảm bảo chiến lược an ninh mạng của tổ chức phù hợp với khả năng chịu đựng rủi ro và mục tiêu kinh doanh.",
+     ex:'The board enhanced <strong>cyber governance</strong> by creating a dedicated cybersecurity committee reporting directly to the audit committee.',
+     exvn:"Hội đồng tăng cường quản trị an ninh mạng bằng cách thành lập ủy ban an ninh mạng chuyên trách báo cáo trực tiếp lên ủy ban kiểm toán.",
+     blank:"The board enhanced ___ by creating a dedicated cybersecurity committee reporting directly to the audit committee.",
+     usages:["Cyber governance frameworks define roles and responsibilities for cybersecurity decision-making.","Regulators expect boards to demonstrate active cyber governance, not just delegate entirely to IT.","Effective cyber governance requires board members to have sufficient cybersecurity literacy."],
+     wrongs:["Quy trình bảo trì hệ thống kỹ thuật","Chính sách sử dụng email nội bộ","Phòng ban CNTT trung tâm của tổ chức"]}
+  ]
+},
+
+// T1-T5 placeholder (sẽ cập nhật từng topic sau)
+{id:1,title:"Business Process",titleVn:"Quy trình Kinh doanh",icon:"⚙️",
+ words:Array(30).fill(null).map((_,i)=>({word:`Business Process ${i+1}`,ipa:"/ˈbɪznɪs ˈprɒses/",vn:"Đang cập nhật",cat:"IA",en:"Coming soon.",envn:"Sắp cập nhật.",ex:`<strong>Business Process</strong> topic coming soon.`,exvn:"Chủ đề đang được cập nhật.",blank:"Business Process topic ___.",usages:["Usage 1.","Usage 2.","Usage 3."],wrongs:["Sai 1","Sai 2","Sai 3"]}))},
+{id:2,title:"Compliance",titleVn:"Tuân thủ",icon:"⚖️",
+ words:Array(30).fill(null).map((_,i)=>({word:`Compliance ${i+1}`,ipa:"/kəmˈplaɪəns/",vn:"Đang cập nhật",cat:"RM",en:"Coming soon.",envn:"Sắp cập nhật.",ex:`<strong>Compliance</strong> topic coming soon.`,exvn:"Chủ đề đang được cập nhật.",blank:"Compliance topic ___.",usages:["Usage 1.","Usage 2.","Usage 3."],wrongs:["Sai 1","Sai 2","Sai 3"]}))},
+{id:3,title:"Risk Management",titleVn:"Quản lý Rủi ro",icon:"🛡️",
+ words:Array(30).fill(null).map((_,i)=>({word:`Risk Management ${i+1}`,ipa:"/rɪsk ˈmænɪdʒmənt/",vn:"Đang cập nhật",cat:"RM",en:"Coming soon.",envn:"Sắp cập nhật.",ex:`<strong>Risk Management</strong> topic coming soon.`,exvn:"Chủ đề đang được cập nhật.",blank:"Risk Management topic ___.",usages:["Usage 1.","Usage 2.","Usage 3."],wrongs:["Sai 1","Sai 2","Sai 3"]}))},
+{id:4,title:"Information Systems",titleVn:"Hệ thống Thông tin",icon:"💻",
+ words:Array(30).fill(null).map((_,i)=>({word:`Information Systems ${i+1}`,ipa:"/ˌɪnfəˈmeɪʃən ˈsɪstəmz/",vn:"Đang cập nhật",cat:"IT",en:"Coming soon.",envn:"Sắp cập nhật.",ex:`<strong>Information Systems</strong> topic coming soon.`,exvn:"Chủ đề đang được cập nhật.",blank:"Information Systems topic ___.",usages:["Usage 1.","Usage 2.","Usage 3."],wrongs:["Sai 1","Sai 2","Sai 3"]}))},
+{id:5,title:"Internal Audit",titleVn:"Kiểm toán Nội bộ",icon:"🔍",
+ words:Array(30).fill(null).map((_,i)=>({word:`Internal Audit ${i+1}`,ipa:"/ɪnˈtɜːnəl ˈɔːdɪt/",vn:"Đang cập nhật",cat:"IA",en:"Coming soon.",envn:"Sắp cập nhật.",ex:`<strong>Internal Audit</strong> topic coming soon.`,exvn:"Chủ đề đang được cập nhật.",blank:"Internal Audit topic ___.",usages:["Usage 1.","Usage 2.","Usage 3."],wrongs:["Sai 1","Sai 2","Sai 3"]}))}
+
+]; // end TOPICS
+
+const TOPIC_SIZE = 30;
+const TOPIC_BONUS_XP = [150, 150, 200, 200, 200, 250];
+const ALL_WORDS = TOPICS.flatMap(t => t.words);
+
 const RANKS = [
   {title:"Audit Trainee",   icon:"🎓", min:0},
   {title:"Junior Auditor",  icon:"📋", min:200},
@@ -425,28 +696,26 @@ const RANKS = [
   {title:"Audit Legend",    icon:"👑", min:5000}
 ];
 
-// ─── STATE ─────────────────────────────────────────────────────────────────
 let token = localStorage.getItem('avq_token');
-let profile = null; // { display_name, xp, streak, last_date, completed_dates[] }
+let profile = null;
+let currentTopicId = null;
+let currentWordIdx = null;
 let currentWord = null;
-let quizStep = 0;
 let isReplay = false;
+let quizStep = 0;
 let quizAnswers = [];
 let quizXp = 0;
+let pendingBonusXp = 0;
+let pendingTopicComplete = false;
 
-// ─── API ───────────────────────────────────────────────────────────────────
 async function api(method, path, body) {
-  const opts = {
-    method,
-    headers: { 'Content-Type': 'application/json' }
-  };
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
   if (token) opts.headers['Authorization'] = 'Bearer ' + token;
   if (body) opts.body = JSON.stringify(body);
   const r = await fetch(path, opts);
   return r.json();
 }
 
-// ─── HELPERS ───────────────────────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -473,12 +742,6 @@ function todayStr() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function todayIndex() {
-  const start = new Date('2025-01-01');
-  const diff = Math.floor((Date.now() - start) / 86400000);
-  return diff % VOCAB.length;
-}
-
 function getRankIndex(xp) {
   let ri = 0;
   for (let i = 0; i < RANKS.length; i++) if (xp >= RANKS[i].min) ri = i;
@@ -488,7 +751,7 @@ function getRankIndex(xp) {
 function catBadge(cat) {
   const map = { IA: 'cat-ia', RM: 'cat-rm', IT: 'cat-it' };
   const label = { IA: 'Internal Audit', RM: 'Risk Management', IT: 'IT Audit' };
-  return `<span class="daily-cat ${map[cat]}">${label[cat]}</span>`;
+  return `<span class="daily-cat ${map[cat] || 'cat-ia'}">${label[cat] || cat}</span>`;
 }
 
 function speak() {
@@ -499,7 +762,28 @@ function speak() {
   speechSynthesis.speak(u);
 }
 
-// ─── AUTH ──────────────────────────────────────────────────────────────────
+function isUnlocked(topicId) {
+  if (topicId === 0) return true;
+  const prev = profile.completed_words[topicId - 1] || [];
+  return prev.length >= TOPIC_SIZE;
+}
+
+function getTopicProgress(topicId) {
+  return (profile.completed_words[topicId] || []).length;
+}
+
+function getNextWordIdx(topicId) {
+  const done = new Set(profile.completed_words[topicId] || []);
+  for (let i = 0; i < TOPIC_SIZE; i++) {
+    if (!done.has(i)) return i;
+  }
+  return null;
+}
+
+function isTopicComplete(topicId) {
+  return getTopicProgress(topicId) >= TOPIC_SIZE;
+}
+
 function switchTab(tab) {
   document.querySelectorAll('.auth-tab').forEach((t, i) => {
     t.classList.toggle('active', (i === 0) === (tab === 'login'));
@@ -515,14 +799,11 @@ async function doLogin() {
   const password = document.getElementById('loginPass').value;
   err.classList.remove('show');
   btn.disabled = true; btn.textContent = 'Đang đăng nhập...';
-
   const res = await api('POST', '/api/login', { username, password });
   btn.disabled = false; btn.textContent = 'Đăng nhập';
-
   if (res.error) { err.textContent = res.error; err.classList.add('show'); return; }
   token = res.token;
   localStorage.setItem('avq_token', token);
-  localStorage.setItem('avq_name', res.display_name);
   await loadHome();
 }
 
@@ -534,25 +815,20 @@ async function doRegister() {
   const password = document.getElementById('regPass').value;
   err.classList.remove('show');
   btn.disabled = true; btn.textContent = 'Đang tạo tài khoản...';
-
   const res = await api('POST', '/api/register', { username, display_name, password });
   btn.disabled = false; btn.textContent = 'Tạo tài khoản';
-
   if (res.error) { err.textContent = res.error; err.classList.add('show'); return; }
   token = res.token;
   localStorage.setItem('avq_token', token);
-  localStorage.setItem('avq_name', res.display_name);
   await loadHome();
 }
 
 function doLogout() {
   token = null; profile = null;
   localStorage.removeItem('avq_token');
-  localStorage.removeItem('avq_name');
   showScreen('auth');
 }
 
-// ─── HOME ──────────────────────────────────────────────────────────────────
 async function loadHome() {
   showScreen('loading');
   const res = await api('GET', '/api/profile');
@@ -562,24 +838,11 @@ async function loadHome() {
 }
 
 function renderHome() {
-  const name = profile.display_name;
-  const xp = profile.xp;
-  const streak = profile.streak;
-  const doneDates = profile.completed_dates || [];
-  const today = todayStr();
-  const isDone = doneDates.includes(today);
-  const idx = todayIndex();
-  currentWord = VOCAB[idx];
-
-  // nav
-  document.getElementById('navAvatar').textContent = name[0].toUpperCase();
-  document.getElementById('navName').textContent = name;
-
-  // streak & xp
+  const { display_name, xp, streak } = profile;
+  document.getElementById('navAvatar').textContent = display_name[0].toUpperCase();
+  document.getElementById('navName').textContent = display_name;
   document.getElementById('streakNum').textContent = streak;
   document.getElementById('totalXp').textContent = xp;
-
-  // rank
   const ri = getRankIndex(xp);
   const r = RANKS[ri];
   const next = RANKS[ri + 1];
@@ -589,40 +852,72 @@ function renderHome() {
   document.getElementById('rankBar').style.width = pct + '%';
   document.getElementById('rankXpCurrent').textContent = xp + ' XP';
   document.getElementById('rankXpNext').textContent = next ? 'Cần ' + next.min + ' XP' : 'Đã đạt đỉnh!';
-
-  // daily word
-  document.getElementById('hw').textContent = currentWord.word;
-  document.getElementById('hipa').textContent = currentWord.ipa;
-  document.getElementById('hvn').textContent = currentWord.vn;
-  document.getElementById('hcat').innerHTML = catBadge(currentWord.cat);
-
-  // done state
-  document.getElementById('doneBanner').style.display = isDone ? 'block' : 'none';
-  document.getElementById('startBtn').style.display = isDone ? 'none' : 'block';
-  document.getElementById('reviewBtn').style.display = isDone ? 'block' : 'none';
-  const dc = document.getElementById('dailyCard');
-  dc.classList.toggle('done', isDone);
-  dc.onclick = isDone ? null : goLearn;
-
-  // progress dots
-  const grid = document.getElementById('vpGrid');
-  grid.innerHTML = '';
-  document.getElementById('vpDone').textContent = doneDates.length;
-  for (let i = 0; i < VOCAB.length; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'vp-dot';
-    const dotDate = new Date(new Date('2025-01-01').getTime() + i * 86400000).toISOString().slice(0, 10);
-    if (i === idx && !isDone) dot.classList.add('today');
-    else if (doneDates.includes(dotDate) || (i < idx && doneDates.length > i)) dot.classList.add('done');
-    grid.appendChild(dot);
-  }
-
+  document.getElementById('doneBanner').style.display = profile.played_today ? 'block' : 'none';
+  renderTopicsGrid();
   showScreen('home');
 }
 
-// ─── LEARN ────────────────────────────────────────────────────────────────
+function renderTopicsGrid() {
+  const grid = document.getElementById('topicsGrid');
+  grid.innerHTML = '';
+  TOPICS.forEach(topic => {
+    const unlocked = isUnlocked(topic.id);
+    const progress = getTopicProgress(topic.id);
+    const complete = isTopicComplete(topic.id);
+    const pct = Math.round(progress / TOPIC_SIZE * 100);
+    let statusBadge, cardClass;
+    if (!unlocked) {
+      const prevProgress = getTopicProgress(topic.id - 1);
+      const needed = TOPIC_SIZE - prevProgress;
+      statusBadge = `<span class="badge badge-locked">🔒 ${needed} từ nữa</span>`;
+      cardClass = 'locked';
+    } else if (complete) {
+      statusBadge = `<span class="badge badge-done">✅ Hoàn thành</span>`;
+      cardClass = 'complete';
+    } else {
+      statusBadge = `<span class="badge badge-active">📖 Đang học</span>`;
+      cardClass = 'active-topic';
+    }
+    const card = document.createElement('div');
+    card.className = `topic-card ${cardClass}`;
+    card.innerHTML = `
+      <div class="topic-icon">${topic.icon}</div>
+      <div class="topic-title">${topic.title}</div>
+      <div class="topic-title-vn">${topic.titleVn}</div>
+      <div class="topic-bar-wrap"><div class="topic-bar" style="width:${pct}%"></div></div>
+      <div class="topic-status">
+        <span class="words">${progress}/${TOPIC_SIZE} từ</span>
+        ${statusBadge}
+      </div>
+    `;
+    if (unlocked) card.onclick = () => openTopic(topic.id);
+    grid.appendChild(card);
+  });
+}
+
+function openTopic(topicId) {
+  const nextIdx = getNextWordIdx(topicId);
+  if (nextIdx === null) { toast('✅ Chủ đề này đã hoàn thành!'); return; }
+  currentTopicId = topicId;
+  currentWordIdx = nextIdx;
+  currentWord = TOPICS[topicId].words[nextIdx];
+  isReplay = profile.played_today;
+  goLearn();
+}
+
+function goHome() {
+  isReplay = false;
+  pendingBonusXp = 0;
+  pendingTopicComplete = false;
+  renderHome();
+}
+
 function goLearn() {
   if (!currentWord) return;
+  const topic = TOPICS[currentTopicId];
+  const progress = getTopicProgress(currentTopicId);
+  document.getElementById('learnPhaseLabel').textContent =
+    `${topic.icon} ${topic.title} — Từ ${progress + 1}/${TOPIC_SIZE}`;
   document.getElementById('lw').textContent = currentWord.word;
   document.getElementById('lipa').textContent = currentWord.ipa;
   document.getElementById('lvn').textContent = currentWord.vn;
@@ -634,33 +929,8 @@ function goLearn() {
   showScreen('learn');
 }
 
-function goHome() { isReplay = false; renderHome(); }
-
-function startReplay() {
-  isReplay = true;
-  goLearn();
-}
-
-function replayQuiz() {
-  isReplay = true;
-  quizStep = 0;
-  quizAnswers = [];
-  quizXp = 0;
-  startQuiz();
-}
-
-// ─── QUIZ ─────────────────────────────────────────────────────────────────
 function getDistractorWords(word) {
-  return shuffle(VOCAB.filter(v => v.word !== word.word)).slice(0, 3).map(v => v.word);
-}
-
-function getFakeUsages(word) {
-  const fakes = [
-    `The ${word.word} was scheduled for the annual company picnic to improve team morale.`,
-    `Management decided to outsource all ${word.word} activities to reduce headcount costs.`,
-    word.usages[1] || `The ${word.word} framework was not considered relevant to this project.`
-  ];
-  return fakes.slice(0, 3);
+  return shuffle(ALL_WORDS.filter(v => v.word !== word.word)).slice(0, 3).map(v => v.word);
 }
 
 const QUESTIONS = [
@@ -681,7 +951,7 @@ const QUESTIONS = [
   {
     q: w => `🎯 Câu nào dùng "<strong>${w.word}</strong>" đúng nhất trong Kiểm toán?`,
     ctx: w => `Từ: <span class="highlight">${w.word}</span> &mdash; ${w.vn}`,
-    opts: w => shuffle([w.usages[0], ...getFakeUsages(w)]),
+    opts: w => shuffle([w.usages[0], `The ${w.word} was scheduled for the annual company picnic.`, w.usages[1] || `Management decided to outsource all ${w.word} activities.`]),
     answer: w => w.usages[0],
     fb: () => '✅ Xuất sắc! Đó là cách dùng chuyên nghiệp nhất của từ này.'
   }
@@ -701,7 +971,6 @@ function renderQuestion() {
   document.getElementById('qBar').style.width = (quizStep / 3 * 100) + '%';
   document.getElementById('qQ').innerHTML = q.q(w);
   document.getElementById('qCtx').innerHTML = q.ctx(w);
-
   const opts = q.opts(w);
   const ans = q.answer(w);
   const container = document.getElementById('opts');
@@ -713,7 +982,6 @@ function renderQuestion() {
     btn.onclick = () => selectAnswer(btn, o, ans, q.fb(w));
     container.appendChild(btn);
   });
-
   document.getElementById('feedBox').style.display = 'none';
   document.getElementById('feedBox').className = 'feedback-box';
   document.getElementById('nextBtn').style.display = 'none';
@@ -727,16 +995,13 @@ function selectAnswer(btn, selected, correct, fbMsg) {
     if (o.textContent === correct) o.classList.add('correct');
     else if (o === btn && !isOk) o.classList.add('wrong');
   });
-
   if (isOk) quizXp += 10;
   quizAnswers.push(isOk);
   document.getElementById('qScoreLive').textContent = `+${quizXp} XP`;
-
   const fb = document.getElementById('feedBox');
   fb.className = 'feedback-box ' + (isOk ? 'correct' : 'wrong');
   fb.innerHTML = isOk ? fbMsg : `❌ Đáp án đúng: <strong>${correct}</strong>`;
   fb.style.display = 'block';
-
   const nb = document.getElementById('nextBtn');
   nb.style.display = 'block';
   nb.textContent = quizStep < 2 ? 'Tiếp theo →' : 'Xem kết quả 🏆';
@@ -748,20 +1013,25 @@ function nextQuestion() {
   else showResult();
 }
 
-// ─── RESULT ───────────────────────────────────────────────────────────────
+function replayQuiz() {
+  isReplay = true;
+  quizStep = 0; quizAnswers = []; quizXp = 0;
+  startQuiz();
+}
+
 async function showResult() {
   const correct = quizAnswers.filter(Boolean).length;
   const today = todayStr();
   const oldRi = getRankIndex(profile.xp);
-
-  // Calculate bonus
   const streakBonus = Math.min((profile.streak + 1) * 2, 10);
   const totalXp = quizXp + streakBonus;
+  pendingBonusXp = 0;
+  pendingTopicComplete = false;
 
-  // Submit to server (only on first play, not replays)
   if (!isReplay) {
     const res = await api('POST', '/api/complete', {
-      word_index: todayIndex(),
+      topic_id: currentTopicId,
+      word_index: currentWordIdx,
       play_date: today,
       correct,
       xp_earned: totalXp
@@ -769,32 +1039,51 @@ async function showResult() {
     if (!res.error) {
       profile.xp = res.xp;
       profile.streak = res.streak;
-      profile.completed_dates = [...(profile.completed_dates || []), today];
+      profile.played_today = true;
+      if (!profile.completed_words[currentTopicId]) profile.completed_words[currentTopicId] = [];
+      if (!profile.completed_words[currentTopicId].includes(currentWordIdx)) {
+        profile.completed_words[currentTopicId].push(currentWordIdx);
+      }
+      if (res.bonus_xp > 0) {
+        pendingBonusXp = res.bonus_xp;
+        pendingTopicComplete = true;
+        if (!profile.topic_bonuses) profile.topic_bonuses = [];
+        profile.topic_bonuses.push(currentTopicId);
+      }
     }
   }
 
   const newRi = getRankIndex(profile.xp);
-
-  // Stars
   const stars = correct === 3 ? '⭐⭐⭐' : correct === 2 ? '⭐⭐' : '⭐';
   const titles = ['Cố gắng hơn nhé! 💪', 'Khá tốt! 👍', 'Xuất sắc! 🎉'];
   const subs = ['Hãy đọc lại định nghĩa và thử thách vào ngày mai!', 'Bạn đang tiến bộ rất tốt!', 'Từ này đã nằm trong tay bạn rồi!'];
 
   document.getElementById('rStars').textContent = stars;
   document.getElementById('rTitle').textContent = titles[correct - 1] || titles[0];
-  document.getElementById('rSub').textContent = subs[correct - 1] || subs[0];
-  const xpGained = document.querySelector('.xp-gained');
+
+  const xpGained = document.getElementById('xpGained');
   if (isReplay) {
     xpGained.style.display = 'none';
     document.getElementById('rSub').textContent = 'Luyện tập thêm — XP chỉ tính lần đầu mỗi ngày.';
   } else {
     xpGained.style.display = '';
+    document.getElementById('rSub').textContent = subs[correct - 1] || subs[0];
     document.getElementById('rXp').textContent = '+' + totalXp;
   }
+
   document.getElementById('s1').textContent = quizAnswers[0] ? '✅ Đúng' : '❌ Sai';
   document.getElementById('s2').textContent = quizAnswers[1] ? '✅ Đúng' : '❌ Sai';
   document.getElementById('s3').textContent = quizAnswers[2] ? '✅ Đúng' : '❌ Sai';
   document.getElementById('sBonus').textContent = isReplay ? '—' : `+${streakBonus} XP 🔥`;
+
+  const bonusBanner = document.getElementById('bonusBanner');
+  if (pendingTopicComplete && !isReplay) {
+    bonusBanner.style.display = 'block';
+    document.getElementById('bonusName').textContent =
+      `+${pendingBonusXp} XP — Hoàn thành "${TOPICS[currentTopicId].title}"! 🎊`;
+  } else {
+    bonusBanner.style.display = 'none';
+  }
 
   const banner = document.getElementById('rankUpBanner');
   if (newRi > oldRi) {
@@ -805,25 +1094,39 @@ async function showResult() {
   }
 
   showScreen('result');
+
+  if (pendingTopicComplete && !isReplay) {
+    setTimeout(() => showTopicComplete(), 3000);
+  }
 }
 
-// ─── LEADERBOARD ──────────────────────────────────────────────────────────
+function showTopicComplete() {
+  const topic = TOPICS[currentTopicId];
+  document.getElementById('tcTopicName').textContent = `${topic.icon} ${topic.title} — ${topic.titleVn}`;
+  document.getElementById('tcBonusXp').textContent = `+${pendingBonusXp} XP`;
+  const nextId = currentTopicId + 1;
+  const nextEl = document.getElementById('tcNext');
+  if (nextId < TOPICS.length) {
+    nextEl.innerHTML = `Chủ đề tiếp theo đã mở khóa: <strong>${TOPICS[nextId].icon} ${TOPICS[nextId].title}</strong>`;
+  } else {
+    nextEl.innerHTML = `🎓 Bạn đã hoàn thành tất cả các chủ đề! Bạn là <strong>IAudit Master</strong>!`;
+  }
+  showScreen('topicComplete');
+}
+
 async function goLeaderboard() {
   const name = profile?.display_name || '';
   document.getElementById('navAvatar2').textContent = name[0]?.toUpperCase() || 'A';
   document.getElementById('navName2').textContent = name;
   showScreen('leaderboard');
   document.getElementById('lbTable').innerHTML = '<div class="lb-loading">Đang tải...</div>';
-
   const rows = await api('GET', '/api/leaderboard');
   if (!Array.isArray(rows)) {
     document.getElementById('lbTable').innerHTML = '<div class="lb-loading">Lỗi tải dữ liệu.</div>';
     return;
   }
-
   const rankIcons = ['🥇', '🥈', '🥉'];
   const rankClasses = ['gold', 'silver', 'bronze'];
-
   document.getElementById('lbTable').innerHTML = rows.map((r, i) => `
     <div class="lb-row ${r.is_me ? 'me' : ''}">
       <div class="lb-rank ${rankClasses[i] || ''}">${rankIcons[i] || (i + 1)}</div>
@@ -839,11 +1142,9 @@ async function goLeaderboard() {
   `).join('');
 }
 
-// ─── ENTER KEYS ───────────────────────────────────────────────────────────
 document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 document.getElementById('regPass').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
 
-// ─── INIT ─────────────────────────────────────────────────────────────────
 (async () => {
   if (token) {
     await loadHome();
