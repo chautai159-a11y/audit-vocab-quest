@@ -226,14 +226,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     </div>
     <div id="loginForm" class="auth-form">
       <div class="auth-err" id="loginErr"></div>
-      <div class="field"><label>Tên đăng nhập</label><input id="loginUser" type="text" placeholder="username" autocomplete="username"></div>
+      <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="example@gmail.com" autocomplete="email"></div>
       <div class="field"><label>Mật khẩu</label><input id="loginPass" type="password" placeholder="••••••" autocomplete="current-password"></div>
       <button class="btn-auth" id="loginBtn" onclick="doLogin()">Đăng nhập</button>
     </div>
     <div id="registerForm" class="auth-form" style="display:none">
       <div class="auth-err" id="regErr"></div>
       <div class="field"><label>Tên hiển thị</label><input id="regName" type="text" placeholder="Nguyễn Văn A"></div>
-      <div class="field"><label>Tên đăng nhập</label><input id="regUser" type="text" placeholder="username (chữ thường, không dấu)" autocomplete="username"></div>
+      <div class="field"><label>Email</label><input id="regEmail" type="email" placeholder="example@gmail.com" autocomplete="email"></div>
       <div class="field"><label>Mật khẩu</label><input id="regPass" type="password" placeholder="Ít nhất 6 ký tự" autocomplete="new-password"></div>
       <button class="btn-auth" id="regBtn" onclick="doRegister()">Tạo tài khoản</button>
     </div>
@@ -2100,11 +2100,11 @@ function switchTab(tab) {
 async function doLogin() {
   const btn = document.getElementById('loginBtn');
   const err = document.getElementById('loginErr');
-  const username = document.getElementById('loginUser').value.trim();
+  const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPass').value;
   err.classList.remove('show');
   btn.disabled = true; btn.textContent = 'Đang đăng nhập...';
-  const res = await api('POST', '/api/login', { username, password });
+  const res = await api('POST', '/api/login', { email, password });
   btn.disabled = false; btn.textContent = 'Đăng nhập';
   if (res.error) { err.textContent = res.error; err.classList.add('show'); return; }
   token = res.token;
@@ -2116,11 +2116,11 @@ async function doRegister() {
   const btn = document.getElementById('regBtn');
   const err = document.getElementById('regErr');
   const display_name = document.getElementById('regName').value.trim();
-  const username = document.getElementById('regUser').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
   const password = document.getElementById('regPass').value;
   err.classList.remove('show');
   btn.disabled = true; btn.textContent = 'Đang tạo tài khoản...';
-  const res = await api('POST', '/api/register', { username, display_name, password });
+  const res = await api('POST', '/api/register', { email, display_name, password });
   btn.disabled = false; btn.textContent = 'Tạo tài khoản';
   if (res.error) { err.textContent = res.error; err.classList.add('show'); return; }
   token = res.token;
@@ -2447,7 +2447,9 @@ async function goLeaderboard() {
   `).join('');
 }
 
+document.getElementById('loginEmail').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.getElementById('regEmail').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
 document.getElementById('regPass').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
 
 (async () => {

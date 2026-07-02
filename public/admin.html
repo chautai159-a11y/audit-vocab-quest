@@ -176,7 +176,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
         <div class="search-wrap">
           <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Tìm username, tên hiển thị..." oninput="renderTable()">
+          <input type="text" id="searchInput" placeholder="Tìm email, tên hiển thị..." oninput="renderTable()">
         </div>
         <select class="filter-select" id="filterStatus" onchange="renderTable()">
           <option value="">Tất cả</option>
@@ -360,7 +360,7 @@ function renderTable() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const f = document.getElementById('filterStatus').value;
   let rows = allUsers.filter(u => {
-    const matchQ = !q || u.username.includes(q) || u.display_name.toLowerCase().includes(q);
+    const matchQ = !q || (u.email || '').includes(q) || u.display_name.toLowerCase().includes(q);
     const matchF = !f
       || (f === 'active' && u.is_active !== false)
       || (f === 'locked' && u.is_active === false);
@@ -381,7 +381,7 @@ function renderTable() {
     const lockLabel = isActive ? '🔒 Khóa' : '🔓 Mở';
     return `<tr>
       <td><span style="color:var(--muted);font-size:12px">#${u.id}</span></td>
-      <td><span class="username">${u.username}</span></td>
+      <td><span class="username">${u.email || '—'}</span></td>
       <td><span class="display-name">${esc(u.display_name)}</span></td>
       <td><span class="date-val">${u.created_at ? u.created_at.slice(0,10) : '—'}</span></td>
       <td><span class="xp-val">${(u.xp||0).toLocaleString()}</span></td>
@@ -392,9 +392,9 @@ function renderTable() {
       <td>
         <div class="actions">
           <button class="btn-sm btn-edit"  onclick="openEdit(${u.id}, '${esc(u.display_name)}')">✏️ Sửa</button>
-          <button class="btn-sm btn-reset" onclick="openReset(${u.id}, '${u.username}')">🔑</button>
+          <button class="btn-sm btn-reset" onclick="openReset(${u.id}, '${esc(u.email || u.display_name)}')">🔑</button>
           <button class="btn-sm btn-lock"  onclick="toggleLock(${u.id}, ${isActive})">${lockLabel}</button>
-          <button class="btn-sm btn-del"   onclick="openDelete(${u.id}, '${u.username}')">🗑️</button>
+          <button class="btn-sm btn-del"   onclick="openDelete(${u.id}, '${esc(u.email || u.display_name)}')">🗑️</button>
         </div>
       </td>
     </tr>`;
@@ -425,9 +425,9 @@ async function confirmEdit() {
   }
 }
 
-function openReset(id, username) {
+function openReset(id, email) {
   selectedId = id;
-  document.getElementById('resetSub').textContent = `Đặt lại mật khẩu cho @${username}`;
+  document.getElementById('resetSub').textContent = `Đặt lại mật khẩu cho ${email}`;
   document.getElementById('resetPass').value = '';
   document.getElementById('modalReset').classList.add('show');
   setTimeout(() => document.getElementById('resetPass').focus(), 50);
@@ -455,9 +455,9 @@ async function toggleLock(id, currentlyActive) {
   }
 }
 
-function openDelete(id, username) {
+function openDelete(id, email) {
   selectedId = id;
-  document.getElementById('deleteSub').textContent = `Bạn có chắc muốn xóa @${username}? Toàn bộ dữ liệu học tập sẽ bị xóa vĩnh viễn.`;
+  document.getElementById('deleteSub').textContent = `Bạn có chắc muốn xóa ${email}? Toàn bộ dữ liệu học tập sẽ bị xóa vĩnh viễn.`;
   document.getElementById('modalDelete').classList.add('show');
 }
 

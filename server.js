@@ -27,7 +27,7 @@ async function initDB() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
       id            SERIAL PRIMARY KEY,
-      username      TEXT NOT NULL UNIQUE,
+      email         TEXT NOT NULL UNIQUE,
       display_name  TEXT NOT NULL,
       password_hash TEXT NOT NULL,
       is_active     BOOLEAN DEFAULT TRUE,
@@ -63,6 +63,8 @@ async function initDB() {
     );
   `);
   await pool.query(`ALTER TABLE users       ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE`);
+  await pool.query(`ALTER TABLE users       ADD COLUMN IF NOT EXISTS email TEXT`);
+  await pool.query(`UPDATE users SET email = username WHERE email IS NULL`).catch(() => {});
   await pool.query(`ALTER TABLE completions ADD COLUMN IF NOT EXISTS topic_id  INTEGER`);
   console.log('✅  Database tables ready.');
 }
@@ -94,19 +96,20 @@ function adminAuth(req, res, next) {
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 app.post('/api/register', async (req, res) => {
-  const { username, display_name, password } = req.body || {};
-  if (!username?.trim() || !display_name?.trim() || !password)
+  const { email, display_name, password } = req.body || {};
+  const emailClean = email?.trim().toLowerCase();
+  if (!emailClean || !display_name?.trim() || !password)
     return res.status(400).json({ error: 'Vui lòng điền đầy đủ thông tin.' });
   if (password.length < 6)
     return res.status(400).json({ error: 'Mật khẩu phải có ít nhất 6 ký tự.' });
-  if (username.trim().length < 3)
-    return res.status(400).json({ error: 'Tên đăng nhập phải có ít nhất 3 ký tự.' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailClean))
+    return res.status(400).json({ error: 'Email không hợp lệ.' });
 
   try {
     const hash = bcrypt.hashSync(password, 10);
     const { rows } = await pool.query(
-      'INSERT INTO users (username, display_name, password_hash) VALUES ($1, $2, $3) RETURNING id',
-      [username.trim().toLowerCase(), display_name.trim(), hash]
+      'INSERT INTO users (email, display_name, password_hash) VALUES ($1, $2, $3) RETURNING id',
+      [emailClean, display_name.trim(), hash]
     );
     const uid = rows[0].id;
     await pool.query('INSERT INTO progress (user_id) VALUES ($1)', [uid]);
@@ -115,21 +118,21 @@ app.post('/api/register', async (req, res) => {
     res.json({ token, display_name: display_name.trim() });
   } catch (e) {
     if (e.code === '23505')
-      return res.status(400).json({ error: 'Tên đăng nhập đã được sử dụng.' });
+      return res.status(400).json({ error: 'Email này đã được đăng ký.' });
     console.error(e);
     res.status(500).json({ error: 'Lỗi server.' });
   }
 });
 
 app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body || {};
+  const { email, password } = req.body || {};
   const { rows } = await pool.query(
-    'SELECT * FROM users WHERE username = $1',
-    [username?.trim()?.toLowerCase()]
+    'SELECT * FROM users WHERE email = $1',
+    [email?.trim()?.toLowerCase()]
   );
   const user = rows[0];
   if (!user || !bcrypt.compareSync(password || '', user.password_hash))
-    return res.status(401).json({ error: 'Sai tên đăng nhập hoặc mật khẩu.' });
+    return res.status(401).json({ error: 'Sai email hoặc mật khẩu.' });
   if (user.is_active === false)
     return res.status(403).json({ error: 'Tài khoản đã bị khóa. Vui lòng liên hệ quản trị viên.' });
 
@@ -263,13 +266,13 @@ app.get('/api/admin/stats', adminAuth, async (req, res) => {
 
 app.get('/api/admin/users', adminAuth, async (req, res) => {
   const { rows } = await pool.query(`
-    SELECT u.id, u.username, u.display_name, u.is_active, u.created_at,
+    SELECT u.id, u.email, u.display_name, u.is_active, u.created_at,
            p.xp, p.streak, p.last_date,
            COUNT(c.id)::int AS words_done
     FROM users u
     JOIN progress p ON u.id = p.user_id
     LEFT JOIN completions c ON u.id = c.user_id
-    GROUP BY u.id, u.username, u.display_name, u.is_active, u.created_at,
+    GROUP BY u.id, u.email, u.display_name, u.is_active, u.created_at,
              p.xp, p.streak, p.last_date
     ORDER BY u.created_at DESC, u.id DESC
   `);
