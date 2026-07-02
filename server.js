@@ -62,9 +62,11 @@ async function initDB() {
       UNIQUE(user_id, topic_id)
     );
   `);
-  await pool.query(`ALTER TABLE users       ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE`);
-  await pool.query(`ALTER TABLE users       ADD COLUMN IF NOT EXISTS email TEXT`);
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE`);
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS email TEXT`);
   await pool.query(`UPDATE users SET email = username WHERE email IS NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ALTER COLUMN username DROP NOT NULL`).catch(() => {});
+  await pool.query(`CREATE UNIQUE INDEX IF NOT EXISTS users_email_unique ON users(email) WHERE email IS NOT NULL`).catch(() => {});
   await pool.query(`ALTER TABLE completions ADD COLUMN IF NOT EXISTS topic_id  INTEGER`);
   console.log('✅  Database tables ready.');
 }
