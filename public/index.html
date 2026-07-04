@@ -157,6 +157,38 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .score-row span:last-child{font-weight:600;color:var(--green)}
 .btn-home{padding:13px 36px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);font-size:15px;font-weight:600;color:var(--text);cursor:pointer;transition:.2s}
 .btn-home:hover{border-color:var(--blue);color:var(--blue)}
+/* ── Reading ── */
+.reading-topbar{width:100%;max-width:600px;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.reading-mission-badge{display:flex;align-items:center;gap:8px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;color:var(--blue)}
+.reading-stakeholder-card{width:100%;max-width:600px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.reading-sh-icon{font-size:32px;line-height:1}
+.reading-sh-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:3px}
+.reading-sh-name{font-size:15px;font-weight:700;color:var(--text)}
+.reading-scenario{width:100%;max-width:600px;font-style:italic;color:var(--muted);font-size:14px;margin-bottom:14px;line-height:1.6}
+.reading-passage{width:100%;max-width:600px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:var(--radius);padding:18px 20px;font-size:15px;line-height:1.8;color:var(--text);margin-bottom:16px}
+.reading-tip{width:100%;max-width:600px;font-size:12px;color:var(--muted);margin-bottom:20px;text-align:center}
+.btn-start-reading{width:100%;max-width:600px;padding:15px;background:var(--blue);border:none;border-radius:var(--radius);font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:.2s}
+.btn-start-reading:hover{background:#2563eb}
+/* ── Reading Quiz ── */
+.rq-header{width:100%;max-width:480px;margin-bottom:16px}
+.rq-progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.rq-step{font-size:13px;font-weight:600;color:var(--muted)}
+.rq-xp-live{font-size:13px;font-weight:600;color:var(--gold)}
+.rq-passage-ref{width:100%;max-width:480px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.7;color:var(--muted);margin-bottom:16px;max-height:90px;overflow-y:auto;cursor:pointer;transition:.2s}
+.rq-passage-ref.expanded{max-height:300px}
+.rq-passage-toggle{font-size:11px;color:var(--blue);text-align:right;margin-top:4px;cursor:pointer}
+.rq-question{font-size:16px;font-weight:600;color:var(--text);width:100%;max-width:480px;margin-bottom:16px;line-height:1.5}
+.rq-opts{width:100%;max-width:480px;display:flex;flex-direction:column;gap:10px}
+.rq-opt{padding:13px 16px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:.15s}
+.rq-opt:hover:not(.disabled){border-color:var(--blue);background:rgba(59,130,246,.08)}
+.rq-opt.correct{border-color:#22c55e;background:#0d2218;color:#86efac}
+.rq-opt.wrong{border-color:#ef4444;background:#2a0d0d;color:#fca5a5}
+.rq-opt.disabled{cursor:not-allowed;opacity:.7}
+.rq-tfng{width:100%;max-width:480px;display:flex;gap:10px}
+.rq-tfng .rq-opt{flex:1;text-align:center}
+.rq-result-row{width:100%;max-width:360px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:var(--radius);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.rq-result-label{font-size:13px;color:var(--muted)}
+.rq-result-val{font-size:18px;font-weight:700;color:var(--gold)}
 
 /* ─── TOPIC COMPLETE ─── */
 #topicComplete{justify-content:center;text-align:center}
@@ -344,12 +376,49 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
     <div class="score-row"><span>Câu 1 — Nghĩa từ</span><span id="s1">+10 XP</span></div>
     <div class="score-row"><span>Câu 2 — Điền vào chỗ trống</span><span id="s2">+10 XP</span></div>
     <div class="score-row"><span>Câu 3 — Chọn câu đúng</span><span id="s3">+10 XP</span></div>
+    <div class="score-row" id="sReadingRow" style="display:none"><span>📄 Reading comprehension</span><span id="sReading">+0 XP</span></div>
     <div class="score-row"><span>🔥 Bonus chuỗi ngày</span><span id="sBonus">+0 XP</span></div>
   </div>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
     <button class="btn-home" onclick="goHome()">🏠 Về trang chủ</button>
     <button class="btn-home" id="replayBtn" onclick="replayQuiz()" style="background:linear-gradient(135deg,#1a2a1a,#0a1a0a);border-color:#22c55e;color:#22c55e">🔄 Chơi lại</button>
   </div>
+</div>
+
+<!-- READING PASSAGE -->
+<div id="reading" class="screen">
+  <div class="reading-topbar">
+    <button class="back-btn" onclick="goHome()">← Quay lại</button>
+    <div class="reading-mission-badge">🕵️ Nhiệm vụ kiểm toán</div>
+  </div>
+  <div class="reading-stakeholder-card">
+    <div class="reading-sh-icon" id="rdIcon">🏛️</div>
+    <div>
+      <div class="reading-sh-label">Đối tượng bạn đang hỗ trợ</div>
+      <div class="reading-sh-name" id="rdStakeholder">Lãnh đạo / Hội đồng</div>
+    </div>
+  </div>
+  <div class="reading-scenario" id="rdScenario"></div>
+  <div class="reading-passage" id="rdPassage"></div>
+  <div class="reading-tip">💡 Đọc kỹ đoạn văn — bạn có thể xem lại khi trả lời câu hỏi.</div>
+  <button class="btn-start-reading" onclick="startReadingQuiz()">Sẵn sàng trả lời →</button>
+</div>
+
+<!-- READING QUIZ -->
+<div id="rquiz" class="screen">
+  <div class="rq-header">
+    <div class="rq-progress-row">
+      <span class="rq-step" id="rqStep">Câu 1/3</span>
+      <span class="rq-xp-live" id="rqXpLive">+0 XP</span>
+    </div>
+    <div class="quiz-bar-wrap"><div class="quiz-bar" id="rqBar" style="width:0%"></div></div>
+  </div>
+  <div class="rq-passage-ref" id="rqPassageRef" onclick="togglePassageRef()"></div>
+  <div class="rq-passage-toggle" onclick="togglePassageRef()">📄 Xem lại đoạn văn ▾</div>
+  <div class="rq-question" id="rqQ"></div>
+  <div id="rqOpts"></div>
+  <div class="feedback-box" id="rqFeed"></div>
+  <button class="btn-next" id="rqNext" onclick="nextReadingQuestion()" style="display:none">Tiếp theo →</button>
 </div>
 
 <!-- TOPIC COMPLETE -->
@@ -403,7 +472,22 @@ const TOPICS = [
      exvn:"Quản trị công ty vững mạnh đã ngăn hội đồng phê duyệt giao dịch với bên liên quan mà không có đánh giá độc lập.",
      blank:"Strong ___ prevented the board from approving a related-party transaction without independent review.",
      usages:["Corporate governance failures were at the heart of major financial scandals in the early 2000s.","Institutional investors scrutinize corporate governance practices before making investment decisions.","The annual report includes a dedicated section on the company's corporate governance framework."],
-     wrongs:["Quản lý vận hành hàng ngày","Chiến lược tăng trưởng doanh nghiệp","Cơ cấu tổ chức phòng ban"]},
+     wrongs:["Quản lý vận hành hàng ngày","Chiến lược tăng trưởng doanh nghiệp","Cơ cấu tổ chức phòng ban"],
+     reading:{
+       stakeholder:"Lãnh đạo / Hội đồng",stakeholderIcon:"🏛️",
+       scenario:"Chủ tịch HĐQT vừa nhận bản dự thảo báo cáo kiểm toán nội bộ và cần bạn — kiểm toán viên phụ trách — giải thích rõ các vấn đề phát hiện trước buổi họp chiều nay.",
+       passage:"Mekong Consumer Bank held its quarterly board meeting to assess its corporate governance framework. The chairperson noted that three independent directors had recently resigned, leaving the board without a majority of independent members — a direct breach of the governance code. The audit committee chair reported that management had twice failed to deliver board papers on time, limiting the board's ability to exercise effective oversight. The Chief Audit Executive presented findings showing that two subsidiaries were operating without board-approved risk frameworks. The board resolved to commission an urgent governance review before the upcoming regulatory inspection scheduled for next month.",
+       questions:[
+         {type:"mc",q:"What specific governance breach was raised by the chairperson?",
+          options:["The CEO had undisclosed conflicts of interest","The board lacked a majority of independent directors","The audit committee had failed to hold scheduled meetings","The Chief Audit Executive was not sufficiently independent"],
+          answer:1},
+         {type:"tfng",q:"The audit committee chair confirmed that board papers were always delivered on time.",
+          answer:"false"},
+         {type:"mc",q:"What did the board resolve to do before the regulatory inspection?",
+          options:["Appoint a new Chief Audit Executive immediately","Suspend operations at the two subsidiaries","Commission an urgent governance review","Report the breach directly to the regulator"]
+          ,answer:2}
+       ]
+     }},
 
     {word:"Board of Directors",ipa:"/bɔːrd əv dɪˈrektərz/",vn:"Hội đồng quản trị",cat:"RM",
      en:"The elected group of individuals responsible for governing an organization, setting strategic direction, and overseeing management on behalf of shareholders.",
@@ -2315,6 +2399,92 @@ function selectAnswer(btn, selected, correct, fbMsg) {
 function nextQuestion() {
   quizStep++;
   if (quizStep < QUESTIONS.length) renderQuestion();
+  else if (!isReplay && currentWord.reading) goReading();
+  else showResult();
+}
+
+// ── Reading ───────────────────────────────────────────────────────────────────
+let readingStep = 0;
+let readingAnswers = [];
+let readingXp = 0;
+
+function goReading() {
+  const r = currentWord.reading;
+  document.getElementById('rdIcon').textContent = r.stakeholderIcon;
+  document.getElementById('rdStakeholder').textContent = r.stakeholder;
+  document.getElementById('rdScenario').textContent = r.scenario;
+  document.getElementById('rdPassage').textContent = r.passage;
+  readingStep = 0; readingAnswers = []; readingXp = 0;
+  showScreen('reading');
+}
+
+function startReadingQuiz() {
+  const passage = currentWord.reading.passage;
+  document.getElementById('rqPassageRef').textContent = passage;
+  renderReadingQuestion();
+  showScreen('rquiz');
+}
+
+function togglePassageRef() {
+  document.getElementById('rqPassageRef').classList.toggle('expanded');
+}
+
+function renderReadingQuestion() {
+  const q = currentWord.reading.questions[readingStep];
+  const total = currentWord.reading.questions.length;
+  document.getElementById('rqStep').textContent = `Câu ${readingStep + 1}/${total}`;
+  document.getElementById('rqBar').style.width = `${(readingStep / total) * 100}%`;
+  document.getElementById('rqXpLive').textContent = `+${readingXp} XP`;
+  document.getElementById('rqQ').textContent = q.q;
+  document.getElementById('rqFeed').style.display = 'none';
+  document.getElementById('rqFeed').className = 'feedback-box';
+  document.getElementById('rqNext').style.display = 'none';
+
+  const optsEl = document.getElementById('rqOpts');
+  if (q.type === 'mc') {
+    optsEl.className = 'rq-opts';
+    optsEl.innerHTML = q.options.map((o, i) =>
+      `<button class="rq-opt" onclick="submitReadingAnswer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`
+    ).join('');
+  } else {
+    optsEl.className = 'rq-tfng';
+    const tfng = [['true','✅ Đúng'],['false','❌ Sai'],['not_given','❓ Không đề cập']];
+    optsEl.innerHTML = tfng.map(([val, label]) =>
+      `<button class="rq-opt" onclick="submitReadingAnswer('${val}')">${label}</button>`
+    ).join('');
+  }
+}
+
+function submitReadingAnswer(chosen) {
+  const q = currentWord.reading.questions[readingStep];
+  const isOk = chosen === q.answer || String(chosen) === String(q.answer);
+  if (isOk) readingXp += 5;
+  readingAnswers.push(isOk);
+
+  document.getElementById('rqXpLive').textContent = `+${readingXp} XP`;
+
+  const opts = document.querySelectorAll('.rq-opt');
+  opts.forEach(b => b.classList.add('disabled'));
+  opts.forEach((b, i) => {
+    const val = q.type === 'mc' ? i : ['true','false','not_given'][i];
+    if (String(val) === String(q.answer)) b.classList.add('correct');
+    else if (String(val) === String(chosen) && !isOk) b.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('rqFeed');
+  const total = currentWord.reading.questions.length;
+  fb.className = 'feedback-box ' + (isOk ? 'correct' : 'wrong');
+  fb.textContent = isOk ? '✅ Chính xác! +5 XP' : '❌ Chưa đúng — hãy đọc lại đoạn văn.';
+  fb.style.display = 'block';
+
+  const nb = document.getElementById('rqNext');
+  nb.style.display = 'block';
+  nb.textContent = readingStep < total - 1 ? 'Tiếp theo →' : 'Xem kết quả 🏆';
+}
+
+function nextReadingQuestion() {
+  readingStep++;
+  if (readingStep < currentWord.reading.questions.length) renderReadingQuestion();
   else showResult();
 }
 
@@ -2329,7 +2499,7 @@ async function showResult() {
   const today = todayStr();
   const oldRi = getRankIndex(profile.xp);
   const streakBonus = Math.min((profile.streak + 1) * 2, 10);
-  const totalXp = quizXp + streakBonus;
+  const totalXp = quizXp + streakBonus + readingXp;
   pendingBonusXp = 0;
   pendingTopicComplete = false;
 
@@ -2380,6 +2550,13 @@ async function showResult() {
   document.getElementById('s2').textContent = quizAnswers[1] ? '✅ Đúng' : '❌ Sai';
   document.getElementById('s3').textContent = quizAnswers[2] ? '✅ Đúng' : '❌ Sai';
   document.getElementById('sBonus').textContent = isReplay ? '—' : `+${streakBonus} XP 🔥`;
+  const readingRow = document.getElementById('sReadingRow');
+  if (readingXp > 0 && !isReplay) {
+    readingRow.style.display = '';
+    document.getElementById('sReading').textContent = `+${readingXp} XP`;
+  } else {
+    readingRow.style.display = 'none';
+  }
 
   const bonusBanner = document.getElementById('bonusBanner');
   if (pendingTopicComplete && !isReplay) {
